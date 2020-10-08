@@ -1,0 +1,142 @@
+.image-header{
+    padding: 5%;
+    background-image: url('https://images.unsplash.com/photo-1504807959081-3dafd3871909?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60');
+    background-size: cover;
+    height: 50vh;
+}
+.header-comments{
+    margin: 5%;
+    background-color: white;
+    padding: 2%;
+}
+.aboutUs{
+    text-align: center;
+    padding-top: 2%;
+    padding-bottom: 7%;
+    width: 70%;
+    margin: 0 auto;
+}
+.guide-image-header{
+    background-image: url('https://images.unsplash.com/photo-1499424180600-8d243b10320a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60');
+    background-size: cover;
+    margin-top: 20px;
+    height: 60vh;
+}
+.guide-header-comments{
+    background-color: white;
+    margin: 6%;
+    padding: 2%;
+    border-radius: 20px;
+}
+.guide-step{
+ text-align: center;
+ padding-top: 6%;
+}
+.guide-register{
+    text-align: center;
+    padding-top: 6%;
+}
+.footer-image{
+    background-image: url('https://images.unsplash.com/photo-1543722530-d2c3201371e7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60');
+    background-size: cover;
+    height: 50vh;
+}
+.footer-image-text{
+   margin: 6%;
+}
+.guide-list-image{
+    background-image: url('https://images.unsplash.com/photo-1530789253388-582c481c54b0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60');
+    background-size: cover;
+    height: 50vh;
+}
+.guide-list-image .text{
+    color: white;
+    margin-left: 60%;
+    margin-right: 5%;
+    margin-top: 6%;
+}
+.guide-list-container{
+    text-align: center;
+    padding-top: 5%;
+}
+.guide-card{
+    text-align: left;
+    margin-top: 30px;
+}
+.message-screen{
+    width: 70%;
+    margin: 0 auto;
+}
+.mychat-design{
+  border: 2px solid #dedede;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px 0;
+  display: flex;
+  justify-content: space-between;
+}
+.userchat-design{
+  border: 2px solid #dedede;
+  border-color: #ccc;
+  background-color: white;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px 0;
+  display: flex;
+  justify-content: space-between;
+}
+.chat-left{
+    text-align: left;
+}
+.chat-right{
+    text-align: right;
+}
+
+.text-lightgrey{
+    color: lightgrey;
+}
+.pickedUp{
+   background-color: #fbfbf8;
+   padding: 2%; 
+}
+.pickedHeader{
+   margin-bottom: 40px;
+}
+.home-image{
+    height: 50vh;
+    background-image: url('./pexels-photo-207385.jpeg');
+    background-size: cover;
+}
+.home-image > h2{
+    color: white;
+    margin: 0;
+    padding-top: 7%;
+    padding-left: 3%;
+    font-weight: 800;
+    font-size: 45px;
+}
+.overflow-auto{
+   height: 70vh;
+}
+.panel-footer{
+    margin-top: 15px;
+}
+.profile-page{
+    margin-top: 40px;
+    margin-bottom: 60px;
+}
+.profile-header{
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+.profile-detail{
+    text-align: left;
+}
+.profile-icon{
+  margin-right: 30px;
+}
+.profile-avatar{
+    margin-bottom: 60px;
+}
