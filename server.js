@@ -22,8 +22,6 @@ app.use(express.json())
 const path = require("path");
 app.use(express.static(path.join(__dirname, "./public/")));
 app.use("/public", express.static(__dirname + "/public"))
-app.use(express.static(path.join(__dirname, "frontend", "build")))
-
 
 app.use('/api/user', userRoute);
 app.use('/api/guide', guideRoute);
@@ -34,6 +32,7 @@ app.use('/api/review',reviewRoute)
 app.use('/api/image',imageRoute)
 app.use('/api/location' , locationRoute)
 
+app.use(express.static(path.join(__dirname, 'frontend/build')))
 app.get("*", (req, res) => {
     res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
 });
