@@ -19,7 +19,7 @@ const ChatForGuide = ({match}) => {
       .catch(err => console.log(err))
     },[])
     return (
-        <Row style={{ marginTop: '40px'}}>
+        <Row style={{ marginTop: '40px', padding: '3%'}}>
           <Col md={{ span: 6, offset: 3}}>
             <h3>Chat List</h3>
             <hr />

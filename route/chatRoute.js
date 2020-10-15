@@ -14,7 +14,7 @@ router.get('/guide/:id',async(req,res)=>{
     res.json(myChatRoom)
 })
 router.get('/',async(req,res)=>{
-   const chatRoom = await Chat.find({ userId: req.query['userId'],myId: req.query['myId']})
+   const chatRoom = await Chat.find({ userId: req.query['userId'], myId: req.query['myId']})
    console.log(chatRoom)
    res.send(chatRoom)
 })

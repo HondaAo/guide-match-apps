@@ -1,0 +1,34 @@
+.header{
+    height: 80px;
+    padding: 5%;
+    display: flex;
+    justify-content: space-between;
+}
+.travellist-page{
+    padding: 3%;
+}
+.search-button{
+    margin-top: 50px;
+    width: 100%;
+    background-color: red;
+    color: white;
+    height: 40px;
+    border-radius: 30px;
+}
+.favorite-card{
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
+    border-radius: 30px;
+}
+.favorite-card-title > img{
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    width: 100%;
+    height: auto;
+}
+.favorite-content{
+    padding: 3%;
+}
+.image-change-page{
+    text-align: center;
+    padding: 5%;
+}

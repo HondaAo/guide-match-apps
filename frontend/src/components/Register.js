@@ -26,7 +26,7 @@ const Register = ({history}) => {
     console.log(userInfo)
     return (
         <>
-          <h1>Sign In</h1>
+          <h1>Sign Up</h1>
           <Form onSubmit={submitHandler}>
               <Form.Group controlId='email'>
                   <Form.Label>
@@ -46,7 +46,7 @@ const Register = ({history}) => {
                   </Form.Control>
               </Form.Group>
               <Button type="submit" variant="primary">
-                  Sign In
+                  Sign up
               </Button>
           </Form>
           <Row className="py-3">

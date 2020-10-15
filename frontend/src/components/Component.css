@@ -1,8 +1,37 @@
 .image-header{
     padding: 5%;
+    background-image: url('./images/photo-1485774043635-d42ceede5758.jpeg');
+    background-size: cover;
+    height: 80vh;
+    color: white;
+}
+.image-header-iphone{
     background-image: url('https://images.unsplash.com/photo-1504807959081-3dafd3871909?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60');
     background-size: cover;
-    height: 50vh;
+    height: 50vh; 
+    padding: 8%;
+    padding-top: 14%;
+    color: white;
+    margin-right: 0.5%;
+}
+.search-bar{
+    position: fixed;
+    top: 10px;
+    width: 100%;
+    z-index: 100;
+}
+.text-input{
+    width: 100%;
+    margin: 0 auto;
+    border-radius: 30px;
+    height: 40px;
+    text-align: center;
+}
+.top-contents-iphone{
+  margin-top: 50px;
+}
+.top-contents-iphone > img{
+    border-radius: 20px;
 }
 .header-comments{
     margin: 5%;
@@ -92,6 +121,68 @@
 .chat-right{
     text-align: right;
 }
+.card-iphone-image{
+    margin-bottom: 15px;
+    height: 60vh;
+    border: 1px solid ;
+    border-radius: 30px;
+    border-color: lightgrey;
+    width: 100%;
+}
+.card-iphone-image > img{
+    border-radius: 30px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    width: inherit;
+    height: auto;
+}
+.iphone-container{
+    width: 95%;
+    margin-left: 4%;
+    display:flex;
+    scroll-snap-type: x mandatory;
+    overflow: auto;
+}
+.card-iphone{
+    height: 30vh;
+    border: 1px solid ;
+    border-radius: 30px;
+    border-color: lightgrey;
+    width: inherit;
+    width: 88%;
+    margin:10px 20px;
+    display: flex;
+    scroll-snap-align: start;
+    flex: none;
+}
+
+.card-iphone > img {
+    border-radius: 30px;
+}
+.card-iphone-left{
+    background-size: cover;
+    margin-left: -8px;
+    height: 30vh;
+}
+.card-iphone-left > img {
+    height: inherit;
+    width: auto;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    margin-left: -8px;
+}
+.card-iphone-left2{
+    background-size: cover;
+    height: 30vh;
+    margin-left: -8px;
+}
+.card-iphone-left2 > img {
+    height: inherit;
+    width: auto;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    margin-left: -8px;
+}
 
 .text-lightgrey{
     color: lightgrey;
@@ -127,9 +218,54 @@
     margin-bottom: 60px;
 }
 .profile-header{
-    text-align: center;
-    justify-content: center;
-    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    height: 25vh;
+}
+.unique-experience{
+    height: 95vh;
+    background-color: black;
+    color: white;
+    padding: 3%;
+}
+.unique-experience-body{
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+}
+.unique-experience-header{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+.profile-header-text{
+    padding: 5%;
+}
+.profile-header-image{
+   height: inherit;
+   text-align: right;
+   padding: 5%;
+   display: initial;
+}
+.profile-header-image > img{
+    border-radius: 50%;
+    height: 100px;
+    width: 100px;
+}
+.profile-introduction{
+    padding: 5%;
+}
+.profile-introduction > h1 {
+    margin-bottom: 25px;
+}
+.profile-introduction > p {
+    font-size: 22px;
+}
+.profile-rating{
+    padding: 5%;
+}
+.profile-rating > p{
+    font-size: 22px;
+    text-underline-position: below;
 }
 .profile-detail{
     text-align: left;
@@ -139,4 +275,225 @@
 }
 .profile-avatar{
     margin-bottom: 60px;
+}
+.google-map{
+    height: 80vh;
+    margin-top: 80px;
+}
+.google-map > h2 {
+    margin-bottom: 30px;
+}
+.google-map-button {
+    margin-top: 40px;
+    height: 30px;
+    align-items: baseline;
+    color: #ff3f3f;
+    border: 1px solid #ececec;
+    border-radius: 1.5em;
+    cursor: pointer;
+    user-select: none;
+    padding: 1%;
+}
+.guide-pickup-images{
+    height: 75vh;
+    margin: 40px 0;
+}
+.guide-pickup-image1{
+    height: 60vh;
+    background-size: cover;
+    position: relative;
+}
+.text-buttons{
+    display: flex;
+    justify-content: space-between;
+}
+.guide-pickup-image .text{
+    margin: 4%;
+    height: 15vh;
+}
+.guide-pickup-image2{
+  height: 35vh;
+  background-size: cover;
+  margin-bottom: 20px;
+  position: relative;
+}
+.guide-pickup-image2 > h2{
+    position: absolute;
+    color: white;
+    font-size: 35px;
+    bottom: 10%;
+    left: 4%;  
+}
+.guide-pickup-image2 > p{
+    position: absolute;
+    color: white;
+    font-size: 15px;
+    font-weight: 300;
+    bottom: 5%;
+    left: 4%;  
+}
+.guide-pickup-image3{
+    height: 45vh;
+    background-size: cover;
+    position: relative;
+}
+.guide-pickup-image3 > h2{
+    position: absolute;
+    color: white;
+    font-size: 35px;
+    bottom: 10%;
+    left: 4%;  
+}
+.guide-pickup-image1 > h2 {
+    position: absolute;
+    color: white;
+    font-size: 35px;
+    bottom: 10%;
+    left: 4%;
+}
+.guide-pickup-image1 > p{
+    position: absolute;
+    color: white;
+    font-size: 15px;
+    bottom: 3%;
+    left: 5%;
+}
+.message-button-list{
+    margin-top: 40px;
+    width: 100%;
+}
+.list-header{
+    width: 100%;
+    margin-top: 40px;
+    padding-left: 10%;
+}
+.guide-item{
+    margin-top: 70px;
+}
+.footer-list-image{
+    height: 30vh;
+    background-size: cover;
+    margin-top: 50px;
+    padding-top: 8%;
+    padding-left: 5%;
+    color: white;
+    font-size: 40px;
+}
+.alert{
+    margin-top: 30px;
+    background-color: rgba(0, 0, 0, 0.1);
+    height: fit-content;
+    padding-bottom: 6%;
+}
+.map-button{
+    position: fixed;
+    top: 80%;
+    width: 30%;
+    margin-left: 35%;
+    z-index: 100;
+}
+.guide-image-header-iphone{
+    background-image: url('https://images.unsplash.com/photo-1579667438287-06b2894ae7ee?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60');
+    background-size: cover;
+    position: relative;
+    height: 50vh;
+}
+.guide-header-comments-iphone{
+    position: absolute;
+    top: 35vh;
+    left: 50px;
+    color: white;
+}
+.guide-step-iphone{
+    padding: 3%;
+}
+.step1{
+    padding: 3%;
+    margin-bottom: 20px;
+}
+.first-guide-form{
+    margin-top: 30px;
+    padding: 3%;
+}
+.payment-section{
+    padding: 3%;
+    margin-top: 30px;
+}
+.guide-setting-page{
+    padding: 3%;
+}
+.guide-setting-page .header{
+    padding-left: 3%;
+}
+.guide-list-image-iphone{
+    position: relative;
+    background-image: url('https://images.unsplash.com/photo-1530789253388-582c481c54b0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60');
+    background-size: cover;
+    height: 50vh;
+}
+.guide-list-image-text-iphone{
+    position: absolute;
+    top: 15vh;
+    left: 10%;
+    color: white;
+}
+.search-bar-iphone{
+    margin-top: 40px;
+    margin-bottom: 30px;
+    height: 100px;
+}
+.destination-iphone{
+    display: flex;
+    margin: 20px 0;
+}
+.destination-list{
+    margin-top: 40px;
+}
+.destination-iphone:hover{
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.search-bar-design{
+    height: 44px;
+    align-items: center;
+    border-radius: 30px;
+    width: 80%;
+    margin-left: 15px;
+    border-color: lightgrey;
+    box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.3);
+    padding-left: 5%;
+}
+.other-experience{
+    padding: 3%;
+    margin-top: 30px;
+}
+.chat-payment{
+    padding: 3%;
+}
+.unique-list{
+    display: flex;
+    margin-bottom: 40px;
+    width: 100%;
+}
+.unique-list-card{
+    border-radius: 30px;
+    margin: 10px;
+    margin-top: 30px;
+    border: solid 2px rgba(0,0,0,0.05);
+}
+.unique-list-card-title > img{
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    width: 100%;
+    height: auto;
+}
+.unique-list-card-content {
+    padding: 5%;
+}
+.unique-list-card-content > p{
+    color: lightgrey;
+}
+.our-aim{
+    padding: 3%;
+    margin-top: 30px;
+    display: flex;
 }

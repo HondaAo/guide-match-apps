@@ -1,7 +1,7 @@
-import { Avatar } from '@material-ui/core';
+import { Avatar, IconButton } from '@material-ui/core';
 import Axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react'
-import { Button, Col, Row } from 'react-bootstrap';
+import { Button, Col, Form, Row } from 'react-bootstrap';
 import './Component.css'
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import MailIcon from '@material-ui/icons/Mail';
@@ -10,12 +10,21 @@ import LanguageIcon from '@material-ui/icons/Language';
 import { AuthContext } from '../auth/AuthState';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ContactMailIcon from '@material-ui/icons/ContactMail';
+import Modal from 'react-modal'
+import MediaQuery from 'react-responsive';
 
+Modal.setAppElement('#root')
 const Profile = ({match}) => {
     const guideId = match.params.id
     const [ guideInfo, setGuideInfo ] = useState({});
     const [ date, setDate ] = useState('')
+    const [ isModalOpen, setIsModalOpen ] = useState(false)
+    const [ email, setEmail ] = useState('');
+    const [ comment, setComment ] = useState('');
+    const [ image, setImage ] = useState(null);
+    const [ file, setFile] = useState('')
     const { userInfo, setUserInfo } = useContext(AuthContext);
     useEffect(()=>{
     setUserInfo(localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null)
@@ -23,57 +32,171 @@ const Profile = ({match}) => {
      .then(res => {
          setGuideInfo(res.data)
          console.log(res.data)
+         setImage(res.guide.image)
      })
      .catch(err=> console.log(err))
      
     },[])
-    
+    const reportHandler = (e)=>{
+       e.preventDefault();
+       const report = {
+         email,
+         comment
+       }
+       Axios.post('http://localhost:5000/api/request',report)
+       .then(res => alert(res.data))
+       .catch(err => console.log(err))
+    }
+    const closeModal = ()=>{
+      setIsModalOpen(false)
+    }
+    const onSubmit = (e)=>{
+      e.preventDefault();
+      const formData = new FormData()
+      formData.append('image', file)
+      console.log(file)
+      const config = {
+        headers: {
+            'content-type': 'multipart/form-data'
+        }
+      };
+      Axios.post(`http://localhost:5000/api/image/${guideInfo._id}`,formData,config)
+      .then(res => alert(res.data))
+      .catch(err => alert(err))
+    }
+    const changeImage = ()=>{
+     
+    }
     return (
     <>
+      <MediaQuery query="(min-width: 767px)">
         { !guideInfo ? (
          <div className="ui active inline loader"></div>  
         ):(
         <Row className="profile-page">
-        <Col md={{ span: 6, offset: 3}}>
-         <div className="profile-header">
-           <div class="ui center image">
-           <Avatar className="profile-avatar" />
-           </div>
-          <h1>{guideInfo.name}</h1>
-          <h3><LocationOnIcon />{' '}{guideInfo.place}</h3>
-          <hr />
-          <Row>
-              <Col md={6}>
-               <h3><StarBorderIcon />{' '}{guideInfo.star}</h3>
-              </Col>
-              <Col md={6}>
-               <h3><AttachMoneyIcon />{' '}{ guideInfo.rate}</h3>
-              </Col>
-          </Row>
-         </div>
-          <hr />
-         <div className="profile-detail">
-          <h2><LanguageIcon className="profile-icon"/>{guideInfo.languages}</h2>
-          <hr />
-          <h2><MailIcon className="profile-icon"/>{guideInfo.email}</h2>
-          <hr />
-          <h2><ContactMailIcon className="profile-icon"/>{guideInfo.isPro ? <span>Professional</span>: <span>Not Professional</span>}</h2>
-          <hr />
-          <h2>{guideInfo.description}</h2>
-          <hr />
+        <Col md={{ span: 8, offset: 2}}>
+        <div className="profile-header">
+          <div className="profile-header-text">
+           <h4>Hello, I'm {guideInfo.name}</h4>
+           <p style={{ color: 'lightgrey'}}>registered{' '}{guideInfo.createdAt}</p>
+           <Link to={`/update/${guideInfo._id}`} style={{ color: 'black'}}><p>edit profile</p></Link>
+          </div>
+          <div className="profile-header-image">
+           { guideInfo.image !== "" ? (
+             <img src={guideInfo.image} onClick={changeImage}/>
+           ): <Avatar className="avatar" onClick={changeImage}/>}
+          </div>
+        </div>
+        <hr />
+        <div className="profile-introduction">
+          <h1>Introduction</h1>
+          <p><LocationOnIcon />{' '}{guideInfo.city}/{guideInfo.country}</p>
+          <p><LanguageIcon />{' '}{guideInfo.languages}</p>
+        </div>
+        <hr />
+        <div className="profile-rating" style={{ display: 'flex', justifyContent: 'space-between'}}>
+          <h3><StarBorderIcon />{' '}Rating {guideInfo.star}</h3>
+          <button className="ui button youtube" onClick={()=> alert("No review exists")}>
+            See all reviews
+          </button>
         </div>
         <div className="profile-button">
-        <button class="ui right labeled icon button">
-          <i class="right arrow icon"></i>
-          Next
-        </button>
-        </div>
+        { userInfo ? userInfo._id !== guideInfo.userId ? (
+          <>
+          <Link to={`/message?userId=${guideInfo.userId}&myId=${userInfo._id}`}>
+          <button className="ui linkedin button">
+          <i className="comment icon"></i>
+           Go Chat
+          </button></Link>
+          <button className="negative ui button" onClick={()=> setIsModalOpen(prev => !prev)}><i className="bullhorn icon"></i>Report</button>
+          <Link to={`/review/${guideInfo._id}`}><button className="ui twitter button"><i class="edit icon"></i>Assessment</button></Link>
+          </>
+        ): null : null }
+         </div>
         </Col>
         </Row>
       )
     }
+    </MediaQuery>
+   <Modal
+          isOpen={isModalOpen}
+          onRequestClose={closeModal}
+          style={customStyles}
+          contentLabel="Example Modal"
+        >
+          <h2 >Report</h2>
+          <Form onSubmit={reportHandler}>
+          <Form.Group controlId="formBasicEmail">
+           <Form.Label>Guide's Email address</Form.Label>
+           <Form.Control type="email" value={email} onChange={(e)=> setEmail(e.target.value)} placeholder="Enter email" />
+          </Form.Group>
+          <Form.Group controlId="formBasicEmail">
+           <Form.Label>Example textarea</Form.Label>
+           <Form.Control as="textarea" rows={3} value={comment} onChange={(e)=> setComment(e.target.value)} />
+          </Form.Group>
+           <Button variant="danger" type="submit">Send</Button>
+          </Form>
+          <button onClick={()=> setIsModalOpen(false)} className="ui button">Close</button>
+   </Modal>
+   <MediaQuery query="(max-width: 767px)">
+   { !guideInfo ? (
+         <div className="ui active inline loader"></div>  
+        ):(
+        <Row className="profile-page">
+        <Col md={{ span: 8, offset: 2}}>
+        <div className="profile-header">
+          <div className="profile-header-text">
+           <h4>{guideInfo.name}</h4>
+           <p style={{ color: 'lightgrey'}}>registered{' '}{guideInfo.createdAt}</p>
+           <Link to={`/update/${guideInfo._id}`} style={{ color: 'black'}}><p>edit profile</p></Link>
+          </div>
+          <div className="profile-header-image">
+           { guideInfo.image !== "" ? (
+             <img src={guideInfo.image} onClick={changeImage}/>
+           ): <Avatar className="avatar" onClick={changeImage}/>}
+          </div>
+        </div>
+        <hr />
+        <div className="profile-introduction">
+          <h1>Introduction</h1>
+          <p><LocationOnIcon />{' '}{guideInfo.city}/{guideInfo.country} </p>
+          <p><LanguageIcon />{' '}{guideInfo.languages}</p>
+          <p><AttachMoneyIcon />{' '}{guideInfo.rate}</p>
+        </div>
+        <hr />
+        <div className="profile-rating">
+          <h3><StarBorderIcon />{' '}Rating {guideInfo.star}</h3>
+          <p>see reviews</p>
+        </div>
+        <div className="profile-button">
+        { userInfo ? userInfo._id !== guideInfo.userId ? (
+          <>
+          <Link to={`/message?userId=${guideInfo._id}&myId=${userInfo._id}`}>
+          <button className="ui linkedin button">
+          <i className="comment icon"></i>
+           Go Chat
+          </button></Link>
+          <button className="negative ui button" onClick={()=> setIsModalOpen(prev => !prev)}><i className="bullhorn icon"></i>Report</button>
+          <Link to={`/review/${guideInfo._id}`}><button className="ui twitter button"><i class="edit icon"></i>Assessment</button></Link>
+          </>
+        ): null : null }
+         </div>
+        </Col>
+        </Row>
+      )
+    }
+   </MediaQuery>
     </>
     )
 }
-
+const customStyles = {
+  content : {
+    top                   : '50%',
+    left                  : '50%',
+    right                 : 'auto',
+    bottom                : 'auto',
+    marginRight           : '-50%',
+    transform             : 'translate(-50%, -50%)'
+ }
+};
 export default Profile

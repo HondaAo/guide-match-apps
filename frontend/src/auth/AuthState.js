@@ -17,9 +17,8 @@ const AuthState = ({children, history}) => {
     const register = async(user) => {
      const { data } = await axios.post('http://localhost:5000/api/user/register',user)
      localStorage.setItem('userInfo',JSON.stringify(data))
-     if(data){
-        window.location = '/'
-    }
+     window.location = '/login'
+     alert("SuccessFully Registered")
     }
     const logout = () =>{
       localStorage.removeItem('userInfo')
