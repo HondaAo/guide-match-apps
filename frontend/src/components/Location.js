@@ -93,7 +93,7 @@ const Location = ({ location }) => {
          <div className="location-right">
          <GoogleMapReact
             bootstrapURLKeys={{
-              key: 'AIzaSyDseuGtZv4W2nCwIFMHNzHGRSoJ4W21lCU',
+              key: process.env.GOOGLE_API_KEY,
               language: 'en'
             }}
             defaultCenter={{
