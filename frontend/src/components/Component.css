@@ -29,6 +29,7 @@
 }
 .top-contents-iphone{
   margin-top: 50px;
+  width: 100%;
 }
 .top-contents-iphone > img{
     border-radius: 20px;
@@ -123,7 +124,7 @@
 }
 .card-iphone-image{
     margin-bottom: 15px;
-    height: 60vh;
+    height: 46vh;
     border: 1px solid ;
     border-radius: 30px;
     border-color: lightgrey;
@@ -133,57 +134,47 @@
     border-radius: 30px;
     border-bottom-left-radius: 0px;
     border-bottom-right-radius: 0px;
-    width: inherit;
-    height: auto;
+    width: 100%;
+    height: 33vh;
 }
 .iphone-container{
-    width: 95%;
-    margin-left: 4%;
+    width: 88%;
+    margin-left: 10%;
     display:flex;
     scroll-snap-type: x mandatory;
     overflow: auto;
 }
+.iphone-container-guide-list{
+    width: 95%;
+    margin-left: 2%;
+}
 .card-iphone{
-    height: 30vh;
-    border: 1px solid ;
+    height: 40vh;
+    border: 1px solid lightgrey;
     border-radius: 30px;
-    border-color: lightgrey;
     width: inherit;
     width: 88%;
-    margin:10px 20px;
-    display: flex;
+    margin: 20px 20px;
     scroll-snap-align: start;
     flex: none;
+    color: black;
 }
-
-.card-iphone > img {
-    border-radius: 30px;
+.card-iphone-title{
+    width: 100%;
 }
-.card-iphone-left{
-    background-size: cover;
-    margin-left: -8px;
+.card-iphone-title > img {
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    width: 100%;
     height: 30vh;
 }
-.card-iphone-left > img {
-    height: inherit;
-    width: auto;
-    border-top-left-radius: 30px;
-    border-bottom-left-radius: 30px;
-    margin-left: -8px;
+.card-iphone-content{
+    padding: 5%;
 }
-.card-iphone-left2{
-    background-size: cover;
-    height: 30vh;
-    margin-left: -8px;
+.card-iphone-content > p{
+    color: lightgrey;
+    font-weight: 300;
 }
-.card-iphone-left2 > img {
-    height: inherit;
-    width: auto;
-    border-top-left-radius: 30px;
-    border-bottom-left-radius: 30px;
-    margin-left: -8px;
-}
-
 .text-lightgrey{
     color: lightgrey;
 }
@@ -401,7 +392,7 @@
 .guide-header-comments-iphone{
     position: absolute;
     top: 35vh;
-    left: 50px;
+    left: 40px;
     color: white;
 }
 .guide-step-iphone{
@@ -436,6 +427,7 @@
     top: 15vh;
     left: 10%;
     color: white;
+    padding: 3%;
 }
 .search-bar-iphone{
     margin-top: 40px;

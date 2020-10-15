@@ -15,6 +15,7 @@ import { CSSTransition } from 'react-transition-group';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import { AuthContext } from '../auth/AuthState';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import { Avatar } from '@material-ui/core';
 
 const Location = ({ location }) => {
     const query = parse(location.search)
@@ -173,30 +174,38 @@ const Location = ({ location }) => {
          <Link to="/guideList"><ArrowBackIosIcon /></Link>
         </div>
         <div className='location-left-iphone'>
-           <div>
+           <div style={{ padding: '5%'}}>
            <h1>{city}</h1>
            <p>Check travel restrictions before booking.Please review and follow government travel guidelines.</p>
-           <hr />
+           <button class="ui basic button" style={{ margin: '10px'}}>
+            Kualum pool
+           </button>
+           <button class="ui basic button" style={{ margin: '10px'}}>
+             Danang
+           </button>
+           <button class="ui basic button" style={{ margin: '10px'}}>
+             Bankok
+           </button>
+           <button class="ui basic button" style={{ margin: '10px'}}>
+             HoChiMinh
+           </button>
            </div>
            <div className={ slide ? 'displayNone' : 'location-iphone-header' }>
            <div>
              <h3>Newer guides</h3>
-           </div>
-           <div >
-            { guides !== null ? guides.length > 3 ? <ArrowForwardIosIcon /> : null :null}
+             <hr />
            </div>
           </div>
-          <Container className={ slide ? 'displayNone' : null }>
-            <div className="iphone-container" style={{  marginTop: '30px'}}>
+          <div className={ slide ? 'displayNone' : null }>
+            <div className="iphone-container-guide-list" style={{  marginTop: '30px'}}>
             { guides !== null ? (
                 guides.map(guide =>(
-                  <div className="card-iphone">
-                   <div class="ui raised card" style={{ width: '100%'}} >
+                   <div class="ui raised card" style={{ width: '100%', border: 'solid 1px lightgrey', borderRadius: '20px'}} >
                      <div class="content">
                        <Link to={`/guide/${guide._id}`} style={{ color: 'black', textDecoration: 'none'}}><div class="">{guide.title}</div></Link>
-                       <div class="meta" style={{ display: 'flex',justifyContent: 'space-between'}}>
-                         <span class="category">${guide.rate}</span>
-                         <p><StarIcon />{guide.star}</p>
+                       <div className="meta" style={{ display: 'flex',justifyContent: 'space-between'}}>
+                         <span className="category">${guide.rate}/ a day</span>
+                         { guide.image !== "" ? <img src={guide.image} /> : <Avatar /> }
                        </div>
                        <div class="description">
                          <p>Place: {guide.city}/{guide.country}</p>
@@ -221,15 +230,17 @@ const Location = ({ location }) => {
                         }} />
                        </div>
                        <div class="right floated author">
-                         <img class="ui avatar image" src="/images/avatar/small/matt.jpg" /> {guide.name}
+                         <StarIcon /> {guide.star}
                        </div>
                      </div>
-                   </div>
                    </div>
                 ))
             ): <h3>Currently No Guide Exists</h3>}
               </div>
-          </Container>
+            <div className="">
+
+            </div>
+          </div>
          </div> 
          <Slide
             show={slide}

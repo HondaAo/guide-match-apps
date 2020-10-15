@@ -274,7 +274,7 @@ const GuideList = ({ history }) => {
               <div className="unique-list-card-title">
                <img src="https://images.unsplash.com/photo-1504095649265-b37198e9c711?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" />
               </div>
-              <div className="unique-list-card-content">
+              <div className="unique-list-card-content" style={{ borderBottomLeftRadius: '30px',borderBottomRightRadius: '30px', border: 'solid 2px lightgrey'}}>
                 <strong>Local Experience</strong>
                 <p>Let's check local tour and guide</p>
               </div>
@@ -285,18 +285,18 @@ const GuideList = ({ history }) => {
               <div className="unique-list-card-title">
                <img src="https://images.unsplash.com/photo-1587127964224-ee5b0a61933d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" />
               </div>
-              <div className="unique-list-card-content">
+              <div className="unique-list-card-content"style={{ borderBottomLeftRadius: '30px',borderBottomRightRadius: '30px', border: 'solid 2px lightgrey'}}>
                 <strong>Unique store and restaurant</strong>
                 <p>Let's unveil local store and restaurant</p>
               </div>
             </Link>
           </Col>
           <Col md={4}>
-          <Link to="/setting" className="unique-list-card" >
-              <div className="unique-list-card-title">
+          <Link to="/setting" className="unique-list-card">
+              <div className="unique-list-card-title" >
                <img src="https://images.unsplash.com/photo-1500981458086-b8a11cd163af?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" />
               </div>
-              <div className="unique-list-card-content">
+              <div className="unique-list-card-content" style={{ borderBottomLeftRadius: '30px',borderBottomRightRadius: '30px', border: 'solid 2px lightgrey'}}>
                 <strong>Experiental Post</strong>
                 <p>Let's check other's posts</p>
               </div>

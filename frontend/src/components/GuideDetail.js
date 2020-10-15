@@ -41,7 +41,7 @@ const GuideDetail = ({match,history}) => {
         {!guide ? <div className="ui active inline loader"></div> :(
         <>
           <Col md={6}>
-          <h2>Details</h2>
+          <strong>Details</strong>
           <ListGroup variant="flush">
             <ListGroup.Item>Language:{' '}{guide.languages.map(item => <strong>{item}{' '}</strong>)}</ListGroup.Item>
             <ListGroup.Item>Place:{' '}<strong>{guide.city} {' '}{ guide.country}</strong></ListGroup.Item>
@@ -52,7 +52,7 @@ const GuideDetail = ({match,history}) => {
           </Col>
           <hr />
           <Col md={6} style={{ paddingLeft: '5%'}}>
-          <h2>Review</h2>
+          <strong>Review</strong>
           { guide.reviews.length > 0 ?  (guide.reviews.map(review =>(
             <div class="ui comments">
             <div class="comment">
@@ -77,7 +77,7 @@ const GuideDetail = ({match,history}) => {
           ))):( <p>Currently no review</p> 
           )}
           <hr />
-          <h2>Get Contact</h2>
+          <strong>Get Contact</strong>
           { message ? <Alert variant="primary">{message}</Alert> : null}
           <Form onSubmit={onSubmit}>
             <Form.Group controlId="exampleForm.ControlTextarea1">
@@ -85,11 +85,14 @@ const GuideDetail = ({match,history}) => {
                 <Form.Control as="textarea" value={text} onChange={(e)=> setText(e.target.value)} rows="3" required />
             </Form.Group>
             { userInfo ? (
-            <Button variant="primary" type="submit">
+            <Button variant="secondary" size="lg" block>
               Submit
             </Button>
             ):(
+              <>
                 <Link to="/login"><Button variant="danger">Login</Button></Link>
+                <p style={{ fontWeight:'300', color: 'lightgrey'}}>You need to login before sendding message</p>
+              </>
             )}
           </Form>
           </Col>

@@ -6,6 +6,7 @@ import './Component.css'
 import MediaQuery from "react-responsive";
 import { Container, IconButton } from '@material-ui/core'
 import StickyFooter from '../layout/StickyFooter'
+import StarBorderIcon from '@material-ui/icons/StarBorder';
 
 const Home = () => {
     const [ guides, setGuides ] = useState([])
@@ -153,58 +154,48 @@ const Home = () => {
                <Link to="/guideList"><button class="ui pink button">Start exploring</button></Link>
              </Row>
              <Row className="top-contents-iphone">
-               <Col xs={{ span: '10', offset: '1'}}>
+              <Col xs={{ span: '10', offset: '1'}}>
               <h5 style={{ marginLeft: '15px'}}>Popular destinations</h5>
                <Link to={`/place?city=Singapore&country=Singapore`} style={{ color: 'black',padding: '3%'}}>
                <div className="card-iphone-image" style={{ borderRadius: '30px', }}>
                   <img src="https://images.unsplash.com/flagged/photo-1562503542-2a1e6f03b16b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" height="auto" width="fit-content" />
-                <div className="content" style={{ padding: '4%'}}>
-                  <a className="header" style={{ margin: '5px'}}><h3>Singapore</h3></a>
+                <div className="content" style={{ padding: '2%'}}>
+                  <div style={{ marginBottom: '4px'}}><strong>Singapore</strong></div>
                   <div className="meta">
-                    <span className="date">Rediscover new place!!<br />Enjoy a weekend away at a vacation rental in Singapore</span>
+                    <p style={{ color: 'lightgrey'}}>Singapore</p>
                   </div>
                 </div>
                </div>
                </Link>
-               </Col>
-             <p style={{ marginLeft: '30px'}}>{' '}Other recommendations</p>
-             <div className="iphone-container">
-               <div className="card-iphone">
-               <Col xs={4} className="card-iphone-left">
-                <img src="https://images.unsplash.com/photo-1508062878650-88b52897f298?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" />
-               </Col>
-               <Col xs={7} style={{ textAlign: 'center', marginLeft: '20px'}}>
-               <Link to={`/place?city=Kualalumpur&country=Malaysia`} style={{ color: 'black'}}>
-                 <h3>Kuala lumpur</h3>
-                 <p>Kuala Lumpur is the capital city of Malaysia, boasting gleaming skyscrapers, colonial architecture, charming locals, and a myriad of natural attractions. </p>
-                 <button className="ui button youtube">Explore</button>
-               </Link>
               </Col>
-               </div>
-               <div className="card-iphone">
-               <Col xs={4} className="card-iphone-left2">
-                <img src="https://images.unsplash.com/photo-1553851919-596510268b99?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" />
-               </Col>
-               <Col xs={7} style={{ textAlign: 'center', marginLeft: '20px'}}>
-                <Link to={`/place?city=Hanoi&country=Vietnam`} style={{ color: 'black'}}>
-                  <h3 style={{ marginLeft: '20px'}}>Hanoi</h3>
-                  <p style={{ marginLeft: '20px'}}>A great place to explore on foot, this French-colonial city is also known for its delectable cuisine, vibrant nightlife, silks and handicrafts</p>
-                  <button className="ui button youtube">Explore</button>
-                 </Link>
-               </Col>
-               </div>
-               <div className="card-iphone">
-               <Col xs={4} className="card-iphone-left2">
-                <img src="https://images.unsplash.com/photo-1595254434453-4e06680d45a7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" />
-               </Col>
-               <Col xs={7} style={{ textAlign: 'center', marginLeft: '20px'}}>
-                <Link to={`/place?city=Danang&country=Vietnam`} style={{ color: 'black'}}>
-                  <h3 style={{ marginLeft: '25px'}}>Danang</h3>
-                  <p>Da Nang is known as the tourist capital of South Central Vietnam, with a west-coast location that makes for beautiful sunsets </p>
-                  <button className="ui button youtube">Explore</button>
-                </Link>
-               </Col>
-               </div>
+              <div className="iphone-container">
+               <Link to={`/place?city=Kualalumpur&country=Malaysia`} className="card-iphone">
+                <div className="card-iphone-title">
+                  <img src="https://images.unsplash.com/photo-1582888736122-1b8900c586ce?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" />
+                </div>
+                <div className="card-iphone-content">
+                  <strong>Kuala lumpur</strong>
+                  <p>Malaysia</p>
+                </div>
+               </Link>
+               <Link to={`/place?city=Hanoi&country=Vietnam`} className="card-iphone">
+                <div className="card-iphone-title">
+                  <img src="https://images.unsplash.com/photo-1533497394934-b33cd9695ba9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" />
+                </div>
+                <div className="card-iphone-content">
+                  <strong>Hanoi</strong>
+                  <p>Vietnam</p>
+                </div>
+               </Link>
+               <Link to={`/place?city=Bangkok&country=Thailand`} className="card-iphone">
+                <div className="card-iphone-title">
+                  <img src="https://images.unsplash.com/photo-1510379872535-9310dc6fd6a7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" />
+                </div>
+                <div className="card-iphone-content">
+                  <strong>Bankok</strong>
+                  <p>Thailand</p>
+                </div>
+               </Link>
               </div>
               <div className="alert">
                <Col xs={{ span: 10, offset: 1}}>

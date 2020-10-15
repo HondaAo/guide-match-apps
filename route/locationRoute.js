@@ -64,19 +64,19 @@ router.get('/list',(req,res)=>{
             isPopular: true
         },
         {
-            country: 'Vietname',
+            country: 'Vietnam',
             city: 'Hanoi',
             image: 'https://images.unsplash.com/photo-1542732450-e0859ec20080?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
             isPopular: false 
         },
         {
-            country: 'Vietname',
+            country: 'Vietnam',
             city: 'HoChiMinh',
             image: 'https://images.unsplash.com/photo-1561842080-2b1aa9060ea7?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60',
             isPopular: true  
         },
         {
-            country: 'Vietname',
+            country: 'Vietnam',
             city: 'Danang',
             image: 'https://images.unsplash.com/photo-1564596823821-79b97151055e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
             isPopular: true
