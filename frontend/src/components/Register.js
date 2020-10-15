@@ -14,7 +14,8 @@ const Register = ({history}) => {
           history.push('/guide')
         }
       },[userInfo])
-    const submitHandler = ()=>{
+    const submitHandler = (e)=>{
+        e.preventDefault();
         const user = {
             name,
             email,
@@ -25,7 +26,7 @@ const Register = ({history}) => {
     }
     console.log(userInfo)
     return (
-        <>
+        <div style={{ padding: '5%'}}>
           <h1>Sign Up</h1>
           <Form onSubmit={submitHandler}>
               <Form.Group controlId='email'>
@@ -54,7 +55,7 @@ const Register = ({history}) => {
                New Customer ? <Link to='/login'>Login</Link>
               </Col>
           </Row>
-        </>
+        </div>
     )
 }
 

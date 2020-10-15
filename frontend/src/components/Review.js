@@ -21,7 +21,7 @@ const Review = ({ match }) => {
             rating,
             userId: userInfo._id
         }
-        Axios.post(`http://localhost:5000/api/review/${guideId}`,review)
+        Axios.post(`/api/review/${guideId}`,review)
         .then(res => alert(res.data))
         .catch(err => console.log(err))
     }

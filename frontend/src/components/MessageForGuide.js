@@ -14,7 +14,7 @@ const MessageForGuide = ({location}) => {
     const { userInfo, setUserInfo } = useContext(AuthContext);
     useEffect(()=>{
     setUserInfo(localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null)
-     Axios.get(`http://localhost:5000/api/chat?userId=${query.userId}&myId=${query.myId}`)
+     Axios.get(`/api/chat?userId=${query.userId}&myId=${query.myId}`)
      .then(res => {
        setChats(res.data)
        console.log(res.data)
@@ -31,7 +31,7 @@ const MessageForGuide = ({location}) => {
         text,
         sender: userInfo._id
       }
-      Axios.post('http://localhost:5000/api/chat',message)
+      Axios.post('/api/chat',message)
       .then(res => {
         setChats([...chats, res.data])
         setText('');

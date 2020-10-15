@@ -20,7 +20,7 @@ const NormalProfile = ({ match }) => {
     const [ file, setFile] = useState('')
     useEffect(()=>{
      setUserInfo(localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null)
-     Axios.get(`http://localhost:5000/api/user/${myId}`)
+     Axios.get(`/api/user/${myId}`)
      .then(res=>{
         setUserInfo(res.data)
         console.log(res.data)
@@ -37,7 +37,7 @@ const NormalProfile = ({ match }) => {
             'content-type': 'multipart/form-data'
         }
       };
-      Axios.post(`http://localhost:5000/api/image/${userInfo._id}`,formData,config)
+      Axios.post(`/api/image/${userInfo._id}`,formData,config)
       .then(res => alert(res.data))
       .catch(err => alert(err))
     }

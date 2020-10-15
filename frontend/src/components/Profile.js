@@ -28,7 +28,7 @@ const Profile = ({match}) => {
     const { userInfo, setUserInfo } = useContext(AuthContext);
     useEffect(()=>{
     setUserInfo(localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null)
-     Axios.get(`http://localhost:5000/api/guide/${guideId}`)
+     Axios.get(`/api/guide/${guideId}`)
      .then(res => {
          setGuideInfo(res.data)
          console.log(res.data)
@@ -43,7 +43,7 @@ const Profile = ({match}) => {
          email,
          comment
        }
-       Axios.post('http://localhost:5000/api/request',report)
+       Axios.post('/api/request',report)
        .then(res => alert(res.data))
        .catch(err => console.log(err))
     }
@@ -60,7 +60,7 @@ const Profile = ({match}) => {
             'content-type': 'multipart/form-data'
         }
       };
-      Axios.post(`http://localhost:5000/api/image/${guideInfo._id}`,formData,config)
+      Axios.post(`/api/image/${guideInfo._id}`,formData,config)
       .then(res => alert(res.data))
       .catch(err => alert(err))
     }

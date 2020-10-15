@@ -27,13 +27,13 @@ const Location = ({ location }) => {
     const { userInfo, setUserInfo } = useContext(AuthContext);
     useEffect(()=>{
       setUserInfo(localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null)
-      Axios.get(`http://localhost:5000/api/location?city=${city}&country=${country}`)
+      Axios.get(`/api/location?city=${city}&country=${country}`)
       .then(res=> {
         setPlace(res.data)
         console.log(res.data)
       })
       .catch(err => console.log(err))
-      Axios.get(`http://localhost:5000/api/guide/location?city=${city}&country=${country}`)
+      Axios.get(`/api/guide/location?city=${city}&country=${country}`)
       .then(res=> {
         setGuides(res.data)
         console.log(res.data)
@@ -64,7 +64,7 @@ const Location = ({ location }) => {
       <div className="location-showup pop__slide">
          <GoogleMapReact
             bootstrapURLKeys={{
-              key: 'AIzaSyDseuGtZv4W2nCwIFMHNzHGRSoJ4W21lCU',
+              key: process.env.GOOGLE_API_KEY,
               language: 'en'
             }}
             defaultCenter={{
@@ -215,7 +215,7 @@ const Location = ({ location }) => {
                             title: guide.title,
                             image: guide.image
                           }
-                          Axios.post(`http://localhost:5000/api/user/favorite/${userInfo._id}`,favorite)
+                          Axios.post(`/api/user/favorite/${userInfo._id}`,favorite)
                           .then(res => alert(res.data))
                           .catch(err => alert(err))
                         }} />
@@ -227,7 +227,7 @@ const Location = ({ location }) => {
                    </div>
                    </div>
                 ))
-            ): null}
+            ): <h3>Currently No Guide Exists</h3>}
               </div>
           </Container>
          </div> 

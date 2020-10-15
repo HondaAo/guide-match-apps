@@ -22,6 +22,7 @@ app.use(express.json())
 const path = require("path");
 app.use(express.static(path.join(__dirname, "./public/")));
 app.use("/public", express.static(__dirname + "/public"))
+app.use(express.static(path.join(__dirname, "frontend", "build")))
 
 
 app.use('/api/user', userRoute);
@@ -32,5 +33,10 @@ app.use('/api/request',requestRoute)
 app.use('/api/review',reviewRoute)
 app.use('/api/image',imageRoute)
 app.use('/api/location' , locationRoute)
+
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "frontend", "build", "index.html"));
+});
+
 
 app.listen(5000,()=> console.log('Server is running 0n 5000'))

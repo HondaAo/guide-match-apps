@@ -11,7 +11,7 @@ const ChatForGuide = ({match}) => {
     const { userInfo, setUserInfo } = useContext(AuthContext);
     useEffect(()=>{
     setUserInfo(localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null)
-      Axios.get(`http://localhost:5000/api/chat/guide/${chatId}`)
+      Axios.get(`/api/chat/guide/${chatId}`)
       .then(res => {
           setChats(res.data)
           console.log(res.data)

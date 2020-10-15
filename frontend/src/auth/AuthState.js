@@ -6,7 +6,7 @@ export const AuthContext = createContext();
 const AuthState = ({children, history}) => {
     const [ userInfo, setUserInfo ] = useState(null)
     const login = async (user) =>{
-        const { data } = await axios.post('http://localhost:5000/api/user/login',user)
+        const { data } = await axios.post('/api/user/login',user)
         localStorage.setItem('userInfo',JSON.stringify(data))
         if(data){
             window.location = '/' 
@@ -15,10 +15,13 @@ const AuthState = ({children, history}) => {
         }
     }
     const register = async(user) => {
-     const { data } = await axios.post('http://localhost:5000/api/user/register',user)
+     const { data } = await axios.post('/api/user/register',user)
      localStorage.setItem('userInfo',JSON.stringify(data))
-     window.location = '/login'
-     alert("SuccessFully Registered")
+        if(data){
+            window.location = '/login' 
+        }else{
+            alert('Invalid User')
+        }
     }
     const logout = () =>{
       localStorage.removeItem('userInfo')

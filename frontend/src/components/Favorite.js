@@ -14,7 +14,7 @@ const Favorite = ({ match }) => {
     useEffect(()=>{
       setUserInfo(localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null)
       const getUser = async()=> {
-      const data = await Axios.get(`http://localhost:5000/api/user/${userInfo._id}`)
+      const data = await Axios.get(`/api/user/${userInfo._id}`)
       console.log(data.data.favoriteGuides)
        setFavoriteGuides(data.data.favoriteGuides)
      }
@@ -49,7 +49,7 @@ const Favorite = ({ match }) => {
                        </div>
                        <div>
                          <FavoriteIcon onClick={()=> {
-                             Axios.delete(`http://localhost:5000/api/user/guide?myId=${userInfo._id}&guideId=${guide.guideId}`)
+                             Axios.delete(`/api/user/guide?myId=${userInfo._id}&guideId=${guide.guideId}`)
                              .then(res => alert(res.data))
                              .catch(err => console.log(err))
                          }}/>

@@ -13,7 +13,7 @@ const ChatScreen = ({ match }) => {
   const [ seeall, setSeeall ] = useState(true);
   useEffect(()=>{
     setUserInfo(localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null)
-    Axios.get(`http://localhost:5000/api/chat/${roomId}`)
+    Axios.get(`/api/chat/${roomId}`)
     .then(res=> {
       setChats(res.data)
       console.log(res.data)

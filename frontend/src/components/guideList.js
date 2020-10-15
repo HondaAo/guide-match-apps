@@ -20,13 +20,13 @@ const GuideList = ({ history }) => {
     const [ text, setText ] = useState('')
     const [ country, setCountry ] = useState('')
     useEffect(()=>{
-      Axios.get('http://localhost:5000/api/guide')
+      Axios.get('/api/guide')
       .then(res => {
           console.log(res.data)
           setGuides(res.data)
       })
       .catch(err => console.log(err))
-      Axios.get('http://localhost:5000/api/location/list')
+      Axios.get('/api/location/list')
       .then(res => setDestinations(res.data))
       .catch(err => console.log(err))
     },[])
@@ -127,7 +127,7 @@ const GuideList = ({ history }) => {
           >
           <IconButton onClick={()=> {
             setChoosingPlace(pin.name)
-            Axios.get(`http://localhost:5000/api/guidelist?place=${pin.name}`)
+            Axios.get(`/api/guidelist?place=${pin.name}`)
             .then(res => {
               console.log(res.data)
               setPickedGuides(res.data)
@@ -146,6 +146,8 @@ const GuideList = ({ history }) => {
       <Col md={5}>
       <p>Popular destinations</p>
       <hr />
+      { destinations.length !== 0  ? (
+      <>
       { destinations.map(destination => (
       <Link to={`/place?city=${destination.city}&country=${destination.country}`} style={{ color: 'black'}}>
        <Row className="destination-iphone">
@@ -159,6 +161,8 @@ const GuideList = ({ history }) => {
        </Row>
       </Link>
       ))}
+      </>
+      ): null}
       </Col>
       </Row>
       <Row>

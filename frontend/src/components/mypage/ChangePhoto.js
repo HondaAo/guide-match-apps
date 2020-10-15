@@ -4,13 +4,13 @@ import Axios from 'axios';
 import { AuthContext } from '../../auth/AuthState';
 import './Mypage.css'
 
-const ChangePhoto = ({ match }) => {
+const ChangePhoto = ({ match , history}) => {
     const myId = match.params.id
     const { userInfo, setUserInfo, logout } = useContext(AuthContext);
     const [ file, setFile] = useState('')
     useEffect(()=>{
         setUserInfo(localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null)
-        Axios.get(`http://localhost:5000/api/user/${myId}`)
+        Axios.get(`/api/user/${myId}`)
         .then(res=>{
            setUserInfo(res.data)
            console.log(res.data)
@@ -27,8 +27,11 @@ const ChangePhoto = ({ match }) => {
                'content-type': 'multipart/form-data'
            }
          };
-         Axios.post(`http://localhost:5000/api/image/${userInfo._id}`,formData,config)
-         .then(res => console.log(res.data))
+         Axios.post(`/api/image/${userInfo._id}`,formData,config)
+         .then(res => {
+           console.log(res.data)
+           history.push(`/mypage/${userInfo._id}`)
+         })
          .catch(err => alert(err))
     }
     return (

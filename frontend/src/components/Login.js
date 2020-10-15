@@ -22,7 +22,7 @@ const Login = ({ history }) => {
       }
     },[userInfo,history])
     return (
-        <>
+        <div style={{ padding: '5%'}}>
           <h1>Sign In</h1>
           <Form onSubmit={submitHandler}>
               <Form.Group controlId='email'>
@@ -46,7 +46,7 @@ const Login = ({ history }) => {
                New Customer ? <Link to='/register'>Register</Link>
               </Col>
           </Row>
-        </>
+        </div>
     )
 }
 

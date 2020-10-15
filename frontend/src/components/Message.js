@@ -68,11 +68,11 @@ const Message = ({location}) => {
         date,
         guideId: guide._id
       }
-      Axios.post(`http://localhost:5000/api/guide/book/${guide._id}`,reservation)
+      Axios.post(`/api/guide/book/${guide._id}`,reservation)
       .then(res => {
         console.log(res.data)
         setIsBooked(true)
-        Axios.post(`http://localhost:5000/api/user/travellist/${userInfo._id}`,travel)
+        Axios.post(`/api/user/travellist/${userInfo._id}`,travel)
        .then(res => console.log(res.data))
        .catch(err => console.log(err))
         alert("Successfully booked")

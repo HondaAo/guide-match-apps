@@ -49,14 +49,14 @@ const GuideSetting = ({ location }) => {
           country: query.country,
           image: userInfo.image
         }
-        Axios.post('http://localhost:5000/api/guide',guide)
+        Axios.post('/api/guide',guide)
         .then(res => {
             localStorage.setItem('guideInfo',JSON.stringify(res.data))
             alert('Registered!!')
             window.location = '/guide'
         })
         .catch(err => console.log(err))
-        Axios.put(`http://localhost:5000/api/user/guide/${userInfo._id}`,guide._id)
+        Axios.put(`/api/user/guide/${userInfo._id}`,guide._id)
         .then(res => {
           console.log(res.data)
           localStorage.setItem('userInfo',JSON.stringify(res.data))

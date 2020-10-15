@@ -59,13 +59,13 @@ const GuideRegister = () => {
         isPro, 
         userId: userInfo._id
       }
-      Axios.post('http://localhost:5000/api/guide',guide)
+      Axios.post('/api/guide',guide)
       .then(res => {
         console.log(res.data)
         setMessage(res.data)
       })
       .catch(err => console.log(err))
-      Axios.put(`http://localhost:5000/api/user/guide/${userInfo._id}`)
+      Axios.put(`/api/user/guide/${userInfo._id}`)
       .then(res => {
         console.log(res.data)
         localStorage.setItem('userInfo',JSON.stringify(res.data))

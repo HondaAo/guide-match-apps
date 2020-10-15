@@ -16,6 +16,7 @@
     "google-map-react": "^2.1.7",
     "jquery": "^3.5.1",
     "moment": "^2.29.0",
+    "proxy": "^1.0.2",
     "query-string": "^6.13.5",
     "react": "^16.13.1",
     "react-bootstrap": "^1.0.0",
@@ -40,6 +41,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "proxy": "http://localhost:5000",
   "eslintConfig": {
     "extends": "react-app"
   },

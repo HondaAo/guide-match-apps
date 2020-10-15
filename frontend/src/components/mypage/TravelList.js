@@ -4,6 +4,7 @@ import { AuthContext } from '../../auth/AuthState';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import Axios from 'axios';
 import { Col, Row } from 'react-bootstrap';
+import { Avatar } from '@material-ui/core';
 
 const TravelList = ({ match }) => {
     const myId = match.params.id
@@ -11,7 +12,7 @@ const TravelList = ({ match }) => {
     const [ travellist, setTravellist ] = useState([])
     useEffect(()=>{
      setUserInfo(localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null)
-     Axios.get(`http://localhost:5000/api/user/${myId}`)
+     Axios.get(`/api/user/${myId}`)
     .then(res => {
        setTravellist(res.data.travellist)
        console.log(res.data.travellist)
@@ -39,7 +40,7 @@ const TravelList = ({ match }) => {
                 <Col md={4}>
                 <div className="favorite-card" >
                    <Link className="favorite-card-title" to={`/guide/${travel.guideId}`}>
-                    { travel.image  ? <img scr={travel.image} /> : <img src={'../images/ダウンロード.png'} />}</Link>
+                    { travel.image  ? <img scr={travel.image} /> : <Avatar />}</Link>
                    <hr />
                    <div className="favorite-content">
                        <div>

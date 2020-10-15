@@ -18,7 +18,7 @@ const ProfileUpdate = ({match}) => {
   const [ rate, setRate ] = useState('20');
   useEffect(()=>{
     setUserInfo(localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null)
-    Axios.get(`http://localhost:5000/api/guide/${guideId}`)
+    Axios.get(`/api/guide/${guideId}`)
     .then(res => {
         setGuideInfo(res.data)
         console.log(res.data)
@@ -34,7 +34,7 @@ const ProfileUpdate = ({match}) => {
           title,
           rate,
       }
-      Axios.put(`http://localhost:5000/api/guide/setting/${guideInfo._id}`,info)
+      Axios.put(`/api/guide/setting/${guideInfo._id}`,info)
       .then(res => {
           console.log(res.data)
       })

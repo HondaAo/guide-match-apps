@@ -14,7 +14,7 @@ const GuideDetail = ({match,history}) => {
     useEffect(()=>{
         setUserInfo(localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null)
         console.log(userInfo)
-        Axios.get(`http://localhost:5000/api/guide/guidelist/${guideId}`)
+        Axios.get(`/api/guide/guidelist/${guideId}`)
         .then(res => {
             setGuide(res.data)
             console.log(res.data)
@@ -31,7 +31,7 @@ const GuideDetail = ({match,history}) => {
             username: guide.name,
             sendername: userInfo.name
         }
-        const { data } = await Axios.post(`http://localhost:5000/api/chat`,chat)
+        const { data } = await Axios.post(`/api/chat`,chat)
         if(data){
             history.push(`/message?userId=${data.userId}&myId=${data.myId}`)
         }

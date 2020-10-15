@@ -16,7 +16,7 @@ const PersonalSetting = ({match}) => {
   const [ isGuide, setIsGuide ] = useState(false);
   useEffect(()=>{
     setUserInfo(localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null)
-    Axios.get(`http://localhost:5000/api/user/${myId}`)
+    Axios.get(`/api/user/${myId}`)
     .then(res => {
         setName(res.data.name)
         setEmail(res.data.email)
@@ -31,7 +31,7 @@ const PersonalSetting = ({match}) => {
           sex,
           email
       }
-      Axios.put(`http://localhost:5000/api/user/setting/${userInfo._id}`,info)
+      Axios.put(`/api/user/setting/${userInfo._id}`,info)
       .then(res => {
           alert(res.data)
       })

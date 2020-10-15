@@ -12,7 +12,7 @@ const Home = () => {
     const [ place, setPlace ] = useState('Kyoto')
     const [ button, setButton ] = useState('Home')
     useEffect(()=>{
-        Axios.get(`http://localhost:5000/api/guidelist?place=${place}`)
+        Axios.get(`/api/guidelist?place=${place}`)
         .then(res => {
             setGuides(res.data)
         })
@@ -176,7 +176,8 @@ const Home = () => {
                <Col xs={7} style={{ textAlign: 'center', marginLeft: '20px'}}>
                <Link to={`/place?city=Kualalumpur&country=Malaysia`} style={{ color: 'black'}}>
                  <h3>Kuala lumpur</h3>
-                 <p>The capital city of Malaysia is really atracting you.</p>
+                 <p>Kuala Lumpur is the capital city of Malaysia, boasting gleaming skyscrapers, colonial architecture, charming locals, and a myriad of natural attractions. </p>
+                 <button className="ui button youtube">Explore</button>
                </Link>
               </Col>
                </div>
@@ -187,8 +188,9 @@ const Home = () => {
                <Col xs={7} style={{ textAlign: 'center', marginLeft: '20px'}}>
                 <Link to={`/place?city=Hanoi&country=Vietnam`} style={{ color: 'black'}}>
                   <h3 style={{ marginLeft: '20px'}}>Hanoi</h3>
-                  <p>The capital city of Malaysia is really atracting you.</p>
-                </Link>
+                  <p style={{ marginLeft: '20px'}}>A great place to explore on foot, this French-colonial city is also known for its delectable cuisine, vibrant nightlife, silks and handicrafts</p>
+                  <button className="ui button youtube">Explore</button>
+                 </Link>
                </Col>
                </div>
                <div className="card-iphone">
@@ -198,7 +200,8 @@ const Home = () => {
                <Col xs={7} style={{ textAlign: 'center', marginLeft: '20px'}}>
                 <Link to={`/place?city=Danang&country=Vietnam`} style={{ color: 'black'}}>
                   <h3 style={{ marginLeft: '25px'}}>Danang</h3>
-                  <p>The capital city of Malaysia is really atracting you.</p>
+                  <p>Da Nang is known as the tourist capital of South Central Vietnam, with a west-coast location that makes for beautiful sunsets </p>
+                  <button className="ui button youtube">Explore</button>
                 </Link>
                </Col>
                </div>
