@@ -25,14 +25,14 @@ const ChatScreen = ({ match }) => {
   },[])
     return (
     <>
-    { chats ? (
+    { chats.length > 0 ? (
       <>
       <Row style={{ marginTop: '30px',padding: '3%'}}>
       <Col md={{ span: 6, offset: 3}}>
       <div style={{ justifyContent: 'space-between', display: 'flex'}}>
       <h3>Chats List</h3> 
       { userInfo ? (userInfo.isGuide ? (
-      <Button variant="primary"><Link to={`/chatforguide/${userInfo._id}`} style={{color: 'white', textDecoration: 'none'}}>Go Chat page as guide</Link></Button>
+      <button className="ui button youtube"><Link to={`/chatforguide/${userInfo._id}`} style={{color: 'white', textDecoration: 'none'}}>Go Chat page as guide</Link></button>
       ): null
       ):null}
       </div>
@@ -57,7 +57,21 @@ const ChatScreen = ({ match }) => {
      </>
     
     )
-    : <h1>No data</h1>}
+    :
+    <>
+    <h1 style={{ padding: '5%'}}>No Chat exists</h1>
+    <button className="ui button youtube" type="submit" style={{ width: '100%'}}>
+    { userInfo && userInfo.guideId ? (
+    <Link to={`/chatforguide/${userInfo._id}`} style={{color: 'white', textDecoration: 'none'}}>
+             Chat page for guide
+    </Link>
+    ) : (
+      <Link to={`/guideList`} style={{color: 'white', textDecoration: 'none'}}>
+      Get started
+      </Link>
+    )}
+     </button>
+      </>}
     
     </>
     )

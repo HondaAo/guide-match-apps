@@ -81,7 +81,7 @@ router.get('/:id',async(req,res)=>{
 })
 router.post('/favorite/:id',async(req,res)=>{
     const user = await User.findById(req.params.id)
-    const { name, title, cost, city, country, image, guideId } = req.body;
+    const { name, title, cost, city, country, image, guideId, landscape } = req.body;
     if(user){
       const guideList = {
         name,
@@ -90,7 +90,8 @@ router.post('/favorite/:id',async(req,res)=>{
         city,
         country,
         image,
-        guideId
+        guideId,
+        landscape
     }  
      user.favoriteGuides.push(guideList);
      await user.save()
@@ -133,12 +134,13 @@ router.put('/guide/:id',async(req,res)=>{
 })
 router.post('/travellist/:id',async(req,res)=>{
     const user = await User.findById(req.params.id)
-    const { guidename, guideId, date  } = req.body
+    const { guidename, guideId, date, landscape  } = req.body
     if(user){
        const travel = {
            guidename,
            guideId,
            date,
+           landscape,
            isFinished: false
        }
        user.travellist.push(travel)

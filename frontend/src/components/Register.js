@@ -27,7 +27,8 @@ const Register = ({history}) => {
     console.log(userInfo)
     return (
         <div style={{ padding: '5%'}}>
-          <h1>Sign Up</h1>
+          <strong>Sign Up</strong>
+          <hr />
           <Form onSubmit={submitHandler}>
               <Form.Group controlId='email'>
                   <Form.Label>
@@ -46,9 +47,7 @@ const Register = ({history}) => {
                   <Form.Control type="password" placeholder="password" onChange={(e)=> setPassword(e.target.value)}>
                   </Form.Control>
               </Form.Group>
-              <Button type="submit" variant="primary">
-                  Sign up
-              </Button>
+              <button className="ui button youtube" style={{ width: '100%'}} type="submit">Register</button>
           </Form>
           <Row className="py-3">
               <Col>

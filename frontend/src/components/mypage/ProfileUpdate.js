@@ -15,13 +15,18 @@ const ProfileUpdate = ({match}) => {
   const [ telephone, setTelephone ] = useState()
   const [ email, setEmail] = useState('');
   const [ title, setTitle ] = useState('');
-  const [ rate, setRate ] = useState('20');
+  const [ rate, setRate ] = useState('');
   useEffect(()=>{
     setUserInfo(localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null)
     Axios.get(`/api/guide/${guideId}`)
     .then(res => {
         setGuideInfo(res.data)
-        console.log(res.data)
+        setName(guideInfo.name)
+        setEmail(guideInfo.email)
+        setTelephone(guideInfo.telephone)
+        setTitle(guideInfo.title)
+        setRate(guideInfo.rate)
+        console.log(guideInfo)
     })
     .catch(err => alert(err))
   },[])
@@ -56,20 +61,19 @@ const ProfileUpdate = ({match}) => {
                  <InputLabel shrink>Name</InputLabel>
                  <InputBase
                    className=""
-                   value={guideInfo.name}
+                   placeholder={guideInfo.name}
                    inputProps={{ 'aria-label': 'naked' }}
                    onChange={(e)=> setName(e.target.value)}
-                   required
+                   
                  />
                  <hr />
                  <InputLabel shrink>Phone number</InputLabel>
                  <InputBase
                    className=""
-                   value={guideInfo.telephone}
-                   placeholder="enter your phonenumber"
+                   placeholder={guideInfo.telephone}
                    inputProps={{ 'aria-label': 'naked' }}
                    onChange={(e)=> setTelephone(e.target.value)}
-                   required
+                   
                  />
                  <hr />
                  <InputLabel shrink>Email</InputLabel>
@@ -78,13 +82,13 @@ const ProfileUpdate = ({match}) => {
                    placeholder={guideInfo.email}
                    inputProps={{ 'aria-label': 'naked' }}
                    onChange={(e)=> setEmail(e.target.value)}
-                   required
+                   
                  />
                  <hr />
                  <InputLabel shrink>title</InputLabel>
                  <InputBase
                    className=""
-                   value={guideInfo.title}
+                   placeholder={guideInfo.title}
                    inputProps={{ 'aria-label': 'naked' }}
                    onChange={(e)=> setTitle(e.target.value)}
                  />
@@ -92,7 +96,7 @@ const ProfileUpdate = ({match}) => {
                  <InputLabel shrink>rate</InputLabel>
                  <InputBase
                    className=""
-                   value={guideInfo.rate}
+                   placeholder={guideInfo.rate}
                    inputProps={{ 'aria-label': 'naked' }}
                    onChange={(e)=> setRate(e.target.value)}
                  />

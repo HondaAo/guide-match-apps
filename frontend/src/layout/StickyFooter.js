@@ -97,41 +97,7 @@ const StickyFooter = () => {
            Singopore
          </button> 
          </div>
-         <div className="image-scroll">
-         <div class="image-scroll-card">
-           <div class="image">
-             <img src="https://images.unsplash.com/photo-1542732450-e0859ec20080?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" />
-           </div>
-           <div class="content">
-             <h5><strong>Hanoi</strong></h5>
-             <div>
-               <p style={{ color: 'lightgrey'}}>the capital city of Vietnam</p>
-             </div>
-           </div>
-         </div>
-         <div class="image-scroll-card">
-           <div class="image">
-             <img src="https://images.unsplash.com/photo-1601114926368-efdd1375962b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" />
-           </div>
-           <div class="content">
-             <strong>Kuala lumpor</strong>
-             <div>
-               <p style={{ color: 'lightgrey'}}>the capital city of Malaysia</p>
-             </div>
-           </div>
-         </div>
-         <div class="image-scroll-card">
-           <div class="image">
-             <img src="https://images.unsplash.com/photo-1555752197-1e2ec4b5f4e0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" />
-           </div>
-           <div class="content">
-             <strong>Singapore</strong>
-             <div>
-               <p style={{ color: 'lightgrey'}}>the capital city of Malaysia</p>
-             </div>
-           </div>
-         </div>
-         </div>
+         
         </>
         </Modal>
         </>

@@ -1,9 +1,13 @@
 import Axios from 'axios'
 import React, { useContext, useEffect, useState } from 'react'
-import { Alert, Button, Col, Form, ListGroup, Row } from 'react-bootstrap'
+import { Alert, Button, Col, Container, Form, ListGroup, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { AuthContext } from '../auth/AuthState'
 import { Avatar } from '@material-ui/core'
+import MediaQuery from 'react-responsive'
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import StarIcon from '@material-ui/icons/Star';
 
 const GuideDetail = ({match,history}) => {
     const [ guide, setGuide] = useState(null)
@@ -37,6 +41,9 @@ const GuideDetail = ({match,history}) => {
         }
     }
     return (
+      <>
+    <MediaQuery query="(min-width: 767px)">
+      <Container>
         <Row style={{ marginTop: '10%'}}>
         {!guide ? <div className="ui active inline loader"></div> :(
         <>
@@ -85,7 +92,7 @@ const GuideDetail = ({match,history}) => {
                 <Form.Control as="textarea" value={text} onChange={(e)=> setText(e.target.value)} rows="3" required />
             </Form.Group>
             { userInfo ? (
-            <Button variant="secondary" size="lg" block>
+            <Button variant="secondary" size="lg" block type="submit">
               Submit
             </Button>
             ):(
@@ -99,6 +106,80 @@ const GuideDetail = ({match,history}) => {
         </>
         )}  
         </Row>
+      </Container>
+    </MediaQuery>
+      { guide ? (
+      <MediaQuery query="(max-width: 767px)">
+      <header style={{ margin: '3%', display: 'flex', justifyContent: 'space-between'}}>
+        <div>
+            <ArrowBackIosIcon style={{ marginRight: '20px'}} />
+            <strong>{guide.name}</strong>
+        </div>
+        <div>
+          <FavoriteBorderIcon />
+        </div>
+      </header>
+      <div className="guide-detail-img">
+        <img src={guide.landscape} width="100%" height="auto" />
+      </div>
+      <div className="guide-detail-content">
+       <h2>{guide.title} hosted by {guide.name}</h2>
+       <div className="guide-detail-content-header">
+        <div>
+         <p><StarIcon style={{ color: 'red'}} />{guide.star}</p>
+         <p><Link to={`/place?city=${guide.city}&country=${guide.country}`} style={{ color: 'lightgrey'}}>{guide.country},{guide.city}</Link></p>
+       </div>
+       <div style={{margin: '0 50px'}}>
+       </div>
+      
+      </div>
+      <hr />
+      <div className="">
+        <h4>Thank you for watching me</h4>
+        <p style={{ marginTop: '20px'}}> {guide.description}</p>
+      </div>
+      <hr />
+      <div className="guide-review">
+        {guide.reviews.length > 0 ? (
+        guide.reviews.map(review => (
+        <div className="guide-review-card">
+         <h2><StarIcon style={{ color: 'red'}} />{review.rating}{' '}{review.name}</h2>
+
+         <p> comment: {review.comment}</p>
+        </div>
+        ))
+        ):( <h3>No review</h3> )}
+      </div>
+      <hr />
+      </div>
+      <div className="guide-detail-bottom">
+        <div>
+          <h3><strong>${guide.rate}</strong></h3>
+          <p><StarIcon style={{ color: 'red'}} />{guide.star}</p>
+        </div>
+        <div>
+          <button className="ui button youtube">
+            Go chat page
+          </button>
+        </div>
+      </div>
+      <div className="guide-detail-detail">
+       <div style={{ display: 'flex', justifyContent: 'space-between' , padding: '5%'}}>
+       <div>
+       <h4>Hosted by <strong>{guide.name}</strong></h4>
+       <p>{guide.country}</p>
+       <p>{guide.city}</p>
+       </div>
+       <img src={guide.image} alt="img" width="100px" height="100px" style={{ borderRadius: '50%'}} />
+      </div>
+      </div>
+      <hr />
+      <div className="">
+
+      </div>
+      </MediaQuery>
+      ): null}
+      </>
     )
 }
 

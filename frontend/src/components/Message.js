@@ -7,6 +7,7 @@ import './Component.css'
 import { Avatar } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import Modal from 'react-modal'
+import CreateIcon from '@material-ui/icons/Create';
 
 
 const Message = ({location}) => {
@@ -18,21 +19,23 @@ const Message = ({location}) => {
     const [ date , setDate ] = useState('');
     const [ isBooked, setIsBooked ] =useState(false);
     const { userInfo, setUserInfo } = useContext(AuthContext);
+    const [ reservation, setReservation ] =useState(null)
     useEffect(()=>{
     setUserInfo(localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null)
-    Axios.get(`http://localhost:5000/api/guide/${query.userId}`)
+    Axios.get(`/api/guide/${query.userId}`)
      .then(res => {
          setGuide(res.data)
          console.log(res.data)
          console.log(res.data.reservations)
          if(res.data.reservations.length > 0){
-         const reservation = res.data.reservations.filter(reservation => reservation.clientId === userInfo._id)
+         setReservation(res.data.reservations.find(reservation => {
+          return reservation.clientId === query.myId
+         }))
          console.log(reservation)
-         setIsBooked(reservation.isBooked)
         }
      })
      .catch(err => console.log(err))
-     Axios.get(`http://localhost:5000/api/chat?userId=${query.userId}&myId=${query.myId}`)
+     Axios.get(`/api/chat?userId=${query.userId}&myId=${query.myId}`)
      .then(res => {
        setChats(res.data)
        console.log(res.data)
@@ -66,12 +69,14 @@ const Message = ({location}) => {
       const travel = {
         guidename: guide.name,
         date,
-        guideId: guide._id
+        guideId: guide._id,
+        landscape: guide.landscape
       }
       Axios.post(`/api/guide/book/${guide._id}`,reservation)
       .then(res => {
         console.log(res.data)
         setIsBooked(true)
+        setModal(false)
         Axios.post(`/api/user/travellist/${userInfo._id}`,travel)
        .then(res => console.log(res.data))
        .catch(err => console.log(err))
@@ -82,15 +87,20 @@ const Message = ({location}) => {
     }
     return (
          <>
-        { guide ? (
+        { guide  ? (
           <>
           <Row style={{ marginTop: '40px'}}>
               <Col md={{ span: 6, offset: 3}} className="overflow-auto">
                <h2>Chat Message</h2>
                <div style={{ display: 'flex', justifyContent: 'space-between'}}>
                <Link to={`/profile/${guide._id}`}><h3>{guide.name}</h3></Link>
-              { isBooked ? null : <button className="ui basic button" onClick={()=> setModal(prev => !prev)}>reservation</button>}
-               </div>
+              <>
+              { reservation && reservation.isBooked ? null : <button className="ui basic button" onClick={()=> {
+                console.log(reservation.isBooked)
+                setModal(prev => !prev)
+               }}>reservation</button>}
+              </>
+              </div>
                { chats.length === 0 ? (
                  <h3>Start Chatting!!</h3>
                  ) : ( 
@@ -122,8 +132,14 @@ const Message = ({location}) => {
                    )}
                    </>
                  ))}
-                 { isBooked ? (
-                 <Link to={`/chat/payment/${guide._id}`}><div class="ui blue message" style={{ width: '70%', margin: '0 auto'}}><i class="inbox icon"></i>Please write review and pay fees after your trip</div></Link> ): null }
+                 { reservation && reservation.isBooked ? (
+                  <>
+                 <Link to={`/chat/payment/${guide._id}`}><div class="ui blue message" style={{ width: '70%', margin: '0 auto'}}><i class="inbox icon"></i>Payment</div></Link> 
+                 </>): null }
+                 { reservation && reservation.isFinished ? (
+                  <>
+                 <Link to={`/review/${guide._id}`}><div class="ui blue message" style={{ width: '70%', margin: '0 auto'}}><i class="inbox icon"></i>write a review</div></Link> 
+                 </>): null }
                 </>
                 )}
                <form onSubmit={onSubmit}>
@@ -158,9 +174,9 @@ const Message = ({location}) => {
             <Form.Label>Rate($)</Form.Label>
             <Form.Control type="text" placeholder="Readonly input here..." value={guide.rate} readOnly />
           </FormGroup>
-          <Button variant="primary" type="submit">
+          <button className="ui button twitter" type="submit" style={{  width: '100%'}}>
             Submit
-          </Button>
+          </button>
          </Form>
          </Modal>
          </>
@@ -178,9 +194,11 @@ const Message = ({location}) => {
           right                 : 'auto',
           bottom                : 'auto',
           padding               : '5%',
-          marginRight           : '-50%',
+          margin                : '0 auto',
           transform             : 'translate(-50%, -50%)',
-          textAlign             : 'center'
+          textAlign             : 'center',
+          width                 : '90%',
+
        }
       };
 export default Message

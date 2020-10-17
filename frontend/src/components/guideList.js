@@ -237,20 +237,20 @@ const GuideList = ({ history }) => {
           <div className="guide-list-image-text-iphone">
           <h2>Unique Experience with us</h2> 
           <p>Settle in somewhere new. Discover nearby stays to live, work, or just relax.</p>
-          <button className="ui green button">Get Started</button>
+          <button className="ui button black">Get Started</button>
           </div>
       </div>  
-      <form className="search-bar-iphone" onSubmit={Search}>
+      {/* <form className="search-bar-iphone" onSubmit={Search}>
       <div class="ui action input" style={{ width: '100%'}}>
         <input type="text" placeholder="Where do you go? ....." value={text} onChange={(e)=> setText(e.target.value)} style={{ width: '70%'}}/>
         <button class="ui icon button" type="submit">
           <i class="search icon"></i>
         </button>
       </div>
-      </form>
+      </form> */}
+      <h5 style={{ margin: '20px'}}>Destinations List</h5>
      { destinations.length === 0 ? null : (
      <div className="destination-list">
-      <h5 style={{ marginLeft: '20px'}}>Destinations List</h5>
       { destinations.map(destination => (
       <Link to={`/place?city=${destination.city}&country=${destination.country}`} style={{ color: 'black'}}>
        <Row className="destination-iphone">
@@ -267,21 +267,20 @@ const GuideList = ({ history }) => {
       </div>
      )}
      <div className="other-experience">
-      <h5>Other's experience</h5>
       <Row className="unique-list">
           <Col md={4}>
-            <Link to="/setting" className="unique-list-card" >
+            <Link to="/setting" className="unique-list-card"style={{ color: 'black'}} >
               <div className="unique-list-card-title">
                <img src="https://images.unsplash.com/photo-1504095649265-b37198e9c711?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" />
               </div>
               <div className="unique-list-card-content" style={{ borderBottomLeftRadius: '30px',borderBottomRightRadius: '30px', border: 'solid 2px lightgrey'}}>
-                <strong>Local Experience</strong>
+                <strong>Original tour</strong>
                 <p>Let's check local tour and guide</p>
               </div>
             </Link>
           </Col>
           <Col md={4}>
-          <Link to="/setting" className="unique-list-card" >
+          <Link to="/setting" className="unique-list-card" style={{ color: 'black'}}>
               <div className="unique-list-card-title">
                <img src="https://images.unsplash.com/photo-1587127964224-ee5b0a61933d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" />
               </div>
@@ -292,26 +291,25 @@ const GuideList = ({ history }) => {
             </Link>
           </Col>
           <Col md={4}>
-          <Link to="/setting" className="unique-list-card">
+          <Link to="/setting" className="unique-list-card" style={{ color: 'black'}}>
               <div className="unique-list-card-title" >
                <img src="https://images.unsplash.com/photo-1500981458086-b8a11cd163af?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" />
               </div>
               <div className="unique-list-card-content" style={{ borderBottomLeftRadius: '30px',borderBottomRightRadius: '30px', border: 'solid 2px lightgrey'}}>
-                <strong>Experiental Post</strong>
+                <strong>Traveller's Post</strong>
                 <p>Let's check other's posts</p>
               </div>
             </Link>
           </Col>
         </Row>
+        <div style={{ width: '100%', textAlign: 'center', marginTop: "-20px"}}>
+        <button class="ui secondary button">
+           See all posts
+         </button>
+        </div>
      </div>
-     <div className="alert">
+     <div className="alert-guide-list">
                <Col xs={{ span: 10, offset: 1}}>
-               <div>
-               <h3> Let's Travel safely</h3>
-               <p style={{ marginTop: '15px'}}>We’ve established enhanced cleaning protocols, developed by experts, for both Stays and Experiences to help keep you safe on every trip. </p>
-               <p style={{ marginTop: '15px'}}>Treat your host’s space and neighborhood with respect – wear a mask, wash your hands, avoid large gatherings, and stay 6 feet apart whenever possible</p>
-               <p style={{ marginTop: '15px'}}>Prioritize your safety, and be aware of local COVID-19 rules and expectations. Don’t travel if you’ve been exposed to or have symptoms of COVID-19.</p>
-               </div>
                <div style={{ marginTop: '30px'}}>
                  <strong >About us</strong>
                  <p style={{ marginTop: '10px'}}>Travel expo</p>

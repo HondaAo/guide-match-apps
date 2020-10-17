@@ -53,7 +53,7 @@ const PersonalSetting = ({match}) => {
                  <InputLabel shrink>Name</InputLabel>
                  <InputBase
                    className=""
-                   value={userInfo.name}
+                   defaultValue={userInfo.name}
                    inputProps={{ 'aria-label': 'naked' }}
                    onChange={(e)=> setName(e.target.value)}
                    required

@@ -14,6 +14,7 @@ import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ContactMailIcon from '@material-ui/icons/ContactMail';
 import Modal from 'react-modal'
 import MediaQuery from 'react-responsive';
+import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 
 Modal.setAppElement('#root')
 const Profile = ({match}) => {
@@ -91,7 +92,7 @@ const Profile = ({match}) => {
         <div className="profile-introduction">
           <h1>Introduction</h1>
           <p><LocationOnIcon />{' '}{guideInfo.city}/{guideInfo.country}</p>
-          <p><LanguageIcon />{' '}{guideInfo.languages}</p>
+          <p><AssignmentTurnedInIcon />{' '}{guideInfo.isPro ? <p>Amatuar</p> : <p>Pro guide</p>}</p>
         </div>
         <hr />
         <div className="profile-rating" style={{ display: 'flex', justifyContent: 'space-between'}}>
@@ -111,7 +112,13 @@ const Profile = ({match}) => {
           <button className="negative ui button" onClick={()=> setIsModalOpen(prev => !prev)}><i className="bullhorn icon"></i>Report</button>
           <Link to={`/review/${guideInfo._id}`}><button className="ui twitter button"><i class="edit icon"></i>Assessment</button></Link>
           </>
-        ): null : null }
+        ): null : (
+          <>
+        <h3>You have not registered as guide yet.</h3> 
+        <Link to="/guide" className="ui button youtube"></Link>
+        </>
+        )
+        }
          </div>
         </Col>
         </Row>
@@ -158,15 +165,15 @@ const Profile = ({match}) => {
         </div>
         <hr />
         <div className="profile-introduction">
-          <h1>Introduction</h1>
+          <strong>Introduction</strong>
           <p><LocationOnIcon />{' '}{guideInfo.city}/{guideInfo.country} </p>
-          <p><LanguageIcon />{' '}{guideInfo.languages}</p>
+          <p><AssignmentTurnedInIcon />{' '}{!guideInfo.isPro ? 'Amatuar' : <>Pro guide</>}</p>
           <p><AttachMoneyIcon />{' '}{guideInfo.rate}</p>
         </div>
         <hr />
         <div className="profile-rating">
-          <h3><StarBorderIcon />{' '}Rating {guideInfo.star}</h3>
-          <p>see reviews</p>
+          <p><StarBorderIcon />{' '}Rating:  {guideInfo.star === 0 ? 'no guide experience' : guideInfo.star}</p>
+          <p>{guideInfo.star === 0 ? null: <Link to={`/review/${guideInfo._id}`} >see reviews</Link>}</p>
         </div>
         <div className="profile-button">
         { userInfo ? userInfo._id !== guideInfo.userId ? (

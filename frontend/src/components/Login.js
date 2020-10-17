@@ -23,7 +23,8 @@ const Login = ({ history }) => {
     },[userInfo,history])
     return (
         <div style={{ padding: '5%'}}>
-          <h1>Sign In</h1>
+          <strong>Sign In</strong>
+          <hr />
           <Form onSubmit={submitHandler}>
               <Form.Group controlId='email'>
                   <Form.Label>
@@ -37,13 +38,11 @@ const Login = ({ history }) => {
                   <Form.Control type="password" placeholder="password" onChange={(e)=> setPassword(e.target.value)}>
                   </Form.Control>
               </Form.Group>
-              <Button type="submit" variant="primary">
-                  Sign In
-              </Button>
+              <button className="ui button youtube" style={{ width: '100%'}} type="submit">Sign In</button>
           </Form>
           <Row className="py-3">
               <Col>
-               New Customer ? <Link to='/register'>Register</Link>
+               already having an account ? <Link to='/register'>Register</Link>
               </Col>
           </Row>
         </div>

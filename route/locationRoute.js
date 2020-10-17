@@ -54,6 +54,34 @@ router.get('/',(req,res)=>{
         }
         res.json(place)
     }
+    // if( city === 'Bangkok'){
+    //     const place = {
+    //         lat:,
+    //         lng:,
+    //     }
+    //     res.json(place)
+    // }
+    // if( city === 'Pucket'){
+    //     const place = {
+    //         lat:,
+    //         lng:,
+    //     }
+    //     res.json(place)
+    // }
+    // if( city === 'Koh Samui'){
+    //     const place = {
+    //         lat:,
+    //         lng:,
+    //     }
+    //     res.json(place)
+    // }
+    // if( city === 'Chiang Mai'){
+    //     const place = {
+    //         lat:,
+    //         lng:,
+    //     }
+    //     res.json(place)
+    // }
 })
 router.get('/list',(req,res)=>{
     const destinations = [
@@ -94,11 +122,30 @@ router.get('/list',(req,res)=>{
             isPopular: false
         },
         {
-            country: 'Malaysia',
-            city: 'Borneo',
+            country: 'Thailand',
+            city: 'Bangkok',
+            image: 'https://images.unsplash.com/photo-1566830646346-908d87490bba?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
+            isPopular: false
+        },
+        {
+            country: 'Thailand',
+            city: 'Chiang Mai',
+            image: 'https://images.unsplash.com/photo-1513568720563-6a5b8c6caab3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
+            isPopular: false
+        },
+        {
+            country: 'Thailand',
+            city: 'Koh Samui',
             image: 'https://images.unsplash.com/photo-1587876428420-fe2f4a39c694?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
             isPopular: false
-        }
+        },
+        {
+            country: 'Thailand',
+            city: 'Pucket',
+            image: 'https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60https://images.unsplash.com/photo-1587876428420-fe2f4a39c694?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
+            isPopular: false
+        },
+
     ]
     res.json(destinations)
 })

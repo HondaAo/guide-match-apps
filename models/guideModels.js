@@ -77,9 +77,9 @@ const guideSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    languages: {
-        type: [String],
-        required: true
+    landscape: {
+        type: String,
+        default: ''
     },
     rate: {
         type: String,

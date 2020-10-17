@@ -9,16 +9,16 @@ import IntlTelInput from 'react-bootstrap-intl-tel-input';
 import Axios from 'axios';
 import { AuthContext } from '../auth/AuthState';
 
-const GuideSetting = ({ location }) => {
+const GuideSetting = ({ location, history }) => {
     const query = parse(location.search);
     const { userInfo, setUserInfo } = useContext(AuthContext);
     const [ name, setName ] = useState(null)
-    const [ country, setCountry] = useState('');
-    const [ city, setCity ] = useState('');
-    const [ languages, setLanguages] = useState([]);
+    const [ file, setFile ] = useState('');
     const [ telephone, setTelephone ] = useState('')
     const [ email, setEmail] = useState('');
     const [ description, setDescription] = useState('');
+    const [ city, setCity ] = useState(query.city);
+    const [ country, setCountry ] = useState(query.country)
     const [ isPro, setIsPro] = useState(false);
     const [ guide, setGuide ] = useState(null)
     const [ title, setTitle ] = useState('');
@@ -60,9 +60,22 @@ const GuideSetting = ({ location }) => {
         .then(res => {
           console.log(res.data)
           localStorage.setItem('userInfo',JSON.stringify(res.data))
-          alert('Registered')
         })
         .catch(err => alert(err))
+      const formData = new FormData()
+         formData.append('image', file)
+         console.log(file)
+         const config = {
+           headers: {
+               'content-type': 'multipart/form-data'
+           }
+         };
+         Axios.post(`/api/image/guide/${userInfo._id}`,formData,config)
+         .then(res => {
+           console.log(res.data)
+           history.push(`/`)
+         })
+         .catch(err => alert(err))
     }
     return (
         <div className="guide-setting-page">
@@ -98,22 +111,15 @@ const GuideSetting = ({ location }) => {
                   }}
                 />
             </Form.Group>
-            <Form.Group>
-                 <Form.Label>Languages</Form.Label>
-                  <Typeahead
-                    id="basic-typeahead-multiple"
-                    labelKey="name"
-                    multiple
-                    onChange={setLanguages}
-                    options={options}
-                    placeholder="Choose several states..."
-                    selected={languages}
-                    required
-                  />
-               </Form.Group>
+              <Form.Group>
+                <Form.Label>
+                  Photo that show what is like your guide
+                </Form.Label>
+                <input type="file" onChange={(e)=> setFile(e.target.files[0])} />
+              </Form.Group>
               <Form.Group controlId="exampleForm.ControlTextarea1">
                 <Form.Label>Description(Something special)</Form.Label>
-                <Form.Control as="textarea" value={description} onChange={(e)=> setDescription(e.target.value)} rows="3" required />
+                <Form.Control as="textarea" value={description} placeholder="Please write what service you will provide and how unique that is. If you can, It is better for traveller to comment more detail about your free day." onChange={(e)=> setDescription(e.target.value)} rows="5" required />
               </Form.Group>
               <Button variant="danger" size="lg" active fullWidth type="submit">
                 Submit

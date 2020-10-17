@@ -39,12 +39,12 @@ const Favorite = ({ match }) => {
            <Col md={4} >
                <div className="favorite-card" style={{ marginBottom: '30px'}} >
                    <Link className="favorite-card-title" to={`/guide/${guide.guideId}`}>
-                      <img scr={guide.image} style={{ width: '100%', height: '100px'}} /> 
+                      <img src={guide.landscape} style={{ width: '100%', maxHeight: '150px'}} /> 
                    </Link>
                    <hr />
                    <div className="favorite-content">
                        <div>
-                       <h4>{guide.name}</h4>
+                       <strong>{guide.name}</strong>
                        <p style={{ color: 'grey'}}>{guide.city}/{guide.country}</p>
                        </div>
                        <div>

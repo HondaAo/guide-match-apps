@@ -10,7 +10,7 @@
     background-size: cover;
     height: 50vh; 
     padding: 8%;
-    padding-top: 14%;
+    padding-top: 21%;
     color: white;
     margin-right: 0.5%;
 }
@@ -214,7 +214,7 @@
     height: 25vh;
 }
 .unique-experience{
-    height: 95vh;
+    height: 75vh;
     background-color: black;
     color: white;
     padding: 3%;
@@ -241,6 +241,7 @@
     border-radius: 50%;
     height: 100px;
     width: 100px;
+    margin-right: 20px;
 }
 .profile-introduction{
     padding: 5%;
@@ -372,7 +373,7 @@
 }
 .alert{
     margin-top: 30px;
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: rgba(0, 0, 0, 0.05);
     height: fit-content;
     padding-bottom: 6%;
 }
@@ -438,8 +439,28 @@
     display: flex;
     margin: 20px 0;
 }
+.alert-guide-list{
+    height: 60vh;
+    background-color: rgba(0, 0, 0, 0.1);
+    padding-top: 3%;
+}
 .destination-list{
     margin-top: 40px;
+    max-height: 470px;
+    -webkit-box-direction: normal !important;
+    -webkit-box-orient: vertical !important;
+    -webkit-box-lines: multiple !important;
+    overflow-x: auto !important;
+    display: flex !important;
+    -webkit-flex-wrap: wrap !important;
+    -ms-flex-wrap: wrap !important;
+    flex-wrap: wrap !important;
+    -webkit-flex-direction: column !important;
+    -ms-flex-direction: column !important;
+    flex-direction: column !important;
+    -webkit-scroll-snap-type: x mandatory !important;
+    -ms-scroll-snap-type: x mandatory !important;
+    scroll-snap-type: x mandatory !important;
 }
 .destination-iphone:hover{
   background-color: rgba(0, 0, 0, 0.1);
@@ -488,4 +509,83 @@
     padding: 3%;
     margin-top: 30px;
     display: flex;
+}
+.finish-message{
+    width: 90%;
+    margin: 0 auto;
+    background-color: lightgrey;
+}
+.header-iphone-search-bar{
+    height: 70px;
+    padding: 10px;
+    background-color: white;
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    z-index: 100;
+}
+.search {
+    width: 90%;
+    margin: 0 auto;
+    height: 50px;
+    background-color: rgba(0,0,0,0.03);
+    border-radius: 15px;
+    display: flex;
+}
+
+.search-input {
+    padding: 0 10px;
+    width: 86%;
+    background-color: rgba(0,0,0,0.03);
+    font-size: 19px;
+    font-weight: 300;
+    color: black;
+    transition: width 0.4s linear;
+    border: none;
+}
+
+.search .search-input {
+    padding: 0 10px;
+    width: 90%;
+    caret-color: #536bf6;
+    font-size: 19px;
+    font-weight: 300;
+    color: black;
+    transition: width 0.4s linear
+}
+
+.search-icon {
+    width: 44px;
+    float: right;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: pink;
+}
+
+.search-icon:hover {
+    color: #fff !important
+}
+.guide-detail-content{
+    margin-top: 40px;
+    padding: 0 3%;
+}
+.guide-detail-content-header{
+    display: flex;
+    justify-content: space-between;
+    margin: 30px 0;
+}
+.guide-detail-bottom{
+    position: fixed;
+    bottom: 0;
+    z-index: 100;
+    width: 100%;
+    padding: 3%;
+    display: flex;
+    justify-content: space-between;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.28) 0px 8px 28px;
+}
+.guide-review{
+    min-height: 150px;
 }

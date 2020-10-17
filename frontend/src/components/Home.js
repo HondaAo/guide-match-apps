@@ -7,18 +7,31 @@ import MediaQuery from "react-responsive";
 import { Container, IconButton } from '@material-ui/core'
 import StickyFooter from '../layout/StickyFooter'
 import StarBorderIcon from '@material-ui/icons/StarBorder';
+import SearchIcon from '@material-ui/icons/Search';
+
+const scrollTop = () => {
+  return Math.max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop);
+};
+
 
 const Home = () => {
-    const [ guides, setGuides ] = useState([])
-    const [ place, setPlace ] = useState('Kyoto')
     const [ button, setButton ] = useState('Home')
-    useEffect(()=>{
-        Axios.get(`/api/guidelist?place=${place}`)
-        .then(res => {
-            setGuides(res.data)
-        })
-        .catch(err => console.log(err))
-    },[])
+    const [isTop, setIsTop] = useState(true);
+    useEffect(() => {
+      document.addEventListener("scroll", onScroll);
+      return () => document.removeEventListener("scroll", onScroll);
+    });
+    const onScroll = ()=>{
+      const position = scrollTop();
+    　if (position >= 80) {
+      setIsTop(false);
+    　} else {
+      setIsTop(true);
+    　}
+    }
+    const onFocus=()=>{
+
+    }
     return (
         <>
         <MediaQuery query="(min-width: 767px)">
@@ -36,22 +49,22 @@ const Home = () => {
          <Container className="pickedUp">
             <Row>
                 <Col md={3}>
-                <div className="pickedHeader">
+                <Link className="pickedHeader"  to={`/place?city=Hanoi&country=Vietnam`} >
                 <div class="ui card">
                   <Link class="image" to={`/place?city=Hanoi&country=Vietnam`}>
                     <img src="https://images.unsplash.com/photo-1528127269322-539801943592?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"/>
                   </Link>
                   <div class="content">
-                    <a class="header" href="#">Halong Bay</a>
+                    <a class="header" href="">Hanoi / Halong Bay</a>
                     <div class="meta">
-                      <a>Last Seen 2 days ago</a>
+                      <a>Vietnam</a>
                     </div>
                   </div>
                 </div>
-                </div>
+                </Link>
                 </Col>
                 <Col md={3}>
-                <div className="pickedHeader">
+                <Link className="pickedHeader" to={`/place?city=Malacca&country=Malaysia`}>
                 <div class="ui card">
                   <Link class="image" to={`/place?city=Malacca&country=Malaysia`}>
                     <img src="https://images.unsplash.com/photo-1600320161090-2e2ce64a0dde?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"/>
@@ -59,29 +72,29 @@ const Home = () => {
                   <div class="content">
                     <a class="header" href="#">Malacca</a>
                     <div class="meta">
-                      <a>Last Seen 2 days ago</a>
+                      <a>Malaysia</a>
                     </div>
                   </div>
                 </div>
-                </div>
+                </Link>
                 </Col>
                 <Col md={3}>
-                <div className="pickedHeader">
+                <Link className="pickedHeader" to={`/place?city=Danang&country=Vietnam`}>
                 <div class="ui card">
                   <Link class="image" to={`/place?city=Danang&country=Vietnam`}>
                     <img src="https://images.unsplash.com/photo-1569271532956-3fb81a207115?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"/>
                   </Link>
                   <div class="content">
-                    <a class="header" href="#">Hoian</a>
+                    <a class="header" href="#">Danang / Hoian</a>
                     <div class="meta">
-                      <a>Last Seen 2 days ago</a>
+                      <a>Vietnam</a>
                     </div>
                   </div>
                 </div>
-                </div>
+                </Link>
                 </Col>
                 <Col md={3}>
-                <div className="pickedHeader">
+                <Link className="pickedHeader" to={`/place?city=singapore&country=singapore`}>
                 <div class="ui card">
                   <Link class="image" to={`/place?city=singapore&country=singapore`}>
                     <img src="https://images.unsplash.com/photo-1517570123306-d58896657b2c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"/>
@@ -93,7 +106,7 @@ const Home = () => {
                     </div>
                   </div>
                 </div>
-                </div>
+                </Link>
                 </Col>
             </Row>
             </Container>
@@ -109,7 +122,18 @@ const Home = () => {
               </div>
               <Container>
                 <Row>
-                  <Col md={6}>
+                  <Col md={4}>
+                    <Card style={{ marginTop: '20px'}}>
+                    <Card.Img variant="top" src="https://images.unsplash.com/photo-1506801310323-534be5e7a730?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" />
+                    <Card.Body className="unique-experience-body">
+                      <Card.Text >
+                        Some quick example text to build on the card title and make up the bulk of
+                        the card's content.
+                      </Card.Text>
+                    </Card.Body>
+                    </Card>
+                  </Col>
+                  <Col md={4}>
                     <Card style={{ marginTop: '20px'}}>
                     <Card.Img variant="top" src="https://images.unsplash.com/photo-1568333409654-2fa274761195?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" />
                     <Card.Body className="unique-experience-body">
@@ -120,18 +144,9 @@ const Home = () => {
                     </Card.Body>
                     </Card>
                   </Col>
-                  <Col md={6}>
-                  <Card style={{ marginTop: '20px'}}>
-                    <Card.Img variant="top" src="https://cdn.pixabay.com/photo/2019/05/20/12/05/nature-4216510__480.jpg" />
-                    <Card.Body className="unique-experience-body">
-                      <Card.Text >
-                        Some quick example text to build on the card title and make up the bulk of
-                        the card's content.
-                      </Card.Text>
-                    </Card.Body>
-                    </Card>
-                  <Card style={{ marginTop: '20px'}}>
-                    <Card.Img variant="top" src="https://cdn.pixabay.com/photo/2019/10/05/11/52/nature-4527797__480.jpg" />
+                  <Col md={4}>
+                    <Card style={{ marginTop: '20px'}}>
+                    <Card.Img variant="top" src="https://images.unsplash.com/photo-1515662139884-1ba754b53417?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" />
                     <Card.Body className="unique-experience-body">
                       <Card.Text >
                         Some quick example text to build on the card title and make up the bulk of
@@ -148,13 +163,17 @@ const Home = () => {
             </div>
             </MediaQuery>
             <MediaQuery query="(max-width: 767px)">
+            <div style={{ overflow: 'auto'}}>
+            { !isTop ? <header className="header-iphone-search-bar" >
+            <form class="search"> <input type="text" class="search-input" placeholder="Where do you go next ?" name="" onFocus={onFocus} /> <Link to={`/`} class="search-icon"> <SearchIcon type="submit" /> </Link> </form>
+            </header> : null }
              <Row className="image-header-iphone">
                <h1 >Explore New World</h1>
                <p >Our service is especially for traveller and inhabitants who are looking forward to seeing with new oppurtunity</p>
                <Link to="/guideList"><button class="ui pink button">Start exploring</button></Link>
              </Row>
              <Row className="top-contents-iphone">
-              <Col xs={{ span: '10', offset: '1'}}>
+              {/* <Col xs={{ span: '10', offset: '1'}}>
               <h5 style={{ marginLeft: '15px'}}>Popular destinations</h5>
                <Link to={`/place?city=Singapore&country=Singapore`} style={{ color: 'black',padding: '3%'}}>
                <div className="card-iphone-image" style={{ borderRadius: '30px', }}>
@@ -167,7 +186,8 @@ const Home = () => {
                 </div>
                </div>
                </Link>
-              </Col>
+              </Col> */}
+              <h5 style={{ marginLeft: '45px'}}>Popular destinations</h5>
               <div className="iphone-container">
                <Link to={`/place?city=Kualalumpur&country=Malaysia`} className="card-iphone">
                 <div className="card-iphone-title">
@@ -176,6 +196,15 @@ const Home = () => {
                 <div className="card-iphone-content">
                   <strong>Kuala lumpur</strong>
                   <p>Malaysia</p>
+                </div>
+               </Link>
+               <Link to={`/place?city=Singapore&country=Singapore`} className="card-iphone">
+                <div className="card-iphone-title">
+                  <img src="https://images.unsplash.com/flagged/photo-1562503542-2a1e6f03b16b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" />
+                </div>
+                <div className="card-iphone-content">
+                  <strong>Singapore</strong>
+                  <p>Singapore</p>
                 </div>
                </Link>
                <Link to={`/place?city=Hanoi&country=Vietnam`} className="card-iphone">
@@ -197,6 +226,53 @@ const Home = () => {
                 </div>
                </Link>
               </div>
+              <Link to="/guideList" class="fluid ui basic button" style={{ marginLeft: '30px'}}>
+                Check More destinations
+                <i class="angle double right icon"></i>
+              </Link>
+              <h5 style={{ marginLeft: '45px'}}>Unique Experiences</h5>
+              <div className="iphone-container">
+               <Link to={`/setting`} className="card-iphone">
+                <div className="card-iphone-title">
+                  <img src="https://images.unsplash.com/photo-1549641951-32b98701e434?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" />
+                </div>
+                <div className="card-iphone-content">
+                  <strong>Race fileds</strong>
+                  <p>Vietnam</p>
+                </div>
+               </Link>
+               <Link to={`/setting`} className="card-iphone">
+                <div className="card-iphone-title">
+                  <img src="https://images.unsplash.com/photo-1506801310323-534be5e7a730?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" />
+                </div>
+                <div className="card-iphone-content">
+                  <strong>travel around Bongkok by boat</strong>
+                  <p>Bankok Thailand</p>
+                </div>
+               </Link>
+               <Link to={`/setting`} className="card-iphone">
+                <div className="card-iphone-title">
+                  <img src="https://images.unsplash.com/photo-1515662139884-1ba754b53417?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" />
+                </div>
+                <div className="card-iphone-content">
+                  <strong>Playing with Elephant</strong>
+                  <p>Thailand</p>
+                </div>
+               </Link>
+               <Link to={`/setting`} className="card-iphone">
+                <div className="card-iphone-title">
+                  <img src="https://images.unsplash.com/photo-1509682841784-c7960cbb7608?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" />
+                </div>
+                <div className="card-iphone-content">
+                  <strong>Various Festivals</strong>
+                  <p>Thailand, Vietnam, Malaysia</p>
+                </div>
+               </Link>
+              </div>
+              <Link to="/setting" class="fluid ui basic button" style={{ marginLeft: '30px'}}>
+                Check More Guides and Tours
+                <i class="angle double right icon"></i>
+              </Link>
               <div className="alert">
                <Col xs={{ span: 10, offset: 1}}>
                <div>
@@ -223,6 +299,7 @@ const Home = () => {
                </Col>
               </div>
              </Row>
+            </div>
             </MediaQuery>
         </>
     )

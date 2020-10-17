@@ -170,72 +170,51 @@ const Location = ({ location }) => {
         </div>
         </MediaQuery>
         <MediaQuery query="(max-width: 767px)">
-        <div style={{ height: '60px',padding: '5%'}}>
-         <Link to="/guideList"><ArrowBackIosIcon /></Link>
-        </div>
         <div className='location-left-iphone'>
-           <div style={{ padding: '5%'}}>
-           <h1>{city}</h1>
-           <p>Check travel restrictions before booking.Please review and follow government travel guidelines.</p>
-           <button class="ui basic button" style={{ margin: '10px'}}>
-            Kualum pool
-           </button>
-           <button class="ui basic button" style={{ margin: '10px'}}>
-             Danang
-           </button>
-           <button class="ui basic button" style={{ margin: '10px'}}>
-             Bankok
-           </button>
-           <button class="ui basic button" style={{ margin: '10px'}}>
-             HoChiMinh
-           </button>
-           </div>
+           <header style={{ paddingLeft: '3%', display: 'flex'}}>
+            <Link to="/guideList"><ArrowBackIosIcon style={{ marginRight: '20px'}} /></Link>
+            <strong>{city}</strong>
+           </header>
            <div className={ slide ? 'displayNone' : 'location-iphone-header' }>
-           <div>
-             <h3>Newer guides</h3>
-             <hr />
-           </div>
+             <p style={{ color: 'lightgrey'}}> the result of 「{city},{country}」</p>
           </div>
           <div className={ slide ? 'displayNone' : null }>
             <div className="iphone-container-guide-list" style={{  marginTop: '30px'}}>
             { guides !== null ? (
                 guides.map(guide =>(
-                   <div class="ui raised card" style={{ width: '100%', border: 'solid 1px lightgrey', borderRadius: '20px'}} >
-                     <div class="content">
-                       <Link to={`/guide/${guide._id}`} style={{ color: 'black', textDecoration: 'none'}}><div class="">{guide.title}</div></Link>
-                       <div className="meta" style={{ display: 'flex',justifyContent: 'space-between'}}>
-                         <span className="category">${guide.rate}/ a day</span>
-                         { guide.image !== "" ? <img src={guide.image} /> : <Avatar /> }
-                       </div>
-                       <div class="description">
-                         <p>Place: {guide.city}/{guide.country}</p>
-                         <p>Experience: {guide.experience < 3 ? 'novice guide' : 'well-experienced guid' } </p>
-                         <p>Language: {guide.languages}</p>
-                       </div>
-                     </div>
-                     <div class="extra content">
-                       <div className="left floated">
-                        <FavoriteBorderIcon onClick={()=>{
+                <Link to={`/guide/${guide._id}`} style={{ color: 'black', textDecoration: 'none'}}>
+                   <div class="guide-card" style={{ width: '100%'}} >
+                     <div class="content" style={{ width: '100%', position: 'relative'}}>
+                       <img src={guide.landscape} style={{ width: '100%', maxHeight: '150px', borderRadius: '10px',}} />
+                       <FavoriteBorderIcon onClick={()=>{
                           const favorite = {
                             name: guide.name,
                             guideId: guide._id,
                             city: guide.city,
                             country: guide.country,
                             title: guide.title,
-                            image: guide.image
+                            image: guide.image,
+                            landscape: guide.landscape
                           }
                           Axios.post(`/api/user/favorite/${userInfo._id}`,favorite)
                           .then(res => alert(res.data))
                           .catch(err => alert(err))
-                        }} />
-                       </div>
-                       <div class="right floated author">
-                         <StarIcon /> {guide.star}
-                       </div>
+                           
+                        }} 
+                        style={{ position: 'absolute', top:'10px',left: '10px'}}
+                        />
                      </div>
-                   </div>
+                     <div class="guide-card-content">
+                      <StarIcon style={{ color: 'red'}} />{guide.star}<br/>
+                      <strong>{guide.title}{' '}{guide.name}</strong>
+                      <p>{guide.description}</p>
+                      <p style={{ color: 'lightgrey'}}>${guide.rate}/ a day</p>
+                     </div>
+                    </div>
+                </Link>
                 ))
-            ): <h3>Currently No Guide Exists</h3>}
+            ): <strong>Currently No Guide Exists</strong>
+               }
               </div>
             <div className="">
 

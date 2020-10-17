@@ -43,6 +43,15 @@ router.post('/:id',upload.single('image'), async(req,res)=>{
         }
     }
 })
+router.post('/guide/:id',upload.single('image'),async(req,res)=>{
+    const guide = await Guide.findOne({ userId: req.params.id })
+    if(guide){
+        const url = req.protocol + '://' + req.get('host')
+        const image = url + '/public/' + req.file.filename
+        guide.landscape = image
+        await guide.save()
+    }
+})
 router.get('/:id',async(req,res)=>{
     const guide = await Guide.findById(req.params.id)
     res.send(guide.image)

@@ -3,18 +3,16 @@ const router = express.Router();
 const Guide = require('../models/guideModels')
 const User = require('../models/userModel')
 const Request = require('../models/requestModel');
-const { findById } = require('../models/userModel');
 
 router.post('/', async(req,res)=>{
-    const {name,telephone,email,country,city,title,description,languages,rate,isPro,userId,image} = req.body;
+    const {name,telephone,email,country,city,title,description,languages,rate,isPro,userId,image, landscape} = req.body;
     
-    console.log(req.body)
     const guideExists = await Guide.findOne({email})
     if(guideExists){
         res.status(400).send('guide alreaddy exists')
     }
     const user = await User.findById(userId)
-    const newGuide = await Guide.create({name,telephone,email,country,city,title,description,languages,rate,isPro, userId, image})
+    const newGuide = await Guide.create({name,telephone,email,country,city,title,description,languages,rate,isPro, userId, image, landscape})
     if(user){
       user.guideId = newGuide._id
       await user.save();

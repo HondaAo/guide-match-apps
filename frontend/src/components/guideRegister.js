@@ -363,6 +363,7 @@ const GuideRegister = () => {
                <option value="Vietnam">Vietnam</option>
                <option value="Malaysia">Malaysia</option>
                <option value="Singapore">Singapore</option>
+               <option value="Thailand">Thailand</option>
              </Form.Control>
             </Form.Group>
             <Form.Group>
@@ -372,22 +373,32 @@ const GuideRegister = () => {
                  <>
                  <option value="Hanoi">Hanoi</option>
                  <option value="Danang">Danang</option>
-                 <option value="Hochiminh">Ho Chi min</option>
+                 <option value="Hochiminh">Ho Chi minh</option>
                  </>
                ): null}
                { country === 'Malaysia' ? (
                  <>
                  <option value="Kualalumol">Kuala lumpol</option>
                  <option value="Malacca">Malacca</option>
+                 <option value="Johor Bahru">Johor Bahru</option>
+                 <option value="Borneo">Borneo</option>
                  </>
                ): null}
                { country === 'Singapore' ? (
                  <option value="Singapore">Singapore</option>
                ): null }
+               { country === 'Thailand' ? (
+                 <>
+                 <option value="Bangkok">Bangkok</option>
+                 <option value="Pucket">Pucket</option>
+                 <option value="Koh Samui">Koh Samui</option>
+                 <option value="Chiang Mai">Chiang Mai</option>
+                 </>
+               ): null}
              </Form.Control>
             </Form.Group>
            <Link to={`guidesetting?country=${country}&city=${city}`}>
-           <button className="ui button youtube" type="submit">
+           <button className="ui button youtube" type="submit" style={{ width: '100%'}}>
              Get started
            </button>
            </Link>

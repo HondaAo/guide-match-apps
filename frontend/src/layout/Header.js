@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react'
-import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap'
+import { Col, Container, Nav, Navbar, NavDropdown, Row } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../auth/AuthState';
@@ -18,43 +18,24 @@ const Header = () => {
     return (
       <>
       <MediaQuery query="(min-width: 767px)">
-        <Navbar bg="dark" variant="dark" expand="lg" className="navbar">
-         <Container className="">
-          <Navbar.Brand href="/">Expo-travel</Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="ml-auto">
-                { userInfo ? (
-                  <>
-                <LinkContainer to='#'><Nav.Link href="#"><GroupIcon />{' '}Join us</Nav.Link></LinkContainer>
-                 <NavDropdown title="Menu">
-                  {userInfo.isGuide ? (
-                  <NavDropdown.Item>
-                    <Link to={`/mypage/${userInfo._id}`}style={{ color: 'black',textDecoration: 'none'}}><AccountBoxIcon />{' '}Mypage</Link>
-                  </NavDropdown.Item>
-                  )
-                  : null}
-                  <NavDropdown.Item>
-                    <Link to={`/chat/${userInfo._id}`}style={{ color: 'black',textDecoration: 'none'}}><ChatIcon />{' '}chat</Link>
-                  </NavDropdown.Item>
-                 <NavDropdown.Item onClick={()=> logout()}>
-                  <ExitToAppIcon />{' '}Logout
-                 </NavDropdown.Item>
-                 </NavDropdown>
-                 </>
-                ):(
-                <>
-                <LinkContainer to='/register'><Nav.Link href="/register">Sign up</Nav.Link></LinkContainer>
-                <LinkContainer to='/login'><Nav.Link href="/login">Sign In</Nav.Link></LinkContainer>
-                </>
-                )}
-            </Nav>
-          </Navbar.Collapse>
+        <header className="guide-app-header">
+         <Container>
+           <Row className="header-row">
+             <Col md={6} classname="header-left">
+              <h3>Expo-Travel</h3>
+             </Col>
+             <Col md={6} className="header-right">
+              <h5><Link to={`/login`} style={{ color: 'black'}}>SignIn</Link></h5>
+              <h5><Link to={`/register`} style={{ color: 'black'}}>SignUp</Link></h5>
+              <h5><Link to="/setting" style={{ color: 'black'}}>aboutUs</Link></h5>
+              <h5><Link to="/setting" style={{ color: 'black'}}>Career</Link></h5>
+             </Col>
+           </Row>
          </Container>
-        </Navbar>
+        </header>
       </MediaQuery>
       <MediaQuery query="(max-width: 767px)">
-        <h></h>
+      <h2></h2>
        {/* <Navbar bg="dark" variant="dark" expand="lg" className="navbar">
          {/* <Container className="">
           <Navbar.Brand href="/">Expo-travel</Navbar.Brand>
