@@ -1,5 +1,5 @@
 import Axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Row, Col, Card, Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import './Component.css'
@@ -8,6 +8,7 @@ import { Container, IconButton } from '@material-ui/core'
 import StickyFooter from '../layout/StickyFooter'
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import SearchIcon from '@material-ui/icons/Search';
+import { AuthContext } from '../auth/AuthState'
 
 const scrollTop = () => {
   return Math.max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop);
@@ -17,6 +18,10 @@ const scrollTop = () => {
 const Home = () => {
     const [ button, setButton ] = useState('Home')
     const [isTop, setIsTop] = useState(true);
+    const { logout, userInfo, setUserInfo } = useContext(AuthContext);
+    useEffect(()=>{
+     setUserInfo(localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null)
+    },[])
     useEffect(() => {
       document.addEventListener("scroll", onScroll);
       return () => document.removeEventListener("scroll", onScroll);
@@ -36,10 +41,29 @@ const Home = () => {
         <>
         <MediaQuery query="(min-width: 767px)">
          <div className="image-header">
+           <header className="image-header-header">
+             <Container>
+               <Row>
+                 <Col md={6}>
+                  <h3>Expo-travel</h3>
+                 </Col>
+                 <Col md={6} style={{ textAlign: 'right'}}>
+                { userInfo ? (
+                  <Link to="/guide"><button className="ui inverted button">Become a guide</button></Link>
+                ): (
+                  <Link to="/login"><button class="ui inverted button">Login</button></Link>
+                )}
+                 </Col>
+               </Row>
+             </Container>
+           </header>
+           <div className="image-header-text">
             <h2>Explore new experience</h2>
             <p>Settle in somewhere new. Discover stays to live, work, or just relax.</p>
             <Link to="/guideList"><button class="ui pink button">Start exploring</button></Link>
+          </div>
          </div>
+         <div className="home-second-contents">
          <div className="aboutUs">
              <h2>_____</h2>
              <h1>About us</h1>
@@ -47,6 +71,10 @@ const Home = () => {
              Airbnb Experiences are not your typical tour. Whether you’re on a trip, exploring your own city, or staying at home, learn something new from an expert host. Choose from dance lessons, pasta-making—even yoga with goats.</p>
          </div>  
          <Container className="pickedUp">
+          <div style={{ width: '100%', textAlign: 'center', marginBottom: '30px'}}>
+             <h2>_____</h2>
+             <h1>Trendy Places</h1>
+          </div>
             <Row>
                 <Col md={3}>
                 <Link className="pickedHeader"  to={`/place?city=Hanoi&country=Vietnam`} >
@@ -94,15 +122,15 @@ const Home = () => {
                 </Link>
                 </Col>
                 <Col md={3}>
-                <Link className="pickedHeader" to={`/place?city=singapore&country=singapore`}>
+                <Link className="pickedHeader" to={`/place?city=Singapore&country=Singapore`}>
                 <div class="ui card">
-                  <Link class="image" to={`/place?city=singapore&country=singapore`}>
+                  <Link class="image" to={`/place?city=Singapore&country=Singapore`}>
                     <img src="https://images.unsplash.com/photo-1517570123306-d58896657b2c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"/>
                   </Link>
                   <div class="content">
                     <a class="header" href="#">Singapore</a>
                     <div class="meta">
-                      <a>Last Seen 2 days ago</a>
+                      <a>Singapore</a>
                     </div>
                   </div>
                 </div>
@@ -110,6 +138,7 @@ const Home = () => {
                 </Col>
             </Row>
             </Container>
+            </div>
             <div className="unique-experience">
               <div className="unique-experience-header">
               <div className="unique-experience-header-left">
@@ -159,7 +188,38 @@ const Home = () => {
               </Container>
             </div>
             <div className="home-image">
-               <h2>Having a superb holiday!!</h2>  
+            <Container>
+             <Row>
+               <Col md={3} style={{ marginTop: '30px'}}>
+                 <strong >About us</strong>
+                 <p style={{ marginTop: '10px'}}>Travel expo</p>
+                 <p>Our History</p>
+                 <p>Contact</p>
+                 <p>Careers</p>
+                 <p>How we create new society</p>
+               </Col>
+               <Col md={3} style={{ marginTop: '30px'}}>
+                 <strong >Guide</strong>
+                 <p style={{ marginTop: '10px'}}>Travel expo</p>
+                 <p>Our History</p>
+                 <p>Contact</p>
+                 <p>Careers</p>
+                 <p>How we create new society</p>
+               </Col>
+               <Col md={3} style={{ marginTop: '20px'}}>
+                 <strong >Community</strong>
+                 <p style={{ marginTop: '10px'}}>COVID-19 news</p>
+                 <p>About Privacy</p>
+                 <p>Help Center</p>
+               </Col>
+               <Col md={3} style={{ marginTop: '20px'}}>
+                 <strong >Support</strong>
+                 <p style={{ marginTop: '10px'}}>COVID-19 news</p>
+                 <p>About Privacy</p>
+                 <p>Help Center</p>
+               </Col>
+              </Row>
+             </Container>
             </div>
             </MediaQuery>
             <MediaQuery query="(max-width: 767px)">
@@ -170,7 +230,6 @@ const Home = () => {
              <Row className="image-header-iphone">
                <h1 >Explore New World</h1>
                <p >Our service is especially for traveller and inhabitants who are looking forward to seeing with new oppurtunity</p>
-               <Link to="/guideList"><button class="ui pink button">Start exploring</button></Link>
              </Row>
              <Row className="top-contents-iphone">
               {/* <Col xs={{ span: '10', offset: '1'}}>
@@ -230,7 +289,7 @@ const Home = () => {
                 Check More destinations
                 <i class="angle double right icon"></i>
               </Link>
-              <h5 style={{ marginLeft: '45px'}}>Unique Experiences</h5>
+              <h5 style={{ marginLeft: '45px', marginTop: '20px'}}>Unique Experiences</h5>
               <div className="iphone-container">
                <Link to={`/setting`} className="card-iphone">
                 <div className="card-iphone-title">

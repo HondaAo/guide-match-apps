@@ -10,6 +10,7 @@ import Modal from 'react-modal'
 import WarningIcon from '@material-ui/icons/Warning';
 import HomeIcon from '@material-ui/icons/Home';
 import './Layout.css'
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 
 const StickyFooter = () => {
     const { userInfo, setUserInfo } = useContext(AuthContext);
@@ -29,9 +30,10 @@ const StickyFooter = () => {
             </Link>
            </div>
           <div className="footer-icon">
-              { userInfo ? <Link to={`/favorite/${userInfo._id}`} style={{ color: 'grey',textDecoration: 'none'}} > 
-              <LocationOnIcon />
-              <p>Favorite</p></Link> :  <> <LocationOnIcon /><p>Favorite</p></>}
+              <Link to={`/guideList`} style={{ color: 'grey',textDecoration: 'none'}} > 
+              <SearchIcon />
+              <p>Search</p>
+              </Link>
           </div>
           <div className="footer-icon">
           { userInfo ? (
@@ -59,9 +61,11 @@ const StickyFooter = () => {
               </Link>
              )}
           </div> 
-          <div className="footer-icon" onClick={()=> setIsModalOpen(true)}>
-              <AnnouncementIcon />
-              <p>Alert</p>
+          <div className="footer-icon">
+          { userInfo ? <Link to={`/favorite/${userInfo._id}`} style={{ color: 'grey',textDecoration: 'none'}} > 
+          <FavoriteBorderIcon />
+              <p>Favorites</p>
+          </Link> : <FavoriteBorderIcon />}
           </div>
         </div>
         <Modal

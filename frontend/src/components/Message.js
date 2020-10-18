@@ -45,7 +45,7 @@ const Message = ({location}) => {
     const onSubmit = (e)=>{
       e.preventDefault();
       const message = {
-        userId: guide.userId,
+        userId: guide._id,
         username: guide.name,
         sendername: userInfo.name,
         myId: userInfo._id,
@@ -95,8 +95,7 @@ const Message = ({location}) => {
                <div style={{ display: 'flex', justifyContent: 'space-between'}}>
                <Link to={`/profile/${guide._id}`}><h3>{guide.name}</h3></Link>
               <>
-              { reservation && reservation.isBooked ? null : <button className="ui basic button" onClick={()=> {
-                console.log(reservation.isBooked)
+              { reservation ? null : <button className="ui basic button" onClick={()=> {
                 setModal(prev => !prev)
                }}>reservation</button>}
               </>

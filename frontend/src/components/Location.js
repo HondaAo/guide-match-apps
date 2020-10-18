@@ -185,7 +185,7 @@ const Location = ({ location }) => {
                 <Link to={`/guide/${guide._id}`} style={{ color: 'black', textDecoration: 'none'}}>
                    <div class="guide-card" style={{ width: '100%'}} >
                      <div class="content" style={{ width: '100%', position: 'relative'}}>
-                       <img src={guide.landscape} style={{ width: '100%', maxHeight: '150px', borderRadius: '10px',}} />
+                       <img src={guide.landscape} style={{ width: '100%', maxHeight: '200px', borderRadius: '10px',}} />
                        <FavoriteBorderIcon onClick={()=>{
                           const favorite = {
                             name: guide.name,

@@ -17,7 +17,7 @@ const Header = () => {
     },[])
     return (
       <>
-      <MediaQuery query="(min-width: 767px)">
+      {/* <MediaQuery query="(min-width: 767px)">
         <header className="guide-app-header">
          <Container>
            <Row className="header-row">
@@ -34,7 +34,7 @@ const Header = () => {
          </Container>
         </header>
       </MediaQuery>
-      <MediaQuery query="(max-width: 767px)">
+      <MediaQuery query="(max-width: 767px)"> */}
       <h2></h2>
        {/* <Navbar bg="dark" variant="dark" expand="lg" className="navbar">
          {/* <Container className="">
@@ -74,7 +74,6 @@ const Header = () => {
         </button>
       </div>
       </div> */}
-      </MediaQuery> 
       </>
     )
 }

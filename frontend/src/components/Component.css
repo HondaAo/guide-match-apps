@@ -1,9 +1,22 @@
 .image-header{
-    padding: 5%;
+    padding: 2%;
     background-image: url('./images/photo-1485774043635-d42ceede5758.jpeg');
     background-size: cover;
-    height: 80vh;
+    height: 100vh;
     color: white;
+    position: relative;
+}
+.image-header-text{
+    position: absolute;
+    top: 40vh;
+    left: 10vh;
+    color: white;
+}
+.image-header-header{
+    color: white;
+}
+.home-second-contents{
+    height: 100vh;
 }
 .image-header-iphone{
     background-image: url('https://images.unsplash.com/photo-1504807959081-3dafd3871909?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60');
@@ -138,8 +151,8 @@
     height: 33vh;
 }
 .iphone-container{
-    width: 88%;
-    margin-left: 10%;
+    width: 100%;
+    margin-left: 25px;
     display:flex;
     scroll-snap-type: x mandatory;
     overflow: auto;
@@ -154,7 +167,7 @@
     border-radius: 30px;
     width: inherit;
     width: 88%;
-    margin: 20px 20px;
+    margin: 20px 14px;
     scroll-snap-align: start;
     flex: none;
     color: black;
@@ -186,9 +199,10 @@
    margin-bottom: 40px;
 }
 .home-image{
-    height: 50vh;
-    background-image: url('./pexels-photo-207385.jpeg');
-    background-size: cover;
+    height: 40vh;
+    background-color: rgba(0, 0, 0, 0.1);
+    padding-left: 10%;
+    padding-top: 1%;
 }
 .home-image > h2{
     color: white;
@@ -214,7 +228,7 @@
     height: 25vh;
 }
 .unique-experience{
-    height: 75vh;
+    height: 65vh;
     background-color: black;
     color: white;
     padding: 3%;
@@ -438,6 +452,7 @@
 .destination-iphone{
     display: flex;
     margin: 20px 0;
+    width: 90%;
 }
 .alert-guide-list{
     height: 60vh;
@@ -447,19 +462,11 @@
 .destination-list{
     margin-top: 40px;
     max-height: 470px;
-    -webkit-box-direction: normal !important;
-    -webkit-box-orient: vertical !important;
-    -webkit-box-lines: multiple !important;
     overflow-x: auto !important;
     display: flex !important;
-    -webkit-flex-wrap: wrap !important;
-    -ms-flex-wrap: wrap !important;
     flex-wrap: wrap !important;
     -webkit-flex-direction: column !important;
-    -ms-flex-direction: column !important;
     flex-direction: column !important;
-    -webkit-scroll-snap-type: x mandatory !important;
-    -ms-scroll-snap-type: x mandatory !important;
     scroll-snap-type: x mandatory !important;
 }
 .destination-iphone:hover{
@@ -474,6 +481,9 @@
     border-color: lightgrey;
     box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.3);
     padding-left: 5%;
+}
+.destination-iphone-card{
+
 }
 .other-experience{
     padding: 3%;
@@ -588,4 +598,33 @@
 }
 .guide-review{
     min-height: 150px;
+}
+.guide-review-cards{
+    width: 100%;
+    margin-left: 5px;
+    display:flex;
+    scroll-snap-type: x mandatory;
+    overflow: auto;
+}
+.guide-review-card{
+    height: 20vh;
+    border: 1px solid lightgrey;
+    border-radius: 30px;
+    width: inherit;
+    width: 88%;
+    margin: 20px 14px;
+    scroll-snap-align: start;
+    flex: none;
+    color: black;
+    padding: 5%;
+}
+.report{
+    padding: 5%;
+    height: 6vh;
+    text-align: center;
+}
+.contact-guide{
+    padding: 3%;
+    height: 25vh;
+    margin-bottom: 30px;
 }

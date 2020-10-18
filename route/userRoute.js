@@ -7,6 +7,9 @@ const ObjectID = require('bson-objectid');
 router.post('/login', async(req,res)=>{
     const { email, password } = req.body 
     const user = await User.findOne({email})
+    if(!user){
+        res.status(401).send('No user exists, please confirm ypur email ')
+    }
     if(user && (await user.matchPassword(password))){
        res.json({
            _id: user._id,

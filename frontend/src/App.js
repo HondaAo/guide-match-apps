@@ -43,12 +43,12 @@ function App() {
       <Route path="/" exact component={Home} />
       <Route path="/place" component={Location} />
       <Route path="/guide/:id" component={GuideDetail} />
+      <Route path="/guideList" exact component={guideList} />
      <Container>
       <Route path="/login" component={Login}/>
       <Route path="/register" component={Register}/>
       <Route path="/guide" exact component={guideRegister} />
       <Route path="/guidesetting" component={GuideSetting} />
-      <Route path="/guideList" exact component={guideList} />
       <Route path="/aboutUs" component={aboutUs} />
       <Route path="/message" component={Message} />
       <Route path="/chat/:id" exact component={ChatScreen} />

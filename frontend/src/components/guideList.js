@@ -1,6 +1,6 @@
 import Axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { Button, Card, Col, Row } from 'react-bootstrap'
+import { Button, Card, Col, Container, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import GoogleMapReact, { MapOptions, Maps } from 'google-map-react'
 import RoomIcon from '@material-ui/icons/Room';
@@ -149,8 +149,8 @@ const GuideList = ({ history }) => {
       { destinations.length !== 0  ? (
       <>
       { destinations.map(destination => (
-      <Link to={`/place?city=${destination.city}&country=${destination.country}`} style={{ color: 'black'}}>
-       <Row className="destination-iphone">
+      <Link to={`/place?city=${destination.city}&country=${destination.country}`} style={{ color: 'black'}} className="destination-iphone">
+       <Row className="destination-iphone-card">
          <Col xs={3}>
           <img src={destination.image} width="100%" height="auto"/>
          </Col>
@@ -252,8 +252,9 @@ const GuideList = ({ history }) => {
      { destinations.length === 0 ? null : (
      <div className="destination-list">
       { destinations.map(destination => (
+      <Container className="destination-iphone">
       <Link to={`/place?city=${destination.city}&country=${destination.country}`} style={{ color: 'black'}}>
-       <Row className="destination-iphone">
+       <Row >
          <Col xs={3}>
           <img src={destination.image} width="100%" height="auto"/>
          </Col>
@@ -263,10 +264,11 @@ const GuideList = ({ history }) => {
          </Col>
        </Row>
       </Link>
+      </Container>
       ))}
       </div>
      )}
-     <div className="other-experience">
+     <Container className="other-experience">
       <Row className="unique-list">
           <Col md={4}>
             <Link to="/setting" className="unique-list-card"style={{ color: 'black'}} >
@@ -307,7 +309,7 @@ const GuideList = ({ history }) => {
            See all posts
          </button>
         </div>
-     </div>
+     </Container>
      <div className="alert-guide-list">
                <Col xs={{ span: 10, offset: 1}}>
                <div style={{ marginTop: '30px'}}>
@@ -326,7 +328,7 @@ const GuideList = ({ history }) => {
                  <p>Help Center</p>
                </div>
                </Col>
-              </div>
+        </div>
       </MediaQuery>
         </>
     )

@@ -20,6 +20,9 @@ const guideSchema = mongoose.Schema({
     image: {
         type: String
     },
+    landscape: {
+        type: String
+    },
     guideId: {
         type: String
     }
