@@ -52,7 +52,7 @@ const Message = ({location}) => {
         text,
         sender: userInfo._id
       }
-      Axios.post('http://localhost:5000/api/chat',message)
+      Axios.post('/api/chat',message)
       .then(res => {
         setChats([...chats, res.data])
         setText('');
