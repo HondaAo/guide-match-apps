@@ -69,5 +69,16 @@ router.put('/setting/:id',async(req,res)=>{
     console.log(guide)
     res.json(guide)
 })
+router.put('/payment',async(req,res)=>{
+    const guide = await Guide.findOne({ _id: req.query['guide']})
+    if(guide){
+        const reservation = guide.reservations.find(reservation => reservation.clientId === req.query['client'])
+        if(reservation){
+            reservation.isPaid = true
+            await guide.save()
+            await res.send('Successfully Paid')
+        }
+    }
+})
 
 module.exports =router;

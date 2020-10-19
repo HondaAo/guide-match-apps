@@ -469,6 +469,16 @@
     flex-direction: column !important;
     scroll-snap-type: x mandatory !important;
 }
+.destination-list-laptop{
+    margin-top: 40px;
+    max-height: 600px;
+    overflow-x: auto !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    -webkit-flex-direction: column !important;
+    flex-direction: column !important;
+    scroll-snap-type: x mandatory !important;
+}
 .destination-iphone:hover{
   background-color: rgba(0, 0, 0, 0.1);
 }

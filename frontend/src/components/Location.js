@@ -92,11 +92,13 @@ const Location = ({ location }) => {
         <MediaQuery query="(min-width: 767px)">
         <div className="location-page">
          <div className="location-right">
+         { place ? (
          <GoogleMapReact
             bootstrapURLKeys={{
               key: process.env.GOOGLE_API_KEY,
               language: 'en'
             }}
+            
             defaultCenter={{
               lat: place.lat,
               lng: place.lng
@@ -104,25 +106,30 @@ const Location = ({ location }) => {
             defaultZoom={13}
             options={createMapOptions}
              >
-          { place ? (<pin
+          <pin
           lat={place.lat}
           lng={place.lng}
           >
           </pin>
-          ): null}
-         </GoogleMapReact> 
+         </GoogleMapReact>  ): null}
          </div>
          <div className="location-left">
          <h3>Picked Place</h3>
-         <button class="ui basic button" style={{ margin: '10px'}}>
-           Kualum pool
-         </button>
-         <button class="ui basic button" style={{ margin: '10px'}}>
+         <Link to={`/place?city=Kualalumpur&country=Malaysia`}>
+           <button class="ui basic button" style={{ margin: '10px'}}> Kuala lumpur</button>
+         </Link>
+         <Link to={`/place?city=Malacca&country=Malaysia`}>
+           <button class="ui basic button" style={{ margin: '10px'}}> Malacca</button>
+         </Link>
+         <Link to={`/place?city=Bangkok&country=Thailand`}>
+           <button class="ui basic button" style={{ margin: '10px'}}> Bangkok</button>
+         </Link>
+         <Link to={`/place?city=Danang&country=Vietnam`} class="ui basic button" style={{ margin: '10px'}}>
            Danang
-         </button>
-         <button class="ui basic button" style={{ margin: '10px'}}>
+         </Link>
+         <Link to={`/place?city=Singapore&country=Singapore`} class="ui basic button" style={{ margin: '10px'}}>
            Singopore
-         </button>
+         </Link>
           <div style={{ display: 'flex', justifyContent: 'space-between'}}>
            <div>
            <h1>{city}</h1>

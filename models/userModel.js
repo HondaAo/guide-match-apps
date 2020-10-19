@@ -52,6 +52,9 @@ const travellistSchema = mongoose.Schema({
     },
     guideId: {
         type: String,
+    },
+    landscape: {
+        type: String
     }
 })
 

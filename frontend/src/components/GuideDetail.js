@@ -51,6 +51,9 @@ const GuideDetail = ({match,history}) => {
         {!guide ? <div className="ui active inline loader"></div> :(
         <>
           <Col md={6}>
+        <div className="guide-detail-img">
+        <img src={guide.landscape} width="100%" height="auto" style={{ borderRadius: '20px', marginBottom: '30px'}} />
+        </div>
           <strong>Details</strong>
           <ListGroup variant="flush">
             {/* <ListGroup.Item>Language:{' '}{guide.languages.map(item => <strong>{item}{' '}</strong>)}</ListGroup.Item> */}

@@ -65,7 +65,7 @@ const StickyFooter = () => {
           { userInfo ? <Link to={`/favorite/${userInfo._id}`} style={{ color: 'grey',textDecoration: 'none'}} > 
           <FavoriteBorderIcon />
               <p>Favorites</p>
-          </Link> : <FavoriteBorderIcon />}
+          </Link> : <><FavoriteBorderIcon /><p>Favorites</p></>}
           </div>
         </div>
         <Modal

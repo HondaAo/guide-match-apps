@@ -11,6 +11,7 @@ import Carousel from '@brainhubeu/react-carousel'
 import '@brainhubeu/react-carousel/lib/style.css';
 import MediaQuery from 'react-responsive';
 import SearchIcon from '@material-ui/icons/Search';
+import { Helmet } from 'react-helmet';
 
 const GuideList = ({ history }) => {
     const [ guides, setGuides ] = useState([])
@@ -95,6 +96,9 @@ const GuideList = ({ history }) => {
     }
     return (
         <>
+        <Helmet>
+          Location List
+        </Helmet>
         <MediaQuery query="(min-width: 767px)">
         <Row className="guide-list-image">
           <div className="text">
@@ -102,7 +106,7 @@ const GuideList = ({ history }) => {
           <p>Settle in somewhere new. Discover nearby stays to live, work, or just relax.</p>
           </div>
         </Row>
-        
+        <Container>
         <Row className="google-map">
         <Col md={7} style={{ height: '75vh'}} >
           <h2>Popular destination In South East Asia</h2>
@@ -148,6 +152,7 @@ const GuideList = ({ history }) => {
       <hr />
       { destinations.length !== 0  ? (
       <>
+      <div className="destination-list-laptop">
       { destinations.map(destination => (
       <Link to={`/place?city=${destination.city}&country=${destination.country}`} style={{ color: 'black'}} className="destination-iphone">
        <Row className="destination-iphone-card">
@@ -161,6 +166,7 @@ const GuideList = ({ history }) => {
        </Row>
       </Link>
       ))}
+      </div>
       </>
       ): null}
       </Col>
@@ -222,15 +228,41 @@ const GuideList = ({ history }) => {
           </p>
         </Col>
       </Row>
-      <Row style={{ marginTop: '100px'}}>
-        <Col md={{ span:6, offset: 3}} style={{ textAlign: 'center'}}>
-          <h2>Explore a world of travel with Expo</h2>
-          <Link to="/aboutUs">see our unique service</Link>
-        </Col>
-      </Row>
-      <Row className="footer-list-image">
-       <h3>Find Next Destination</h3>
-      </Row>
+      </Container>
+      <div className="home-image">
+            <Container>
+             <Row>
+               <Col md={3} style={{ marginTop: '30px'}}>
+                 <strong >About us</strong>
+                 <p style={{ marginTop: '10px'}}>Travel expo</p>
+                 <p>Our History</p>
+                 <p>Contact</p>
+                 <p>Careers</p>
+                 <p>How we create new society</p>
+               </Col>
+               <Col md={3} style={{ marginTop: '30px'}}>
+                 <strong >Guide</strong>
+                 <p style={{ marginTop: '10px'}}>Travel expo</p>
+                 <p>Our History</p>
+                 <p>Contact</p>
+                 <p>Careers</p>
+                 <p>How we create new society</p>
+               </Col>
+               <Col md={3} style={{ marginTop: '20px'}}>
+                 <strong >Community</strong>
+                 <p style={{ marginTop: '10px'}}>COVID-19 news</p>
+                 <p>About Privacy</p>
+                 <p>Help Center</p>
+               </Col>
+               <Col md={3} style={{ marginTop: '20px'}}>
+                 <strong >Support</strong>
+                 <p style={{ marginTop: '10px'}}>COVID-19 news</p>
+                 <p>About Privacy</p>
+                 <p>Help Center</p>
+               </Col>
+              </Row>
+             </Container>
+            </div>
       </MediaQuery>
       <MediaQuery query="(max-width: 767px)">
       <div className="guide-list-image-iphone">
@@ -255,10 +287,10 @@ const GuideList = ({ history }) => {
       <Container className="destination-iphone">
       <Link to={`/place?city=${destination.city}&country=${destination.country}`} style={{ color: 'black'}}>
        <Row >
-         <Col xs={3}>
+         <Col xs={4}>
           <img src={destination.image} width="100%" height="auto"/>
          </Col>
-         <Col xs={{ span: 8, offset: 1}} style={{ justifyContent: 'center'}}>
+         <Col xs={8} style={{ justifyContent: 'center'}}>
           <p>{destination.city}</p>
           <p style={{ color: 'lightgrey', marginTop: '-5px'}}>{destination.country}</p>
          </Col>
@@ -304,8 +336,8 @@ const GuideList = ({ history }) => {
             </Link>
           </Col>
         </Row>
-        <div style={{ width: '100%', textAlign: 'center', marginTop: "-20px"}}>
-        <button class="ui secondary button">
+        <div style={{ width: '100%', textAlign: 'center', margin: "20px 0"}}>
+        <button class="ui secondary button" style={{ width: '100%'}}>
            See all posts
          </button>
         </div>

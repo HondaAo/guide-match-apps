@@ -133,7 +133,7 @@ const Message = ({location}) => {
                  ))}
                  { reservation && reservation.isBooked ? (
                   <>
-                 <Link to={`/chat/payment/${guide._id}`}><div class="ui blue message" style={{ width: '70%', margin: '0 auto'}}><i class="inbox icon"></i>Payment</div></Link> 
+                 <Link to={`/chat/payment/${guide._id}`}><div class="ui blue message" style={{ width: '70%', margin: '0 auto'}}><i class="inbox icon"></i>Go Payment</div></Link> 
                  </>): null }
                  { reservation && reservation.isFinished ? (
                   <>

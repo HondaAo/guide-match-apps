@@ -9,6 +9,7 @@ import StickyFooter from '../layout/StickyFooter'
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import SearchIcon from '@material-ui/icons/Search';
 import { AuthContext } from '../auth/AuthState'
+import { Helmet } from 'react-helmet';
 
 const scrollTop = () => {
   return Math.max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop);
@@ -39,6 +40,9 @@ const Home = () => {
     }
     return (
         <>
+　　　　　<Helmet>
+         Home Page
+        </Helmet>
         <MediaQuery query="(min-width: 767px)">
          <div className="image-header">
            <header className="image-header-header">
@@ -49,7 +53,10 @@ const Home = () => {
                  </Col>
                  <Col md={6} style={{ textAlign: 'right'}}>
                 { userInfo ? (
+                  <>
                   <Link to="/guide"><button className="ui inverted button">Become a guide</button></Link>
+                  <Link  to={`/mypage/${userInfo._id}`} style={{ marginLeft: '20px'}}><button className="ui inverted button">My page</button></Link>
+                  </>
                 ): (
                   <Link to="/login"><button class="ui inverted button">Login</button></Link>
                 )}

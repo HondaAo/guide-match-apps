@@ -40,7 +40,7 @@ const TravelList = ({ match }) => {
                 <Col md={4}>
                 <div className="favorite-card" >
                    <Link className="favorite-card-title" to={`/guide/${travel.guideId}`}>
-                    { travel.image  ? <img scr={travel.image} /> : <Avatar />}</Link>
+                    { travel.landscape  ? <img scr={travel.landscape} width="100%" height="250px" /> : <Avatar />}</Link>
                    <hr />
                    <div className="favorite-content">
                        <div>

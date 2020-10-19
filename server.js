@@ -32,6 +32,10 @@ app.use('/api/review',reviewRoute)
 app.use('/api/image',imageRoute)
 app.use('/api/location' , locationRoute)
 
+app.get('/api/config/paypal',(req,res)=>{
+    res.send(process.env.PAYPAL_ID_KEY)
+})
+
 app.use(express.static(path.join(__dirname, '/frontend/build')))
 app.get("*", (req, res) => {
     res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
