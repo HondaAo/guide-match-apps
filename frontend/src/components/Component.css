@@ -15,9 +15,6 @@
 .image-header-header{
     color: white;
 }
-.home-second-contents{
-    height: 100vh;
-}
 .image-header-iphone{
     background-image: url('https://images.unsplash.com/photo-1504807959081-3dafd3871909?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60');
     background-size: cover;
@@ -42,7 +39,6 @@
 }
 .top-contents-iphone{
   margin-top: 50px;
-  width: 100%;
 }
 .top-contents-iphone > img{
     border-radius: 20px;
@@ -52,24 +48,82 @@
     background-color: white;
     padding: 2%;
 }
-.aboutUs{
-    text-align: center;
+.home-second-about{
     padding-top: 2%;
+    padding-top: 60px;
     padding-bottom: 7%;
     width: 70%;
     margin: 0 auto;
 }
-.guide-image-header{
-    background-image: url('https://images.unsplash.com/photo-1499424180600-8d243b10320a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60');
+.guide-register-top{
+    background-image: url('https://images.unsplash.com/photo-1484950763426-56b5bf172dbb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60');
     background-size: cover;
-    margin-top: 20px;
-    height: 60vh;
+    height: 100vh;
+}
+.guide-register-top-left{
+    width: 50%;
+    position: relative;
+}
+.guide-register-top-left > h2 {
+    position: absolute;
+    top: 50%;
+    left: 20%;
+    color: white;
+    font-weight: 900;
+    font-size: 55px;
+}
+.guide-register-top-right{
+    width: 50%;
+    padding: 5%;
+}
+.guide-register-place{
+    background-color: black;
+    padding: 5%;
+    color: white;
+}
+.guide-register-middle{
+    height: 100vh;
+    padding: 5%;
+    display: flex;
+}
+.guide-register-middle-left{
+   padding: 3%;
+   width: 50%;
+}
+.guide-register-middle-left > p {
+    margin-top: 30px;
+    line-height: 35px;
+}
+.guide-register-middle-right{
+  padding: 4%;
+  width: 50%;
+}
+.guide-register-middle-right-form{
+    padding: 5%;
+    width: 100%;
+    box-shadow: 0px 1px 16px -6px rgba(0,0,0,0.6);
 }
 .guide-header-comments{
     background-color: white;
     margin: 6%;
     padding: 2%;
     border-radius: 20px;
+}
+.confirm-page{
+    height: 130vh;
+    padding: 5%;
+    display: flex;
+    width: 100%;
+}
+.confirm-left{
+    width: 50%;
+    padding-left: 4%;
+}
+.confirm-right{
+    width: 50%;
+}
+.confirm-right-card-first{
+   display: flex;
 }
 .guide-step{
  text-align: center;
@@ -90,7 +144,7 @@
 .guide-list-image{
     background-image: url('https://images.unsplash.com/photo-1530789253388-582c481c54b0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60');
     background-size: cover;
-    height: 50vh;
+    height: 70vh;
 }
 .guide-list-image .text{
     color: white;
@@ -101,6 +155,40 @@
 .guide-list-container{
     text-align: center;
     padding-top: 5%;
+}
+.guide-list-place{
+    background-color: #EEE;
+    color: #777;
+    padding: 5%;
+}
+.guidelist-card{
+    width: 70%;
+    margin: 0 auto;
+    margin-top: 50px;
+    display: flex;
+}
+.guide-list-button{
+    background-color: transparent;
+    box-shadow: inset 0 0 0 2px #51BAA4;
+    color: #51BAA4 !important;
+    padding: 2% 6%;
+    color: #51BAA4;
+    border-radius: 20px;
+    border: none;
+}
+.guide-list-other{
+    padding: 3%;
+    width: 90%;
+    margin: 0 auto;
+    width: 100%;
+}
+.guide-list-other-cards{
+    display: flex;
+    width: 100%;
+}
+.guide-list-other-card{
+    width: 25%;
+    padding: 2%;
 }
 .guide-card{
     text-align: left;
@@ -193,7 +281,7 @@
 }
 .pickedUp{
    background-color: #fbfbf8;
-   padding: 2%; 
+   padding: 4%;
 }
 .pickedHeader{
    margin-bottom: 40px;
@@ -228,10 +316,9 @@
     height: 25vh;
 }
 .unique-experience{
-    height: 65vh;
     background-color: black;
     color: white;
-    padding: 3%;
+    padding: 7%;
 }
 .unique-experience-body{
     background-color: rgba(0, 0, 0, 0.6);
@@ -424,6 +511,7 @@
 .payment-section{
     padding: 3%;
     margin-top: 30px;
+    margin-bottom: 80px;
 }
 .guide-setting-page{
     padding: 3%;
@@ -492,9 +580,6 @@
     box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.3);
     padding-left: 5%;
 }
-.destination-iphone-card{
-
-}
 .other-experience{
     padding: 3%;
     margin-top: 30px;
@@ -552,7 +637,6 @@
     border-radius: 15px;
     display: flex;
 }
-
 .search-input {
     padding: 0 10px;
     width: 86%;
@@ -637,4 +721,8 @@
     padding: 3%;
     height: 25vh;
     margin-bottom: 30px;
+}
+.guide-register-explain{
+    background-color: #fbfbf8;
+    padding: 5%;
 }

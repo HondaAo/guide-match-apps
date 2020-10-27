@@ -26,7 +26,8 @@ const Register = ({history}) => {
     }
     console.log(userInfo)
     return (
-        <div style={{ padding: '5%'}}>
+        <Row style={{ padding: '5%'}}>
+         <Col md={{ span: 6, offset: 3}}>
           <strong>Sign Up</strong>
           <hr />
           <Form onSubmit={submitHandler}>
@@ -34,17 +35,17 @@ const Register = ({history}) => {
                   <Form.Label>
                       Name
                   </Form.Label>
-                  <Form.Control type="text" placeholder="name" onChange={(e)=> setName(e.target.value)}>
+                  <Form.Control type="text" placeholder="name" onChange={(e)=> setName(e.target.value)} required>
                   </Form.Control>
                   <Form.Label>
                       Email Address
                   </Form.Label>
-                  <Form.Control type="email" placeholder="email" onChange={(e)=> setEmail(e.target.value)}>
+                  <Form.Control type="email" placeholder="email" onChange={(e)=> setEmail(e.target.value)} required>
                   </Form.Control>
                   <Form.Label>
                       Password
                   </Form.Label>
-                  <Form.Control type="password" placeholder="password" onChange={(e)=> setPassword(e.target.value)}>
+                  <Form.Control type="password" placeholder="password" onChange={(e)=> setPassword(e.target.value)} required>
                   </Form.Control>
               </Form.Group>
               <button className="ui button youtube" style={{ width: '100%'}} type="submit">Register</button>
@@ -54,7 +55,8 @@ const Register = ({history}) => {
                New Customer ? <Link to='/login'>Login</Link>
               </Col>
           </Row>
-        </div>
+          </Col>
+        </Row>
     )
 }
 

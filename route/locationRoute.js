@@ -88,60 +88,70 @@ router.get('/list',(req,res)=>{
         {
             country: 'Singapore',
             city: 'Singapore',
+            city_url: 'Singapore',
             image: 'https://images.unsplash.com/photo-1555912881-1ecd82307e0e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
             isPopular: true
         },
         {
             country: 'Vietnam',
             city: 'Hanoi',
+            city_url: 'Hanoi',
             image: 'https://images.unsplash.com/photo-1542732450-e0859ec20080?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
             isPopular: false 
         },
         {
             country: 'Vietnam',
             city: 'HoChiMinh',
+            city_url: 'Ho_Chi_Minh_City',
             image: 'https://images.unsplash.com/photo-1561842080-2b1aa9060ea7?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60',
             isPopular: true  
         },
         {
             country: 'Vietnam',
             city: 'Danang',
+            city_url: 'HE1BB99i_An',
             image: 'https://images.unsplash.com/photo-1564596823821-79b97151055e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
             isPopular: true
         },
         {
             country: 'Malaysia',
             city: 'Kualalumpur',
+            city_url: 'Kuala_lumpur',
             image: 'https://images.unsplash.com/photo-1472017053394-b29fded587cd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
             isPopular: true
         },
         {
             country: 'Malaysia',
             city: 'Malacca',
+            city_url: 'Malacca_City',
             image: 'https://images.unsplash.com/photo-1589733000502-225e3f26fb8f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
             isPopular: false
         },
         {
             country: 'Thailand',
             city: 'Bangkok',
+            city_url: 'Bangkok',
             image: 'https://images.unsplash.com/photo-1566830646346-908d87490bba?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
             isPopular: false
         },
         {
             country: 'Thailand',
             city: 'Chiang Mai',
+            city_url: 'Chiang_Mai',
             image: 'https://images.unsplash.com/photo-1513568720563-6a5b8c6caab3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
             isPopular: false
         },
         {
             country: 'Thailand',
             city: 'Koh Samui',
+            city_url: 'Chiang_Rai',
             image: 'https://images.unsplash.com/photo-1587876428420-fe2f4a39c694?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
             isPopular: false
         },
         {
             country: 'Thailand',
             city: 'Pucket',
+            city_url: 'Pattaya',
             image: 'https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60https://images.unsplash.com/photo-1587876428420-fe2f4a39c694?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
             isPopular: false
         },

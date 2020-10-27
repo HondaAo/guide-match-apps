@@ -22,7 +22,8 @@ const Login = ({ history }) => {
       }
     },[userInfo,history])
     return (
-        <div style={{ padding: '5%'}}>
+        <Row style={{ padding: '5%'}}>
+         <Col md={{ span: 6, offset: 3}}>
           <strong>Sign In</strong>
           <hr />
           <Form onSubmit={submitHandler}>
@@ -45,7 +46,8 @@ const Login = ({ history }) => {
                already having an account ? <Link to='/register'>Register</Link>
               </Col>
           </Row>
-        </div>
+          </Col>
+        </Row>
     )
 }
 

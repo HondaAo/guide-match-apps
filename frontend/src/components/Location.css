@@ -1,16 +1,28 @@
 .location-page{
-    height: calc(100vh - 100px);
     width: 100%;
     display: flex;
 }
 .location-left{
-    width: 70%;
+    width: 75%;
     padding: 3%;
 }
 .location-right{
-    width: 30%;
-    height: 93vh;
+    width: 25%;
+    height: 145vh;
+    scroll-snap-type: y mandatory;
+    overflow: auto;
+    text-align: center;
 }
+.location-right > img {
+    scroll-snap-align: start;
+    flex: none;
+    margin-top: 30px;
+    padding: 0 4%;
+}
+.location-right > p {
+    margin-top: 20px;
+}
+
 .location-left-iphone{
     padding: 3%;
     padding-top: 7%;
@@ -56,4 +68,63 @@
 }
 .guide-card-content{
     padding: 3%;
+}
+.popular-tours{
+    height: 60vh;
+    padding: 4%;
+}
+.mypage-header{
+    display: flex;
+    justify-content: space-between;
+    height: 70px;
+}
+.mypage-header-left{
+    width: 50%;
+    padding: 3%;
+}
+.mypage-header-right{
+    width: 50%;
+    padding-top: 2%;
+    text-align: right;
+    margin-right: 40px;
+    align-items: center;
+}
+.chat-page-header{
+    height: 60px;
+    text-align: center;
+}
+.chat-screen{
+    height: 60vh;
+}
+.location-others{
+    background-color: #f7f7f7;
+    margin: 0 auto;
+    padding: 3%;
+}
+.other-cards{
+    display: flex;
+    width: 90%;
+    margin: 30px auto;
+    scroll-snap-type: x mandatory;
+    overflow: auto;
+}
+.other-city-card{
+    width: 32%;
+    margin: 1%;
+    scroll-snap-align: start;
+    flex: none;
+    color: black;
+}
+.other-city-card > img {
+    width: 100%;
+    height: 150px;
+}
+.guide-list-cards{
+    height: 80vh;
+    scroll-snap-type: y mandatory;
+    overflow: auto;
+}
+.guide-list-card{
+    scroll-snap-align: start;
+    flex: none;  
 }

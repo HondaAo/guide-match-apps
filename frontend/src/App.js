@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Header from './layout/Header'
 import { Container } from 'react-bootstrap'
 import Login from './components/Login'
@@ -9,7 +9,7 @@ import Home from './components/Home'
 import AuthState from './auth/AuthState'
 import Footer from './layout/Footer';
 import HeaderNext from './layout/HeaderNext';
-import Location from './components/Location';
+import Locations from './components/Location';
 import guideRegister from './components/guideRegister';
 import guideList from './components/guideList';
 import aboutUs from './components/aboutUs';
@@ -32,24 +32,33 @@ import TravelList from './components/mypage/TravelList';
 import ChatPayment from './components/ChatPayment'
 import ChangePhoto from './components/mypage/ChangePhoto';
 import Setting from './components/Setting';
-
+import Post from './components/mypage/Post';
+import TouchRipple from '@material-ui/core/ButtonBase/TouchRipple';
+import Tour from './components/Tour';
+import PostList from './components/PostList'
+import ScrollTop from './layout/ScrollTop'
 function App() {
   return (
     <>
     <AuthState>
      <Router>
-      <Header />
       {/* <HeaderNext /> */}
+      <ScrollTop>
       <Route path="/" exact component={Home} />
-      <Route path="/place" component={Location} />
+      <Route path="/place" exact key="place" component={Locations} />
+      {/* <Route path={`/place`} component={Location}>
+        <Route path={`/place/:id`} component={Location} />
+      </Route> */}
       <Route path="/guide/:id" component={GuideDetail} />
       <Route path="/guideList" exact component={guideList} />
+      <Route path="/guide" exact component={guideRegister} />
+      <Route path="/tour"  component={Tour} />
+      <Route path="/aboutUs" component={aboutUs} />
+      <Route path="/allpost" component={PostList} />
      <Container>
       <Route path="/login" component={Login}/>
       <Route path="/register" component={Register}/>
-      <Route path="/guide" exact component={guideRegister} />
       <Route path="/guidesetting" component={GuideSetting} />
-      <Route path="/aboutUs" component={aboutUs} />
       <Route path="/message" component={Message} />
       <Route path="/chat/:id" exact component={ChatScreen} />
       <Route path="/chat/payment" component={Payment} />
@@ -65,11 +74,13 @@ function App() {
       <Route path="/travellist/:id" component={TravelList} />
       <Route path="/photochange" component={ChangePhoto} />
       <Route path="/setting" exact component={Setting} />
+      <Route path="/write"　component={Post} />
       </Container>
       <Footer />
       <MediaQuery query="(max-width: 767px)">
         <StickyFooter />
       </MediaQuery>
+      </ScrollTop>
      </Router>
     </AuthState>
     </>

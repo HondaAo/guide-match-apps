@@ -34,26 +34,25 @@ const TravelList = ({ match }) => {
              <Link to="/guideList"><button className="search-button">Search next destination</button></Link>
             </div>    
           ):(
-             <div className="travel-list-page">
+          <Row>
+             <div className="travel-list-page-contents">
             { travellist.map(travel =>(
-                <Row>
-                <Col md={4}>
+              <Col md={4}>
                 <div className="favorite-card" >
                    <Link className="favorite-card-title" to={`/guide/${travel.guideId}`}>
-                    { travel.landscape  ? <img scr={travel.landscape} width="100%" height="250px" /> : <Avatar />}</Link>
-                   <hr />
+                    { travel.landscape  ? <img src={travel.landscape} width="100%" height="auto" /> : <Avatar />}</Link>
                    <div className="favorite-content">
                        <div>
                        <h4>{travel.guidename}</h4>
-                       <p style={{ color: 'grey'}}>{travel.city}/{travel.country}</p>
+                       <p style={{ color: 'grey'}}>{travel.date}</p>
                        </div>
                    </div>
                </div>
-                </Col>
-              </Row> 
+              </Col>
             ))}
-               
+             
             </div>
+           </Row> 
           )}
         </div>
     ): null}

@@ -36,6 +36,7 @@ const PersonalSetting = ({match}) => {
           alert(res.data)
       })
       .catch(err => alert(err))
+      
   }
     return (
     <>

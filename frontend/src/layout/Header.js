@@ -9,6 +9,9 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import GroupIcon from '@material-ui/icons/Group';
 import MediaQuery from 'react-responsive';
 import './Layout.css'
+import HomeIcon from '@material-ui/icons/Home';
+import PersonIcon from '@material-ui/icons/Person';
+import PublicIcon from '@material-ui/icons/Public';
 
 const Header = () => {
     const { logout, userInfo, setUserInfo } = useContext(AuthContext);
@@ -35,7 +38,6 @@ const Header = () => {
         </header>
       </MediaQuery>
       <MediaQuery query="(max-width: 767px)"> */}
-      <h2></h2>
        {/* <Navbar bg="dark" variant="dark" expand="lg" className="navbar">
          {/* <Container className="">
           <Navbar.Brand href="/">Expo-travel</Navbar.Brand>
@@ -74,6 +76,31 @@ const Header = () => {
         </button>
       </div>
       </div> */}
+      <header className="header">
+        <div className="header-items">
+          <div className="header-left">
+           <Link to="/"><HomeIcon /></Link>
+          </div>
+          <div className="header-middle">
+           <h4 style={{ color: 'tomato', fontWeight: '500'}}>Expo-travel</h4> 
+          </div>
+          <div className="header-right">
+           { userInfo ? 
+           (
+          <>
+           <Link to="/guide" style={{ marginRight: '20px', color: 'black'}}><PublicIcon /><p>Become a guide</p></Link>
+           <Link to={`/mypage/${userInfo._id}`} style={{ marginRight: '10px', color: 'black'}}><PersonIcon /><p>My page</p></Link>
+          </>
+           ): (
+          <>
+           <Link to="/login">Login</Link>
+           <Link to="/register">Register</Link>
+          </> 
+           )}
+          </div>
+        </div>
+      </header>
+      <hr />
       </>
     )
 }

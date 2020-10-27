@@ -71,6 +71,29 @@ const Profile = ({match}) => {
     return (
     <>
       <MediaQuery query="(min-width: 767px)">
+      <div className="mypage-header">
+          <div className="mypage-header-left">
+            <Link to="/" style={{ color: 'black'}}><strong>Expo</strong></Link>
+          </div>
+          <div className="mypage-header-right">
+          <div className="ui compact menu">
+            <div className="ui simple dropdown item">
+              <i className="ui icon user"></i> {userInfo && userInfo.name}
+              <i className="dropdown icon"></i>
+              <div className="menu">
+                {userInfo ? (
+                <>
+                <Link to={`/chat/${userInfo._id}`} className="item">Chat</Link>
+                { userInfo.guideId !== '' ? <Link to={`/profile/${userInfo.guideId}`} className="item">Guide setting</Link> : <Link to={`/guide`} className="item">become a guide</Link> } 
+                <Link to={`/travellist/${userInfo._id}`} className="item">Travel List</Link>
+                </>
+                ): null }
+              </div>
+            </div>
+          </div> 
+          </div>
+         </div>
+        <hr />
         { !guideInfo ? (
          <div className="ui active inline loader"></div>  
         ):(
@@ -83,8 +106,8 @@ const Profile = ({match}) => {
            <Link to={`/update/${guideInfo._id}`} style={{ color: 'black'}}><p>edit profile</p></Link>
           </div>
           <div className="profile-header-image">
-           { guideInfo.image !== "" ? (
-             <img src={guideInfo.image} onClick={changeImage}/>
+           { userInfo ? (
+              <img src={userInfo.image} />
            ): <Avatar className="avatar" onClick={changeImage}/>}
           </div>
         </div>
@@ -92,7 +115,7 @@ const Profile = ({match}) => {
         <div className="profile-introduction">
           <h1>Introduction</h1>
           <p><LocationOnIcon />{' '}{guideInfo.city}/{guideInfo.country}</p>
-          <p><AssignmentTurnedInIcon />{' '}{guideInfo.isPro ? <p>Amatuar</p> : <p>Pro guide</p>}</p>
+          <p><AssignmentTurnedInIcon />{' '}{!guideInfo.isPro ? <>Amatuar</> : <strong>Pro guide</strong>}</p>
         </div>
         <hr />
         <div className="profile-rating" style={{ display: 'flex', justifyContent: 'space-between'}}>

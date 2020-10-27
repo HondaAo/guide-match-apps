@@ -18,7 +18,7 @@ const AuthState = ({children, history}) => {
      const { data } = await axios.post('/api/user/register',user)
      localStorage.setItem('userInfo',JSON.stringify(data))
         if(data){
-            window.location = '/login' 
+            window.location = '/' 
         }else{
             alert('Invalid User')
         }

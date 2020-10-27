@@ -34,8 +34,10 @@ const GuideDetail = ({match,history}) => {
             text,
             userId: guide._id,
             myId: userInfo._id,
+            myImage: userInfo.image,
             sender: userInfo._id,
             username: guide.name,
+            userImage: guide.image,
             sendername: userInfo.name
         }
         const { data } = await Axios.post(`/api/chat`,chat)
@@ -47,10 +49,21 @@ const GuideDetail = ({match,history}) => {
       <>
     <MediaQuery query="(min-width: 767px)">
       <Container>
+        <header style={{ display: 'flex',marginTop: '20px', justifyContent: 'space-between'}}>
+          <Link to="/"><p>Expo</p></Link>
+          {userInfo ? (
+            <>
+            <Link to={`/mypage/${userInfo._id}`} className="ui secondary basic button " >Mypage</Link>
+            </>
+          ):(
+            <Link to="/login" className="ui secondary basic button " >Login</Link>
+          )}
+        </header>
+        <hr />
         <Row style={{ marginTop: '10%'}}>
         {!guide ? <div className="ui active inline loader"></div> :(
         <>
-          <Col md={6}>
+          <Col md={{ span: 6, offset:3}}>
         <div className="guide-detail-img">
         <img src={guide.landscape} width="100%" height="auto" style={{ borderRadius: '20px', marginBottom: '30px'}} />
         </div>
@@ -62,9 +75,7 @@ const GuideDetail = ({match,history}) => {
             <ListGroup.Item>Experience:{' '}<strong>{guide.experience}</strong></ListGroup.Item>
             <ListGroup.Item>Comments:{' '}<p>{guide.description}</p></ListGroup.Item>
           </ListGroup>
-          </Col>
           <hr />
-          <Col md={6} style={{ paddingLeft: '5%'}}>
           <strong>Review</strong>
           { guide.reviews.length > 0 ?  (guide.reviews.map(review =>(
             <div class="ui comments">
@@ -103,7 +114,7 @@ const GuideDetail = ({match,history}) => {
             </Button>
             ):(
               <>
-                <Link to="/login"><Button variant="danger">Login</Button></Link>
+                <Link to="/login"><Button variant="danger" style={{ width: '100%'}}>Login</Button></Link>
                 <p style={{ fontWeight:'300', color: 'lightgrey'}}>You need to login before sendding message</p>
               </>
             )}
@@ -168,10 +179,18 @@ const GuideDetail = ({match,history}) => {
           <p><StarIcon style={{ color: 'red'}} />{guide.star}</p>
         </div>
         <div>
+          { userInfo ? (
           <Link to={`/message?userId=${guide._id}&myId=${userInfo._id}`}>
           <button className="ui button youtube">
             Go chat page
           </button></Link>
+          ):(
+          <Link to={`/login`}>
+          <button className="ui button youtube">
+            Please Login before contact
+          </button>
+          </Link>
+          )}
         </div>
       </div>
       <div className="guide-detail-detail">

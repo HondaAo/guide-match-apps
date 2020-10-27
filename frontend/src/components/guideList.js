@@ -1,5 +1,5 @@
 import Axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Button, Card, Col, Container, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import GoogleMapReact, { MapOptions, Maps } from 'google-map-react'
@@ -12,6 +12,8 @@ import '@brainhubeu/react-carousel/lib/style.css';
 import MediaQuery from 'react-responsive';
 import SearchIcon from '@material-ui/icons/Search';
 import { Helmet } from 'react-helmet';
+import { AuthContext } from '../auth/AuthState'
+import OurCampany from '../layout/OurCompany'
 
 const GuideList = ({ history }) => {
     const [ guides, setGuides ] = useState([])
@@ -20,7 +22,9 @@ const GuideList = ({ history }) => {
     const [ destinations, setDestinations ] = useState([])
     const [ text, setText ] = useState('')
     const [ country, setCountry ] = useState('')
+    const { setUserInfo,userInfo } = useContext(AuthContext);
     useEffect(()=>{
+      setUserInfo(localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null)
       Axios.get('/api/guide')
       .then(res => {
           console.log(res.data)
@@ -101,15 +105,86 @@ const GuideList = ({ history }) => {
         </Helmet>
         <MediaQuery query="(min-width: 767px)">
         <Row className="guide-list-image">
+        <div
+         style={{ display: 'flex',color: 'white', padding: '3%',height: '80px', justifyContent: 'space-between', width: '100%'}}
+        >
+          <Link to="/" style={{ color: 'white'}}><h3><strong>Expo-travel</strong></h3></Link>
+          { userInfo ? (
+            <div style={{ marginRight: '90px'}}>
+            <Link to={`/guide`} style={{ color: 'white', marginRight: '30px'}}>Become a guide</Link>
+            <Link to={`/mypage/${userInfo._id}`} style={{ color: 'white'}}>My page</Link>
+            </div>
+          ):(
+            <Link to="/login"><button class="ui inverted button">Login</button></Link>
+          )}
+        </div>
           <div className="text">
-          <h2>New Experience with us</h2> 
+          <h2 style={{ fontWeight: '800', fontSize: '60px'}}>New <span >Experience</span> with us</h2> 
           <p>Settle in somewhere new. Discover nearby stays to live, work, or just relax.</p>
           </div>
         </Row>
-        <Container>
-        <Row className="google-map">
+        <div className="guide-list-place">
+          <div className="guidelist-card">
+            <Col md={5}>
+             <img src="https://images.unsplash.com/photo-1601272211218-78fe77e093b2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" width="100%" height="100%" />
+            </Col>
+            <Col md={7} style={{ backgroundColor: 'white', padding: '3%'}}>
+             <h4><strong>Kuala lumpur</strong></h4>
+             <p style={{ marginTop: '20px',lineHeight: '26px'}}>A mix of cultures call Malaysia home and they're evident in the rich artistic hub of its capital. Here there is even diversity in the shopping!</p>
+             <Link to={`/place?city=Kuala_Lumpur&country=Malaysia`}><button class="guide-list-button">CHECK MORE</button></Link>
+            </Col>
+          </div>
+          <div className="guidelist-card">
+            <Col md={7} style={{ backgroundColor: 'white', padding: '3%'}}>
+             <h4><strong>Singapore</strong></h4>
+             <p style={{ marginTop: '20px', lineHeight: '30px'}}>The city-state of Singapore is one of Asia's prized gems with islands full of tropical wonders, culinary delicacies, and exotic attractions. The main city reflects this through a beautiful blend of cultures.</p>
+             <Link to={`/place?city=Singapore&country=Singapore`}><button class="guide-list-button">CHECK MORE</button></Link>
+            </Col>
+            <Col md={5}>
+             <img src="https://images.unsplash.com/photo-1573525515531-d90d55476c74?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"width="100%" height="100%" />
+            </Col>
+          </div>
+        </div>
+        <div className="guide-list-other">
+         <h2><>Other destinations</></h2>
+         <div className="guide-list-other-cards">
+          <div className="guide-list-other-card">
+           <img src="https://images.unsplash.com/photo-1510379872535-9310dc6fd6a7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"width="100%" height="auto" />
+           <h4 style={{ marginTop: '20px'}}><strong >Bangkok</strong></h4>
+           <p style={{ marginTop: '20px', lineHeight: '30px', fontWeight: '300'}}>This is a city of contrasts at every turn where the familiar and the exotic collide. This City of Angels is the ultimate cultural hub for travelers looking to experience </p>
+           <div style={{ width: '100%', textAlign: 'right'}}>
+           <button class="ui black button" style={{ alignContent: 'right'}}><Link to={`/place?city=Bangkok&country=Thailand`} style={{ color: 'white'}}>Watch More<i class="angle right icon"></i></Link></button>
+           </div>
+          </div>
+          <div className="guide-list-other-card">
+          <img src="https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"width="100%" height="auto" />
+          <h4 style={{ marginTop: '20px'}}><strong >Chiang Mai</strong></h4>
+          <p style={{ marginTop: '20px', lineHeight: '30px'}}>The Thai beaches here are some of the finest in the world. In addition to white sand and bustling resorts, Phuket has a unique and colorful old town to explore.</p>
+          <div style={{ width: '100%', textAlign: 'right'}}>
+           <button class="ui black button" style={{ alignContent: 'right'}}><Link to={`/place?city=Chiang_Mai&country=Thailand`} style={{ color: 'white'}}>Watch More<i class="angle right icon"></i></Link></button>
+           </div>
+          </div>
+          <div className="guide-list-other-card">
+          <img src="https://images.unsplash.com/photo-1458013356865-f7ea608ed9a6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"width="100%" height="auto" />
+          <h4 style={{ marginTop: '20px'}}><strong >Hanoi</strong></h4>
+           <p style={{ marginTop: '20px', lineHeight: '30px'}}>History buffs will recall this city's important role in the Vietnam War. In addition to viewing important war relics, there is a fascinating French colonial style here </p>
+           <div style={{ width: '100%', textAlign: 'right'}}>
+           <button class="ui black button" style={{ alignContent: 'right'}}><Link to={`/place?city=Hanoi&country=Vietnam`} style={{ color: 'white'}}>Watch More<i class="angle right icon"></i></Link></button>
+           </div>
+          </div>
+          <div className="guide-list-other-card">
+          <img src="https://images.unsplash.com/photo-1586343275473-d96466f4a94b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"width="100%" height="auto" />
+          <h4 style={{ marginTop: '20px'}}><strong >Ho Chi Minh City</strong></h4>
+          <p style={{ marginTop: '20px', lineHeight: '30px'}}>Vietnam's capital has a unique city center known for its busy, narrow streets. Among the distinctive Hanoian lifestyle, we'll find centuries-old architecture </p>
+          <div style={{ width: '100%', textAlign: 'right'}}>
+           <button class="ui black button" style={{ alignContent: 'right'}}><Link to={`/place?city=Ho_Chi_Minh_City&country=Vietnam`} style={{ color: 'white'}}>Watch More<i class="angle right icon"></i></Link></button>
+           </div>
+          </div>
+         </div>
+        </div>
+        <hr />
+        {/* <Row className="google-map">
         <Col md={7} style={{ height: '75vh'}} >
-          <h2>Popular destination In South East Asia</h2>
         <GoogleMapReact
         bootstrapURLKeys={{
           key: process.env.GOOGLE_API_KEY,
@@ -147,7 +222,7 @@ const GuideList = ({ history }) => {
       }
       </GoogleMapReact>
       </Col>
-      <Col md={5}>
+      <Col md={{ span: 4, offset: 1}}>
       <p>Popular destinations</p>
       <hr />
       { destinations.length !== 0  ? (
@@ -170,8 +245,10 @@ const GuideList = ({ history }) => {
       </>
       ): null}
       </Col>
-      </Row>
-      <Row>
+      </Row> */}
+    {/* <div style={{ backgroundColor: 'black', color: 'white'}}>
+     <Container>
+      <Row >
         <div className="list-header">
         <h2>Find unique experience</h2>
         <h3>________</h3>
@@ -182,7 +259,7 @@ const GuideList = ({ history }) => {
               <div className="unique-list-card-title">
                <img src="https://images.unsplash.com/photo-1504095649265-b37198e9c711?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" />
               </div>
-              <div className="unique-list-card-content">
+              <div className="unique-list-card-content" >
                 <strong>Local Experience</strong>
                 <p>Let's check local tour and guide</p>
               </div>
@@ -212,57 +289,33 @@ const GuideList = ({ history }) => {
           </Col>
         </div>
       </Row>
-      <Row className="our-aim">
-        <Col md={6}>
-          <h2>
-            <strong>
-             The society we gonna create<br />
-             Everyone can live without any racism<br />
-             with Every lives matter
-            </strong>
-          </h2>
-        </Col>
-        <Col md={6}>
-          <p style={{ fontWeight: '300', fontSize: '25px'}}>
-          We reject racism or bigotry of any kind. But now is a time for action rather than words. So we’d like to share with you, Project Lighthouse, a groundbreaking initiative launching in the United States to uncover, measure, and overcome discrimination when booking or hosting on
-          </p>
-        </Col>
-      </Row>
+    </Container>
+    </div> */}
+    <div className="">
+      <Container>
+        <Row style={{ display: 'flex', marginTop: '70px'}}>
+          <Col md={6}>
+           <img src="https://images.unsplash.com/photo-1596574807404-dfb7e486ffd8?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60" width="100%" height="auto" />
+          </Col>
+          <Col md={6} style={{ padding: '5%'}}>
+           <h2><strong>Everyone's Posts</strong></h2>
+           <p style={{ marginTop: '60px', lineHeight: '40px'}}>Get to know the sights and sounds of a city, beyond that one main town square. Try climbing the local mountains or skydive over them instead. Just open up the app for access to countless experiences and adventures.</p>
+           <Link to="/allpost" style={{ color: '#008489'}}><h5>Watch all posts</h5></Link>
+          </Col>
+        </Row>
+        <Row style={{ display: 'flex', marginTop: '70px', marginBottom: '50px'}}>
+          <Col md={6} style={{ padding: '5%'}}>
+          <h2><strong>Expo points for next trip</strong></h2>
+          <p style={{ marginTop: '60px', lineHeight: '40px'}}>What’s that majestic structure in front of you? Plug in your headphones and find out. SmartGuide sends expertly crafted, engaging audio-stories straight to your ears, so you can stay fully immersed in the world around you, wherever you go.</p>
+          <Link to="/setting" style={{ color: '#008489'}}><h5>Learn more about the points</h5></Link>
+          </Col>
+          <Col md={6}>
+           <img src="https://images.unsplash.com/photo-1559271138-f347143c63c8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" width="100%" height="auto" /> 
+          </Col>
+        </Row>
       </Container>
-      <div className="home-image">
-            <Container>
-             <Row>
-               <Col md={3} style={{ marginTop: '30px'}}>
-                 <strong >About us</strong>
-                 <p style={{ marginTop: '10px'}}>Travel expo</p>
-                 <p>Our History</p>
-                 <p>Contact</p>
-                 <p>Careers</p>
-                 <p>How we create new society</p>
-               </Col>
-               <Col md={3} style={{ marginTop: '30px'}}>
-                 <strong >Guide</strong>
-                 <p style={{ marginTop: '10px'}}>Travel expo</p>
-                 <p>Our History</p>
-                 <p>Contact</p>
-                 <p>Careers</p>
-                 <p>How we create new society</p>
-               </Col>
-               <Col md={3} style={{ marginTop: '20px'}}>
-                 <strong >Community</strong>
-                 <p style={{ marginTop: '10px'}}>COVID-19 news</p>
-                 <p>About Privacy</p>
-                 <p>Help Center</p>
-               </Col>
-               <Col md={3} style={{ marginTop: '20px'}}>
-                 <strong >Support</strong>
-                 <p style={{ marginTop: '10px'}}>COVID-19 news</p>
-                 <p>About Privacy</p>
-                 <p>Help Center</p>
-               </Col>
-              </Row>
-             </Container>
-            </div>
+    </div>
+      <OurCampany />
       </MediaQuery>
       <MediaQuery query="(max-width: 767px)">
       <div className="guide-list-image-iphone">
@@ -285,7 +338,7 @@ const GuideList = ({ history }) => {
      <div className="destination-list">
       { destinations.map(destination => (
       <Container className="destination-iphone">
-      <Link to={`/place?city=${destination.city}&country=${destination.country}`} style={{ color: 'black'}}>
+      <Link to={`/place?city=${destination.city_url}&country=${destination.country}`} style={{ color: 'black'}}>
        <Row >
          <Col xs={4}>
           <img src={destination.image} width="100%" height="auto"/>
@@ -337,9 +390,9 @@ const GuideList = ({ history }) => {
           </Col>
         </Row>
         <div style={{ width: '100%', textAlign: 'center', margin: "20px 0"}}>
-        <button class="ui secondary button" style={{ width: '100%'}}>
+        <Link to={`/allpost`} class="ui secondary button" style={{ width: '100%'}}>
            See all posts
-         </button>
+         </Link>
         </div>
      </Container>
      <div className="alert-guide-list">

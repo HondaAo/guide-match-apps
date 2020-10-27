@@ -1,12 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../models/userModel')
+const models = require('../models/userModel')
 const generateToken = require('../utils/Token')
-const ObjectID = require('bson-objectid');
 
 router.post('/login', async(req,res)=>{
     const { email, password } = req.body 
-    const user = await User.findOne({email})
+    const user = await models.User.findOne({email})
     if(!user){
         res.status(401).send('No user exists, please confirm ypur email ')
     }
@@ -19,6 +18,9 @@ router.post('/login', async(req,res)=>{
            isGuide: user.isGuide,
            image: user.image,
            sex: user.sex,
+           guideId: user.guideId,
+           tourId: user.tourId,
+           favoriteGuides: user.favoriteGuides,
            token: generateToken(user._id),
        })
        console.log(user)
@@ -28,11 +30,11 @@ router.post('/login', async(req,res)=>{
 })
 router.post('/register', async(req,res)=>{
   const { name, email, password } = req.body   
-  const userExists = await User.findOne({email})
+  const userExists = await models.User.findOne({email})
     if(userExists){
         res.status(400).send('user alreaddy exists')
     }
-    const user = await User.create({
+    const user = await models.User.create({
         name,
         email,
         password,
@@ -59,7 +61,7 @@ router.post('/register', async(req,res)=>{
 })
 router.post('/login/admini', async(req,res)=>{
   const { email, password } = req.body 
-  const user = await User.findOne({email})
+  const user = await models.User.findOne({email})
     if(user && (await user.matchPassword(password))){
        res.json({
            _id: user._id,
@@ -74,7 +76,7 @@ router.post('/login/admini', async(req,res)=>{
     } 
 })
 router.get('/:id',async(req,res)=>{
-   const user = await User.findById(req.params.id)
+   const user = await models.User.findById(req.params.id)
    if(user){
        res.json(user)
    }
@@ -83,38 +85,28 @@ router.get('/:id',async(req,res)=>{
    }
 })
 router.post('/favorite/:id',async(req,res)=>{
-    const user = await User.findById(req.params.id)
-    const { name, title, cost, city, country, image, guideId, landscape } = req.body;
+    const user = await models.User.findById(req.params.id)
+    const guideId  = req.body;
     if(user){
-      const guideList = {
-        name,
-        title,
-        cost,
-        city,
-        country,
-        image,
-        guideId,
-        landscape
-    }  
-     user.favoriteGuides.push(guideList);
+     user.favoriteGuides.push(guideId);
      await user.save()
      res.send('Add Favorite List')
    }
 
 })
-router.delete('/guide',async(req,res)=>{
-    console.log(req.query)
-    const user = await User.findOne({ _id: req.query['myId']})
-    console.log(user)
-    if(user){
-        const guides = user.favoriteGuides
-        guides.deleteOne({ guideId: req.query['guideId']},function(err){
-            console.log(err)
-        })
-    }
-})
+// router.delete('/guide',async(req,res)=>{
+//     console.log(req.query)
+//     const user = await models.User.findOne({ _id: req.query['myId']})
+//     console.log(user)
+//     if(user){
+//         const guides = user.favoriteGuides
+//         guides.deleteOne({ guideId: req.query['guideId']},function(err){
+//             console.log(err)
+//         })
+//     }
+// })
 router.put('/setting/:id',async(req,res)=>{
-    const user = await User.findById(req.params.id)
+    const user = await models.User.findById(req.params.id)
     const { name, email, sex } = req.body
     if(user){
       user.name= name
@@ -125,18 +117,17 @@ router.put('/setting/:id',async(req,res)=>{
     res.send('Successfully changed!')
 })
 router.put('/guide/:id',async(req,res)=>{
-  const user = await User.findById(req.params.id)
+  const user = await models.User.findById(req.params.id)
   const { guideId } = req.body
   if(user){
       user.isGuide = true
       user.guideId = guideId
   }
   const updateUser = await user.save()
-  console.log(updateUser)
   res.json(updateUser)
 })
 router.post('/travellist/:id',async(req,res)=>{
-    const user = await User.findById(req.params.id)
+    const user = await models.User.findById(req.params.id)
     const { guidename, guideId, date, landscape  } = req.body
     if(user){
        const travel = {

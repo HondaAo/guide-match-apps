@@ -10,15 +10,18 @@ import StarBorderIcon from '@material-ui/icons/StarBorder';
 import SearchIcon from '@material-ui/icons/Search';
 import { AuthContext } from '../auth/AuthState'
 import { Helmet } from 'react-helmet';
+import Footer from '../layout/Footer'
+import OurCompany from '../layout/OurCompany'
 
 const scrollTop = () => {
   return Math.max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop);
 };
 
 
-const Home = () => {
+const Home = ({history}) => {
     const [ button, setButton ] = useState('Home')
     const [isTop, setIsTop] = useState(true);
+    const [text, setText] = useState('')
     const { logout, userInfo, setUserInfo } = useContext(AuthContext);
     useEffect(()=>{
      setUserInfo(localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null)
@@ -35,21 +38,18 @@ const Home = () => {
       setIsTop(true);
     　}
     }
-    const onFocus=()=>{
-
+    const onSubmit=()=>{
+      history.push(`/guideList`)
     }
     return (
         <>
-　　　　　<Helmet>
-         Home Page
-        </Helmet>
         <MediaQuery query="(min-width: 767px)">
          <div className="image-header">
            <header className="image-header-header">
              <Container>
                <Row>
                  <Col md={6}>
-                  <h3>Expo-travel</h3>
+                  <h3 style={{ fontSize: '40px'}}>Expo-travel</h3>
                  </Col>
                  <Col md={6} style={{ textAlign: 'right'}}>
                 { userInfo ? (
@@ -65,95 +65,53 @@ const Home = () => {
              </Container>
            </header>
            <div className="image-header-text">
-            <h2>Explore new experience</h2>
-            <p>Settle in somewhere new. Discover stays to live, work, or just relax.</p>
-            <Link to="/guideList"><button class="ui pink button">Start exploring</button></Link>
+            <h2 style={{ fontSize: '50px', fontWeight: '700'}}>Explore new <span style={{ color: '#e5474b'}}>experience</span></h2>
+            <p>Explore somewhere new. Discover new local friends to travel, work, or just relax.</p>
+            <Link to="/guideList"><button class="ui inverted button">Start exploring</button></Link>
           </div>
          </div>
          <div className="home-second-contents">
-         <div className="aboutUs">
-             <h2>_____</h2>
-             <h1>About us</h1>
-             <p style={{ marginTop: '40px', textAlign: 'left'}}>Whether you’re looking for a treehouse for the weekend or an entire home for the whole family, a warm welcome awaits. Behind every stay is a real person who can give you the details you need to check in and feel at home.
-             Airbnb Experiences are not your typical tour. Whether you’re on a trip, exploring your own city, or staying at home, learn something new from an expert host. Choose from dance lessons, pasta-making—even yoga with goats.</p>
+         <div className="home-second-about">
+             <h1 style={{ color:'#e5474b'}}>About us</h1>
+             <p style={{ marginTop: '40px', textAlign: 'left', lineHeight: '40px'}}>Whether you’re looking for a guide  for your next trip or an unique tour for the special experience, a warm welcome awaits. Behind every guide and tour is a real person who can give you the details you need to check in .
+             Expo's Experiences are not your typical tour. Whether you’re on a trip, exploring your own city, or staying at home, learn something new from an expert guide. We are preparing for your any question, please contact us if you have a question.</p>
+             <Link to="aboutUs"><button class="ui negative basic button">LEARN MORE</button></Link>
          </div>  
-         <Container className="pickedUp">
-          <div style={{ width: '100%', textAlign: 'center', marginBottom: '30px'}}>
-             <h2>_____</h2>
-             <h1>Trendy Places</h1>
-          </div>
+         <div className="pickedUp">
+         <Container>
             <Row>
-                <Col md={3}>
-                <Link className="pickedHeader"  to={`/place?city=Hanoi&country=Vietnam`} >
-                <div class="ui card">
-                  <Link class="image" to={`/place?city=Hanoi&country=Vietnam`}>
-                    <img src="https://images.unsplash.com/photo-1528127269322-539801943592?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"/>
-                  </Link>
-                  <div class="content">
-                    <a class="header" href="">Hanoi / Halong Bay</a>
-                    <div class="meta">
-                      <a>Vietnam</a>
-                    </div>
-                  </div>
-                </div>
-                </Link>
+                <Col md={6} style={{ padding: '5%'}}>
+                <Link to={`/guideList`} style={{ color: '#e5474b',marginBottom: '50px', fontSize: '25px'}}>
+                  <strong>Search a unique guide</strong>
+                </Link >
+                <img style={{ marginTop: '30px'}} src="https://images.unsplash.com/photo-1504807959081-3dafd3871909?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" width="70%" height="auto" />
+                <p style={{ marginTop: '30px', width: '80%', lineHeight: '30px'}}>Do you have any plans for your next trip if you do not have anything, our guide provide a huge fun feel free to adking them. Let's search unique guide!!</p>
                 </Col>
-                <Col md={3}>
-                <Link className="pickedHeader" to={`/place?city=Malacca&country=Malaysia`}>
-                <div class="ui card">
-                  <Link class="image" to={`/place?city=Malacca&country=Malaysia`}>
-                    <img src="https://images.unsplash.com/photo-1600320161090-2e2ce64a0dde?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"/>
+                <Col md={6} style={{ padding: '5%'}}>
+                 {userInfo ?
+                 ( <Link to={`/guide`} style={{ color: '#e5474b', marginBottom: '50px', fontSize: '25px'}}>
+                    <strong style={{ marginBottom: '20px'}}>Earn money as guide</strong>
                   </Link>
-                  <div class="content">
-                    <a class="header" href="#">Malacca</a>
-                    <div class="meta">
-                      <a>Malaysia</a>
-                    </div>
-                  </div>
-                </div>
-                </Link>
-                </Col>
-                <Col md={3}>
-                <Link className="pickedHeader" to={`/place?city=Danang&country=Vietnam`}>
-                <div class="ui card">
-                  <Link class="image" to={`/place?city=Danang&country=Vietnam`}>
-                    <img src="https://images.unsplash.com/photo-1569271532956-3fb81a207115?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"/>
+                 ):(
+                  <Link to={`/login`} style={{ color: '#e5474b', marginBottom: '50px', fontSize: '25px'}}>
+                  <strong style={{ marginBottom: '20px'}}>Earn money as guide</strong>
                   </Link>
-                  <div class="content">
-                    <a class="header" href="#">Danang / Hoian</a>
-                    <div class="meta">
-                      <a>Vietnam</a>
-                    </div>
-                  </div>
-                </div>
-                </Link>
-                </Col>
-                <Col md={3}>
-                <Link className="pickedHeader" to={`/place?city=Singapore&country=Singapore`}>
-                <div class="ui card">
-                  <Link class="image" to={`/place?city=Singapore&country=Singapore`}>
-                    <img src="https://images.unsplash.com/photo-1517570123306-d58896657b2c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"/>
-                  </Link>
-                  <div class="content">
-                    <a class="header" href="#">Singapore</a>
-                    <div class="meta">
-                      <a>Singapore</a>
-                    </div>
-                  </div>
-                </div>
-                </Link>
+                 )}
+                  <img style={{ marginTop: '30px'}} src="https://images.unsplash.com/photo-1552925690-47ab745613c9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" width="70%" height="auto" />
+                  <p style={{ marginTop: '30px', width: '80%', lineHeight: '30px'}}>Our service is running in four countries, Singapore, Thailand, Malaysia and Vietnam. Please join our team and earn money. Let's start!</p>
                 </Col>
             </Row>
             </Container>
+            </div>
             </div>
             <div className="unique-experience">
               <div className="unique-experience-header">
               <div className="unique-experience-header-left">
                <h2>Unique Experiences</h2>
-               <p>Join interactive, global adventures with inspiring, kid-friendly hosts.Explore all</p>
+               <p>Join interactive, global adventures with inspiring, kid-friendly guides.Explore all</p>
                </div>
                <div className="unique-experience-header-right">
-                <button class="ui inverted button">View All Guides</button>
+                <Link to="/allpost"><button class="ui inverted red basic button">View All Posts</button></Link>
                </div>
               </div>
               <Container>
@@ -163,19 +121,17 @@ const Home = () => {
                     <Card.Img variant="top" src="https://images.unsplash.com/photo-1506801310323-534be5e7a730?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" />
                     <Card.Body className="unique-experience-body">
                       <Card.Text >
-                        Some quick example text to build on the card title and make up the bulk of
-                        the card's content.
+                        <p>This picture was taken by traveller in Thailand, this landscape is common in that country.</p>
                       </Card.Text>
                     </Card.Body>
                     </Card>
                   </Col>
                   <Col md={4}>
                     <Card style={{ marginTop: '20px'}}>
-                    <Card.Img variant="top" src="https://images.unsplash.com/photo-1568333409654-2fa274761195?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" />
+                    <Card.Img variant="top" src="https://images.unsplash.com/photo-1510205431450-54dfb096d46e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" />
                     <Card.Body className="unique-experience-body">
                       <Card.Text >
-                        Some quick example text to build on the card title and make up the bulk of
-                        the card's content.
+                        <p>This picture was my special memory. I had a huge joy with making local food with this guy.</p>
                       </Card.Text>
                     </Card.Body>
                     </Card>
@@ -185,55 +141,25 @@ const Home = () => {
                     <Card.Img variant="top" src="https://images.unsplash.com/photo-1515662139884-1ba754b53417?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" />
                     <Card.Body className="unique-experience-body">
                       <Card.Text >
-                        Some quick example text to build on the card title and make up the bulk of
-                        the card's content.
+                        <p>Photo in Pucket in Thailand with my first time seeing and riding an elephant</p>
                       </Card.Text>
                     </Card.Body>
                     </Card>
                   </Col>
                 </Row>
               </Container>
+
             </div>
-            <div className="home-image">
-            <Container>
-             <Row>
-               <Col md={3} style={{ marginTop: '30px'}}>
-                 <strong >About us</strong>
-                 <p style={{ marginTop: '10px'}}>Travel expo</p>
-                 <p>Our History</p>
-                 <p>Contact</p>
-                 <p>Careers</p>
-                 <p>How we create new society</p>
-               </Col>
-               <Col md={3} style={{ marginTop: '30px'}}>
-                 <strong >Guide</strong>
-                 <p style={{ marginTop: '10px'}}>Travel expo</p>
-                 <p>Our History</p>
-                 <p>Contact</p>
-                 <p>Careers</p>
-                 <p>How we create new society</p>
-               </Col>
-               <Col md={3} style={{ marginTop: '20px'}}>
-                 <strong >Community</strong>
-                 <p style={{ marginTop: '10px'}}>COVID-19 news</p>
-                 <p>About Privacy</p>
-                 <p>Help Center</p>
-               </Col>
-               <Col md={3} style={{ marginTop: '20px'}}>
-                 <strong >Support</strong>
-                 <p style={{ marginTop: '10px'}}>COVID-19 news</p>
-                 <p>About Privacy</p>
-                 <p>Help Center</p>
-               </Col>
-              </Row>
-             </Container>
-            </div>
+            <OurCompany />
             </MediaQuery>
             <MediaQuery query="(max-width: 767px)">
             <div style={{ overflow: 'auto'}}>
-            { !isTop ? <header className="header-iphone-search-bar" >
-            <form class="search"> <input type="text" class="search-input" placeholder="Where do you go next ?" name="" onFocus={onFocus} /> <Link to={`/`} class="search-icon"> <SearchIcon type="submit" /> </Link> </form>
-            </header> : null }
+            { !isTop ? 
+            ( 
+            <header className="header-iphone-search-bar" >
+              <form class="search" onSubmit={onSubmit}> <input type="text" class="search-input" placeholder="Where do you go next ?" name="" onChange={(e)=> setText(e.target.val)} /><button type="submit" style={{ border: 'none', borderRadius: '20px'}}><SearchIcon style={{ color: 'pink'}} /></button> </form>
+            </header> 
+            ): null }
              <Row className="image-header-iphone">
                <h1 >Explore New World</h1>
                <p >Our service is especially for traveller and inhabitants who are looking forward to seeing with new oppurtunity</p>
@@ -255,7 +181,7 @@ const Home = () => {
               </Col> */}
               <h5 style={{ marginLeft: '45px'}}>Popular destinations</h5>
               <div className="iphone-container">
-               <Link to={`/place?city=Kualalumpur&country=Malaysia`} className="card-iphone">
+               <Link to={`/place?city=Kuala_Lumpur&country=Malaysia`} className="card-iphone">
                 <div className="card-iphone-title">
                   <img src="https://images.unsplash.com/photo-1582888736122-1b8900c586ce?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" />
                 </div>
@@ -298,7 +224,7 @@ const Home = () => {
               </Link>
               <h5 style={{ marginLeft: '45px', marginTop: '20px'}}>Unique Experiences</h5>
               <div className="iphone-container">
-               <Link to={`/setting`} className="card-iphone">
+               <Link to={`/allpost`} className="card-iphone">
                 <div className="card-iphone-title">
                   <img src="https://images.unsplash.com/photo-1549641951-32b98701e434?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" />
                 </div>
@@ -307,7 +233,7 @@ const Home = () => {
                   <p>Vietnam</p>
                 </div>
                </Link>
-               <Link to={`/setting`} className="card-iphone">
+               <Link to={`/allpost`} className="card-iphone">
                 <div className="card-iphone-title">
                   <img src="https://images.unsplash.com/photo-1506801310323-534be5e7a730?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" />
                 </div>
@@ -316,7 +242,7 @@ const Home = () => {
                   <p>Bankok Thailand</p>
                 </div>
                </Link>
-               <Link to={`/setting`} className="card-iphone">
+               <Link to={`/allpost`} className="card-iphone">
                 <div className="card-iphone-title">
                   <img src="https://images.unsplash.com/photo-1515662139884-1ba754b53417?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" />
                 </div>
@@ -325,7 +251,7 @@ const Home = () => {
                   <p>Thailand</p>
                 </div>
                </Link>
-               <Link to={`/setting`} className="card-iphone">
+               <Link to={`/allpost`} className="card-iphone">
                 <div className="card-iphone-title">
                   <img src="https://images.unsplash.com/photo-1509682841784-c7960cbb7608?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" />
                 </div>
@@ -335,7 +261,7 @@ const Home = () => {
                 </div>
                </Link>
               </div>
-              <Link to="/setting" class="fluid ui basic button" style={{ marginLeft: '30px'}}>
+              <Link to="/allpost" class="fluid ui basic button" style={{ marginLeft: '30px'}}>
                 Check More Guides and Tours
                 <i class="angle double right icon"></i>
               </Link>
@@ -359,7 +285,7 @@ const Home = () => {
                <div style={{ marginTop: '20px'}}>
                  <strong >Support</strong>
                  <p style={{ marginTop: '10px'}}>COVID-19 news</p>
-                 <p>About Privacy</p>
+                 <Link to="https://www.termsfeed.com/live/9984ee1b-f3a6-48b0-8509-aba1a8442292">About Privacy</Link>
                  <p>Help Center</p>
                </div>
                </Col>

@@ -8,7 +8,7 @@ import { styles } from './GoogleMapStyle';
 import GoogleMapReact from 'google-map-react';
 import MediaQuery from 'react-responsive';
 import StarIcon from '@material-ui/icons/Star';
-import { Link } from 'react-router-dom';
+import { Link, Route, Switch, useRouteMatch } from 'react-router-dom';
 import StickyFooter from '../layout/StickyFooter';
 import ExploreIcon from '@material-ui/icons/Explore';
 import { CSSTransition } from 'react-transition-group';
@@ -16,6 +16,9 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import { AuthContext } from '../auth/AuthState';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import { Avatar } from '@material-ui/core';
+import Score from '../layout/Score';
+import createHistory from 'history/createBrowserHistory'
+
 
 const Location = ({ location }) => {
     const query = parse(location.search)
@@ -25,22 +28,48 @@ const Location = ({ location }) => {
     const [ place, setPlace ] = useState({ lat: 0, lng: 0});
     const [slide, setSlide] = useState(false);
     const [lock, setLock] = useState(false);
+    const [tour, setTour ] = useState([])
+    const [ data, setData ] = useState({});
+    const [images, setImages ] = useState([]);
+    const [ others, setOthers ] = useState([]);
     const { userInfo, setUserInfo } = useContext(AuthContext);
     useEffect(()=>{
       setUserInfo(localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null)
-      Axios.get(`/api/location?city=${city}&country=${country}`)
-      .then(res=> {
-        setPlace(res.data)
-        console.log(res.data)
-      })
-      .catch(err => console.log(err))
-      Axios.get(`/api/guide/location?city=${city}&country=${country}`)
-      .then(res=> {
+      // Axios.get(`/api/location?city=${city}&country=${country}`)
+      // .then(res=> {
+      //   setPlace(res.data)
+      //   console.log(res.data)
+      // })
+      // .catch(err => console.log(err))
+      Axios.get(`https://www.triposo.com/api/20200803/location.json?id=${city}&account=FK8A06GJ&token=${process.env.REACT_APP_API_TOKEN}`)
+      .then(res => {
+        setData(res.data.results[0])
+        setImages(res.data.results[0].images)
+        console.log(res.data.results[0])
+        if(data){
+        Axios.get(`/api/guide/location?city=${city}&country=${country}`)
+       .then(res=> {
         setGuides(res.data)
         console.log(res.data)
       })
       .catch(err => console.log(err))
+    }
+      })
+      .catch(err => console.log(err))
+      
+      Axios.get(`https://www.triposo.com/api/20200803/location.json?part_of=${country}&tag_labels=city&count=10&order_by=-score&account=FK8A06GJ&token=${process.env.REACT_APP_API_TOKEN}`)
+      .then(res => {
+        console.log(res.data)
+        setOthers(res.data.results)
+      })
+      .catch(err => console.log(err))
     },[])
+    function reloadPage(){ 
+      setTimeout(() => {
+      const history = createHistory();
+      history.go(0)
+      })
+    }
     const createMapOptions = (maps) => {
         return {
           mapTypeControlOptions: {
@@ -90,9 +119,89 @@ const Location = ({ location }) => {
     return (
         <>
         <MediaQuery query="(min-width: 767px)">
-        <div className="location-page">
+          <div
+           style={{ display: 'flex', padding: '3%',height: '60px', justifyContent: 'space-between', width: '100%'}}
+          >
+            <h3><strong><Link to="/" style={{ color: 'black'}}>Expo-travel</Link></strong></h3>
+            { userInfo ? (
+              <div style={{ marginRight: '90px'}}>
+              <Link to={`/guide`} style={{ color: 'black', marginRight: '30px'}}>Become a guide</Link>
+              <Link to={`/mypage/${userInfo._id}`} style={{ color: 'black'}}>My page</Link>
+              </div>
+            ):(
+              <Link to="/login">Login</Link> 
+            )}
+          </div>
+        <hr />
+         <div className="location-page">
+         <div className="location-left">
+          <div style={{ display: 'flex', justifyContent: 'space-between'}}>
+           <div>
+           <h1>{data.name} <span style={{ fontSize: '15px'}}></span></h1>
+           <p style={{ marginTop: '30px'}}>{data.snippet}</p>
+           </div>
+           <div >
+            { guides !== null ? guides.length > 3 ? <ArrowForwardIosIcon /> : null :null}
+           </div>
+          </div>
+          <Container>
+              <Row className="guide-list-cards">
+            { guides.length > 0 ? (
+                guides.map(guide =>(
+                  
+                <div  style={{ marginTop: '30px'}}>
+                  <Link to={`/guide/${guide._id}`} style={{ color: 'black', textDecoration: 'none'}}>
+                   <div class="guide-card" style={{ width: '100%', display: 'flex'}} >
+                     <div class="content" style={{ width: '40%', position: 'relative'}}>
+                       <img src={guide.landscape} style={{ width: '100%', maxHeight: '200px', borderRadius: '10px',}} />
+                       <FavoriteBorderIcon onClick={()=>{
+                          Axios.post(`/api/user/favorite/${userInfo._id}`,guide._id)
+                          .then(res => alert(res.data))
+                          .catch(err => alert(err))
+                           
+                        }} 
+                        style={{ position: 'absolute', top:'10px',left: '10px'}}
+                        />
+                     </div>
+                     <div class="guide-card-content" style={{ width: '60%'}}>
+                      <StarIcon style={{ color: 'red'}} />{guide.star}<br/>
+                      <strong>{guide.title}{' '}{guide.name}</strong>
+                      <p>{guide.description}</p>
+                      <p style={{ color: 'lightgrey'}}>${guide.rate}/ a day</p>
+                     </div>
+                    </div>
+                </Link>
+                <hr />
+                </div>
+                  
+                ))
+            ): (
+              <h2 style={{ marginTop: '50px'}}>Currently No guide registered!</h2>
+            )}
+              </Row>
+
+          </Container>
+          <div className="location-others">
+               <h3>people also go to ....</h3>
+          <div className="other-cards">
+              { others.map(city => (
+                <>
+                <Link to={`/place?city=${city.id}&country=${city.country_id}`} onClick={ reloadPage }  className="other-city-card">
+                  <img src={city.images[0].source_url} />
+                  <div className="">
+                   <h3>{city.name}</h3>
+                   <p>rating:<Score rating={city.score} /></p>
+                   <p>{city.snippet}</p>
+                  </div>
+                </Link>
+                </>
+              ))}
+              </div>
+        </div>
+         </div> 
          <div className="location-right">
-         { place ? (
+          <h3 style={{ marginTop: '30px'}}>Pictures in {city}</h3>
+         {/* { place ? (
          <GoogleMapReact
             bootstrapURLKeys={{
               key: process.env.GOOGLE_API_KEY,
@@ -111,83 +220,63 @@ const Location = ({ location }) => {
           lng={place.lng}
           >
           </pin>
-         </GoogleMapReact>  ): null}
-         </div>
-         <div className="location-left">
-         <h3>Picked Place</h3>
-         <Link to={`/place?city=Kualalumpur&country=Malaysia`}>
-           <button class="ui basic button" style={{ margin: '10px'}}> Kuala lumpur</button>
-         </Link>
-         <Link to={`/place?city=Malacca&country=Malaysia`}>
-           <button class="ui basic button" style={{ margin: '10px'}}> Malacca</button>
-         </Link>
-         <Link to={`/place?city=Bangkok&country=Thailand`}>
-           <button class="ui basic button" style={{ margin: '10px'}}> Bangkok</button>
-         </Link>
-         <Link to={`/place?city=Danang&country=Vietnam`} class="ui basic button" style={{ margin: '10px'}}>
-           Danang
-         </Link>
-         <Link to={`/place?city=Singapore&country=Singapore`} class="ui basic button" style={{ margin: '10px'}}>
-           Singopore
-         </Link>
-          <div style={{ display: 'flex', justifyContent: 'space-between'}}>
-           <div>
-           <h1>{city}</h1>
-           <p>Check travel restrictions before booking.Please review and follow government travel guidelines.</p>
-           </div>
-           <div >
-            { guides !== null ? guides.length > 3 ? <ArrowForwardIosIcon /> : null :null}
-           </div>
-          </div>
-          <Container>
-              <Row>
-            { guides !== null ? (
-                guides.map(guide =>(
-                  
-                  <Col md={4} style={{ marginTop: '30px'}}>
-                  <Link to={`/guide/${guide._id}`}>
-                   <div class="ui raised card">
-                     <div class="content">
-                       <div class="header">{guide.title}{' '}</div>
-                       <div class="meta">
-                         <span class="category">${guide.rate}/ a day</span>
-                       </div>
-                       <div class="description">
-                         <p>Place: {guide.city}/{guide.country}</p>
-                         <p>Language: {guide.languages}</p>
-                         <p>Autthentication: not yet</p>
-                       </div>
-                     </div>
-                     <div class="extra content">
-                       <div className="left floated">
-                        <FavoriteBorderIcon onClick={favoriteHandler(guide)} />
-                       </div>
-                       <div class="right floated author">
-                         <img class="ui avatar image" src="/images/avatar/small/matt.jpg" />{guide.name}
-                       </div>
-                     </div>
-                   </div></Link>
-                  </Col>
-                  
-                ))
-            ): null}
-              </Row>
-          </Container>
-         </div>   
+         </GoogleMapReact>  ): null} */}
+         { images.map(image => (
+           <>
+           <img src={image.source_url}  width="100%" height="auto"/>
+           <p>{image.caption}</p>
+           </>
+
+         ))}
+         </div>  
         </div>
+        <div className="home-image">
+            <Container>
+             <Row>
+               <Col md={3} style={{ marginTop: '30px'}}>
+                 <strong >About us</strong>
+                 <p style={{ marginTop: '10px'}}>Travel expo</p>
+                 <p>Our History</p>
+                 <p>Contact</p>
+                 <p>Careers</p>
+                 <p>How we create new society</p>
+               </Col>
+               <Col md={3} style={{ marginTop: '30px'}}>
+                 <strong >Guide</strong>
+                 <p style={{ marginTop: '10px'}}>Travel expo</p>
+                 <p>Our History</p>
+                 <p>Contact</p>
+                 <p>Careers</p>
+                 <p>How we create new society</p>
+               </Col>
+               <Col md={3} style={{ marginTop: '20px'}}>
+                 <strong >Community</strong>
+                 <p style={{ marginTop: '10px'}}>COVID-19 news</p>
+                 <p>About Privacy</p>
+                 <p>Help Center</p>
+               </Col>
+               <Col md={3} style={{ marginTop: '20px'}}>
+                 <strong >Support</strong>
+                 <p style={{ marginTop: '10px'}}>COVID-19 news</p>
+                 <p>About Privacy</p>
+                 <p>Help Center</p>
+               </Col>
+              </Row>
+             </Container>
+            </div>
         </MediaQuery>
         <MediaQuery query="(max-width: 767px)">
         <div className='location-left-iphone'>
            <header style={{ paddingLeft: '3%', display: 'flex'}}>
             <Link to="/guideList"><ArrowBackIosIcon style={{ marginRight: '20px'}} /></Link>
-            <strong>{city}</strong>
+            <strong>{data.name}</strong>
            </header>
            <div className={ slide ? 'displayNone' : 'location-iphone-header' }>
              <p style={{ color: 'lightgrey'}}> the result of 「{city},{country}」</p>
           </div>
           <div className={ slide ? 'displayNone' : null }>
             <div className="iphone-container-guide-list" style={{  marginTop: '30px'}}>
-            { guides !== null ? (
+            { guides.length > 0 ? (
                 guides.map(guide =>(
                 <Link to={`/guide/${guide._id}`} style={{ color: 'black', textDecoration: 'none'}}>
                    <div class="guide-card" style={{ width: '100%'}} >
@@ -220,7 +309,7 @@ const Location = ({ location }) => {
                     </div>
                 </Link>
                 ))
-            ): <strong>Currently No Guide Exists</strong>
+            ): <h3><strong>Currently No Guide Exists</strong></h3>
                }
               </div>
             <div className="">

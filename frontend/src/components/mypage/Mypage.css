@@ -4,8 +4,12 @@
     display: flex;
     justify-content: space-between;
 }
-.travellist-page{
+.travel-list-page{
     padding: 3%;
+}
+.travel-list-page-contents{
+    padding: 3%;
+    display: flex;
 }
 .search-button{
     margin-top: 50px;
@@ -31,4 +35,12 @@
 .image-change-page{
     text-align: center;
     padding: 5%;
+}
+.post-experience{
+    width: 70%;
+    margin: 40px auto;
+}
+.post-experience > p{
+    font-weight: 300;
+    color: lightgrey;
 }

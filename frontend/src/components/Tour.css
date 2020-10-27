@@ -1,0 +1,121 @@
+.tour-header{
+    background-image: url('https://images.unsplash.com/photo-1534860292908-2f6b75911d81?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60');
+    background-size: cover;
+    height: 100vh;
+}
+.tour-header-title{
+    width: 100%;
+    text-align: center;
+    padding-top: 35vh;
+}
+.tour-header-title > h1 {
+    color: #ffffff;
+    display: inline-block;
+    font-size: 4.5em;
+    line-height: 1.35;
+    margin-bottom: 0.5em;
+    font-weight: 900;
+}
+.tour-header-title > p{
+    font-size: 1em;
+    color: #aaa;
+    margin-bottom: 1.75em;
+    text-transform: uppercase;
+}
+.tour-explanation{
+    width: 80%;
+    margin: 50px auto;
+    display: flex;
+}
+.tour-explanation-left{
+    width: 50%;
+    padding: 5%;
+}
+.tour-explanation-left > h2{
+    font-size: 2.8em;
+    font-weight: 700;
+}
+.tour-explanation-left > p{
+    font-size: 1.3em;
+    color: lightgrey;
+}
+.tour-explanation-right{
+    width: 50%;
+    padding: 5%;
+}
+.tour-example{
+    background-color: #f6f6f6;
+    text-align: center;
+    padding: 3%;
+}
+.tour-example > h1 {
+    font-weight: 700;
+}
+.tour-example > p {
+    color: lightgrey;
+}
+.tour-example-photos{
+    display: flex;
+    width: 92%;
+    margin: 60px auto;
+}
+.tour-example-photo1-left{
+    width: 50%;
+}
+.tour-example-photo1-right{
+    width: 50%;
+}
+.tour-example-photo2-left{
+    width: 50%;
+}
+.tour-example-photo2-right{
+    width: 50%;
+}
+.original-example{
+   width: 90%;
+   margin: 50px auto;
+   text-align: center;
+}
+.original-example > h2{
+    font-weight: 700;
+    font-size: 3.5em;
+}
+.steps-example{
+    display: flex;
+}
+.step-example{
+    text-align: left;
+    width: 33%;
+    padding: 4%;
+}
+.step-example > p {
+    margin-top: 20px;
+    line-height: 30px;
+}
+.tour-footer{
+    background-image: url('https://cdn.pixabay.com/photo/2018/09/07/19/15/travel-3661279__480.jpg');
+    background-size: cover;
+    height: 40vh;
+    text-align: center;
+    padding-top: 60px;
+}
+.tour-footer > h1 {
+    font-size: 3.3em;
+    color: #ffffff;
+}
+.tour-footer > button{
+    border: 0;
+    cursor: pointer;
+    display: inline-block;
+    font-weight: 700;
+    height: 3.15em;
+    line-height: 3.25em;
+    padding: 0 2.2em;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    white-space: nowrap;
+    background-color: #f32853;
+    color: #ffffff !important;
+    margin-top: 20px;
+}

@@ -1,7 +1,6 @@
 const express = require('express')
 const router = express.Router();
-const Guide = require('../models/guideModels')
-const User = require('../models/userModel')
+const models = require('../models/userModel')
 const multer = require('multer')
 const { v4: uuidv4 } = require('uuid');
 
@@ -28,7 +27,7 @@ var upload = multer({
 });
 router.post('/:id',upload.single('image'), async(req,res)=>{
     console.log(req.file)
-    const user = await User.findById(req.params.id)
+    const user = await models.User.findById(req.params.id)
     if(user){
         const url = req.protocol + '://' + req.get('host')
         const image = url + '/public/' + req.file.filename
@@ -37,14 +36,14 @@ router.post('/:id',upload.single('image'), async(req,res)=>{
         await console.log(user)
         await res.json(user.image)
         if(user.isGuide){
-          const guide = await Guide.findOne({ userId: user.guideId })
+          const guide = await models.Guide.findOne({ userId: user.guideId })
           guide.image = image
           await guide.save()
         }
     }
 })
 router.post('/guide/:id',upload.single('image'),async(req,res)=>{
-    const guide = await Guide.findOne({ userId: req.params.id })
+    const guide = await models.Guide.findOne({ userId: req.params.id })
     if(guide){
         const url = req.protocol + '://' + req.get('host')
         const image = url + '/public/' + req.file.filename
@@ -52,8 +51,18 @@ router.post('/guide/:id',upload.single('image'),async(req,res)=>{
         await guide.save()
     }
 })
+router.post('/post/:id',upload.single('image'),async(req,res)=>{
+    const post = await models.Post.findOne({ user: req.params.id })
+    console.log(req.file)
+    if(post){
+        const url = req.protocol + '://' + req.get('host')
+        const image = url + '/public/' + req.file.filename
+        post.image = image
+        await post.save()
+    }
+})
 router.get('/:id',async(req,res)=>{
-    const guide = await Guide.findById(req.params.id)
+    const guide = await models.Guide.findById(req.params.id)
     res.send(guide.image)
 })
 module.exports = router;

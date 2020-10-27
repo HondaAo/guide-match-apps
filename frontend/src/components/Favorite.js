@@ -6,6 +6,7 @@ import { AuthContext } from '../auth/AuthState';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import './Location.css'
 import { Avatar } from '@material-ui/core';
+import StickyFooter from '../layout/StickyFooter';
 
 const Favorite = ({ match }) => {
     const myId = match.params.id
@@ -33,7 +34,7 @@ const Favorite = ({ match }) => {
            Loading....  
            </>
        ): 
-        favoriteGuides !== [] ? (
+        favoriteGuides && favoriteGuides.length > 0 ? (
         favoriteGuides.map(guide => (
          <Row style={{ display: 'flex'}}>
            <Col md={4} >
@@ -63,13 +64,14 @@ const Favorite = ({ match }) => {
         <>
          <h4>Currently No Data</h4>
          <p>Let's check guide list page for next trip!!</p>
-         <Link to="?guideList">
+         <Link to="/guideList">
          <button class="ui basic button" style={{ margin: '3px',marginTop: '15px'}}>
            Search new guide
          </button>
          </Link>
          </>
        )}
+       <StickyFooter />
        </div>
        </>
     )

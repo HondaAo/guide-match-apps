@@ -46,8 +46,28 @@ const NormalProfile = ({ match }) => {
         <>
         { userInfo ? (
         <>
-
-            <Row className="">
+        <MediaQuery query="(min-width: 767px)">
+         <div className="mypage-header">
+          <div className="mypage-header-left">
+            <Link to="/" style={{ color: 'black'}}><strong>Expo</strong></Link>
+          </div>
+          <div className="mypage-header-right">
+          <div className="ui compact menu">
+            <div className="ui simple dropdown item">
+              <i className="ui icon user"></i> {userInfo.name}
+              <i className="dropdown icon"></i>
+              <div className="menu">
+                <Link to={`/chat/${userInfo._id}`} className="item">Chat</Link>
+                { userInfo.guideId !== '' ? <Link to={`/profile/${userInfo.guideId}`} className="item">Guide setting</Link> : <Link to={`/guide`} className="item">become a guide</Link> } 
+                <Link to={`/travellist/${userInfo._id}`} className="item">Travel List</Link>
+              </div>
+            </div>
+          </div> 
+          </div>
+         </div>
+        <hr />
+        </MediaQuery>
+          <Row className="">
              <Col md={{ span: 8, offset: 2}}>
              <div className="profile-header">
                <div className="profile-header-text">
@@ -94,7 +114,7 @@ const NormalProfile = ({ match }) => {
              <p>Support</p>
               <hr />
              <div className="support-center">
-             <Link to={`/support`} style={{ color: 'black'}}><h5 className="info-text"><ContactPhoneIcon style={{ marginRight: '15px', fontWeight: "200"}} />{' '}{' '}Help center</h5></Link>
+             <a href='https://www.termsfeed.com/live/9984ee1b-f3a6-48b0-8509-aba1a8442292' style={{ color: 'black'}}><h5 className="info-text"><ContactPhoneIcon style={{ marginRight: '15px', fontWeight: "200"}} />{' '}{' '}Privacy Policy</h5></a>
              <hr />
              <Link to={`/questions`} style={{ color: 'black'}}><h5 className="info-text"><HelpIcon style={{ marginRight: '15px', fontWeight: "200"}} />{' '}{' '}Fuliquently asked questions</h5></Link>
              <hr />
