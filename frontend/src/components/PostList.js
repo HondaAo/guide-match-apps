@@ -4,7 +4,6 @@ import { Container, Form,Col, Row } from 'react-bootstrap'
 import MediaQuery from 'react-responsive'
 import { Link } from 'react-router-dom'
 import { AuthContext } from '../auth/AuthState'
-import Footer from '../layout/Footer'
 import './aboutUs.css'
 import { animateScroll as scroll } from 'react-scroll';
 

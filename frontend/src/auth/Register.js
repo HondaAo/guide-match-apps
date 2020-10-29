@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Button, Col, Form, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { AuthContext } from '../auth/AuthState'
+import { AuthContext } from './AuthState'
 
 const Register = ({history}) => {
     const [name, setName ] = useState('');

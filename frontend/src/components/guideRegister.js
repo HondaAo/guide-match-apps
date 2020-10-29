@@ -7,7 +7,6 @@ import { Typeahead } from 'react-bootstrap-typeahead'
 import DateRangePicker from 'react-bootstrap-daterangepicker';
 import './Component.css';
 import Axios from 'axios';
-import Message from './Message';
 import Modal from 'react-modal'
 import MediaQuery from 'react-responsive';
 import { animateScroll as scroll } from 'react-scroll';

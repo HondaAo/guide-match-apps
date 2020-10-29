@@ -16,12 +16,7 @@ const AuthState = ({children, history}) => {
     }
     const register = async(user) => {
      const { data } = await axios.post('/api/user/register',user)
-     localStorage.setItem('userInfo',JSON.stringify(data))
-        if(data){
-            window.location = '/' 
-        }else{
-            alert('Invalid User')
-        }
+     alert(data.message)
     }
     const logout = () =>{
       localStorage.removeItem('userInfo')

@@ -2,8 +2,8 @@ import Axios from 'axios'
 import React, { useContext, useEffect, useState } from 'react'
 import { Alert, Button, Card, Col, Container, Form, FormControl, FormGroup, Jumbotron, ListGroup, Row } from 'react-bootstrap'
 import { parse } from 'query-string';
-import { AuthContext } from '../auth/AuthState';
-import './Component.css'
+import { AuthContext } from '../../auth/AuthState';
+import '../Component.css'
 import { Avatar } from '@material-ui/core';
 
 const MessageForGuide = ({location}) => {

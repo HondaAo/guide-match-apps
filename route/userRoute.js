@@ -2,12 +2,21 @@ const express = require('express');
 const router = express.Router();
 const models = require('../models/userModel')
 const generateToken = require('../utils/Token')
+const AWS = require('aws-sdk')
+
+AWS.config.update({
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    region: 'ap-northeast-1'
+})
+
+const ses = new AWS.SES({ apiVersion: '2010-12-01'})
 
 router.post('/login', async(req,res)=>{
     const { email, password } = req.body 
     const user = await models.User.findOne({email})
     if(!user){
-        res.status(401).send('No user exists, please confirm ypur email ')
+        res.status(401).send('No user exists, please confirm your email ')
     }
     if(user && (await user.matchPassword(password))){
        res.json({
@@ -38,24 +47,62 @@ router.post('/register', async(req,res)=>{
         name,
         email,
         password,
-
     })
-    console.log(user)
-    if(user){
-        res.json({
-            _id: user._id,
-            name: user.name,
-            email: user.email,
-            isAdmin: user.isAdmin,
-            isGuide: user.isGuide,
-            image: user.image,
-            sex: user.sex,
-            token: generateToken(user._id), 
-        })
+    const params = {
+        Source: process.env.EMAIL_FROM,
+        Destination: {
+            ToAddresses: [email]
+        },
+        ReplyToAddresses: [process.env.EMAIL_TO],
+        Message: {
+            Body: {
+                Html:{
+                    Charset: 'UTF-8',
+                    Data: `
+                    <html>
+                     <body>
+                      <h1>Hi ${name}! Verify Your email address </h1>
+                      <p>${process.env.CLIENT_URL}/login</p>
+                     </body>
+                    </html>`
+                }
+            },
+            Subject: {
+                Charset: 'UTF-8',
+                Data: 'You just created new account on Expo.'
+            }
+        }
+    };
+    const sendEmailOnRegister = ses.sendEmail(params).promise()
 
-    }else{
-        res.status(401).send('Invaild password')
-    }
+    sendEmailOnRegister
+    .then(data => {
+        console.log('email submitted to SES', data);
+        res.json({
+            message: `Email has been sent to ${email}, Follow the instructions to complete your registration`
+        });
+    })
+    .catch(error => {
+        console.log('ses email on register', error);
+        res.json({
+            error: `We could not verify your email. Please try again`
+        });
+    });
+    // if(user){
+    //     res.json({
+    //         _id: user._id,
+    //         name: user.name,
+    //         email: user.email,
+    //         isAdmin: user.isAdmin,
+    //         isGuide: user.isGuide,
+    //         image: {},
+    //         sex: user.sex,
+    //         token: generateToken(user._id), 
+    //     })
+
+    // }else{
+    //     res.status(401).send('Invaild password')
+    // }
 
   
 })

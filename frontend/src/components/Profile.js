@@ -10,8 +10,6 @@ import LanguageIcon from '@material-ui/icons/Language';
 import { AuthContext } from '../auth/AuthState';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
-import ContactMailIcon from '@material-ui/icons/ContactMail';
 import Modal from 'react-modal'
 import MediaQuery from 'react-responsive';
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';

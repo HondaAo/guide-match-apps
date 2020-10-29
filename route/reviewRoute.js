@@ -1,10 +1,10 @@
 const express = require('express')
 const router = express.Router();
-const Guide = require('../models/guideModels')
+const models = require('../models/userModel.js')
 
 router.post('/:id',async(req,res)=>{
     const { name, rating, comment, userId } = req.body;
-    const guide = await Guide.findById(req.params.id);
+    const guide = await models.Guide.findById(req.params.id);
     if(guide){
      const review = {
          name,

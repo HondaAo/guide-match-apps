@@ -36,10 +36,15 @@ const Payment = ({match}) => {
         .catch(err => alert(err))
     }
     return (
-        <div>
-         <PayPalButton amount="20" onSuccess={paymentHandler} />
-
+        <>
+        { guide ? (
+        
+        <div style={{ textAlign: 'center', marginTop: '10%'}}>
+         <h2 style={{ marginBottom: '40px'}}>Please select your payment methods</h2>
+         <PayPalButton amount={guide.rate} onSuccess={paymentHandler} />
         </div>
+        ): <h3>Loading....</h3>}
+        </>
     )
 }
 

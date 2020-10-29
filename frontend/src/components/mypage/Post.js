@@ -9,35 +9,33 @@ const Post = ({ history }) => {
     const [ title, setTitle ] = useState('')
     const [ comment, setComment ] = useState('')
     const { userInfo, setUserInfo, logout } = useContext(AuthContext);
-    const [ file, setFile ] = useState('')
+    const [ file, setFile ] = useState({})
     useEffect(()=>{
     setUserInfo(localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null)
+    const formData = new FormData()
+      formData.set('user','')
+      formData.set('title', '')
+      formData.set('comment', '')
     },[])
     const onSubmit = (e) =>{
-       e.preventDefault();
-       const post = {
-           user: userInfo._id,
-           title,
-           comment,
-           image: ''
-       }
-       Axios.post(`/api/post`,post)
-       .then(res => {
-        console.log(res.data)
-        const formData = new FormData()
-        formData.append('image', file)
+      e.preventDefault();
+      const formData = new FormData()
+      formData.append('user', userInfo._id)
+      formData.append('title', title)
+      formData.append('comment', comment)
+       formData.append('image',file)
         const config = {
           headers: {
               'content-type': 'multipart/form-data'
           }
         };
-        Axios.post(`/api/image/post/${userInfo._id}`,formData,config)
+        console.log(file)
+        Axios.post(`/api/image/post`,formData)
         .then(res => {
           console.log(res.data)
           history.push(`/mypage/${userInfo._id}`)
         })
-        .catch(err => alert(err))
-       })
+        .catch(err => console.log(err))
     }
     return (
     <div>

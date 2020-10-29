@@ -3,22 +3,21 @@ import './App.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Header from './layout/Header'
 import { Container } from 'react-bootstrap'
-import Login from './components/Login'
-import Register from './components/Register'
+import Login from './auth/Login'
+import Register from './auth/Register'
 import Home from './components/Home'
 import AuthState from './auth/AuthState'
 import Footer from './layout/Footer';
-import HeaderNext from './layout/HeaderNext';
 import Locations from './components/Location';
 import guideRegister from './components/guideRegister';
 import guideList from './components/guideList';
 import aboutUs from './components/aboutUs';
 import GuideDetail from './components/GuideDetail';
-import Message from './components/Message'
-import ChatScreen from './components/ChatScreen'
+import Message from './components/Chat/Message'
+import ChatScreen from './components/Chat/ChatScreen'
 import Profile from './components/Profile';
-import ChatForGuide from './components/ChatForGuide';
-import MessageForGuide from './components/MessageForGuide';
+import ChatForGuide from './components/Chat/ChatForGuide';
+import MessageForGuide from './components/Chat/MessageForGuide';
 import Review from './components/Review';
 import ProfileUpdate from './components/mypage/ProfileUpdate';
 import StickyFooter from './layout/StickyFooter';
@@ -29,11 +28,10 @@ import PersonalSetting from './components/mypage/PersonalSetting';
 import Payment from './components/mypage/Payment';
 import GuideSetting from './components/GuideSetting';
 import TravelList from './components/mypage/TravelList';
-import ChatPayment from './components/ChatPayment'
+import ChatPayment from './components/Chat/ChatPayment'
 import ChangePhoto from './components/mypage/ChangePhoto';
 import Setting from './components/Setting';
 import Post from './components/mypage/Post';
-import TouchRipple from '@material-ui/core/ButtonBase/TouchRipple';
 import Tour from './components/Tour';
 import PostList from './components/PostList'
 import ScrollTop from './layout/ScrollTop'

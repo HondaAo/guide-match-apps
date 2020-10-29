@@ -42,6 +42,20 @@ router.post('/book/:id', async(req,res)=> {
       await res.json(guide)
     }
 })
+router.post('/finish/:id',async(req,res)=>{
+    const  userId  = req.body
+    console.log(userId.userId)
+    const guide = await models.Guide.findById(req.params.id)
+    if(guide){
+     const reservation = guide.reservations.find(reservation => reservation.clientId === userId.userId)
+     console.log(reservation)
+     if(reservation){
+        reservation.isFinished = true
+        await guide.save()
+        res.json(guide)
+     }
+    }
+})
 router.get('/:id',async(req,res)=>{
     const guide = await models.Guide.findById(req.params.id)
     res.json(guide)

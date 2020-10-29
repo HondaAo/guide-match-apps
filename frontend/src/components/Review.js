@@ -26,7 +26,7 @@ const Review = ({ match }) => {
         .catch(err => console.log(err))
     }
     return (
-        <Row>
+        <Row style={{ padding: "5%"}}>
          <Col md={{ span: 6, offset: 3}}>
          <h2 style={{ marginBottom: '30px'}}>review page</h2>
              <Form onSubmit={onSubmit}>

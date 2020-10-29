@@ -1,13 +1,14 @@
 import Axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react'
-import { Button, Col, Row } from 'react-bootstrap';
+import { Button, Col, Form, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import  IconButton  from '@material-ui/core/IconButton'
-import { AuthContext } from '../auth/AuthState';
-import { Avatar } from '@material-ui/core';
+import { AuthContext } from '../../auth/AuthState';
+import { Avatar, FormGroup } from '@material-ui/core';
 import MediaQuery from 'react-responsive';
+import Modal from 'react-modal'
 
-const ChatScreen = ({ match }) => {
+const ChatScreen = ({ match, history }) => {
   const roomId = match.params.id;
   const [ chats, setChats ] = useState([])
   const { userInfo, setUserInfo } = useContext(AuthContext);
@@ -16,6 +17,10 @@ const ChatScreen = ({ match }) => {
   const [ guide, setGuide ] = useState({})
   const [ text, setText ] = useState('')
   const [isOpen, setIsOpen ] = useState(false)
+  const [ modal , setModal ] = useState(false);
+  const [ date , setDate ] = useState('');
+  const [ isBooked, setIsBooked ] =useState(false);
+  const [ reservation, setReservation ] =useState({})
   useEffect(()=>{
     setUserInfo(localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null)
     Axios.get(`/api/chat/${roomId}`)
@@ -43,6 +48,32 @@ const ChatScreen = ({ match }) => {
       setText('');
     })
     .catch(err => console.log(err))
+  }
+  const onSubmitHandler = (e)=>{
+    e.preventDefault();
+    const reservation = {
+      name: userInfo.name,
+      date,
+      clientId: userInfo._id
+    }
+    const travel = {
+      guidename: guide.name,
+      date,
+      guideId: guide._id,
+      landscape: guide.landscape
+    }
+    Axios.post(`/api/guide/book/${guide._id}`,reservation)
+    .then(res => {
+      console.log(res.data)
+      setIsBooked(true)
+      setModal(false)
+      Axios.post(`/api/user/travellist/${userInfo._id}`,travel)
+     .then(res => console.log(res.data))
+     .catch(err => console.log(err))
+      alert("Successfully booked")
+      history.push(`/chat/payment/${userInfo._id}`)
+    })
+    .catch(err => alert(err))
   }
     return (
     <>
@@ -86,7 +117,13 @@ const ChatScreen = ({ match }) => {
             .then(res => {
                setMessages(res.data)
                Axios.get(`/api/guide/${chat.userId}`)
-               .then(res => setGuide(res.data))
+               .then(res => {
+                setGuide(res.data)
+                if(res.data.reservations.length > 0){
+                 setReservation(res.data.reservations.find(reservation => {
+                  return reservation.clientId === userInfo._id
+                }))
+               }})
                .catch(err => console.log(err))
              })
             .catch(err => console.log(err))
@@ -139,6 +176,22 @@ const ChatScreen = ({ match }) => {
            )}
            </>
           ))}
+          { reservation  ? null : <button className="ui negative basic button" onClick={()=> {
+          setModal(prev => !prev)
+          }}>reservation</button>}
+          { !reservation.isBooked ? null : <button className="ui negative basic button" onClick={()=> {
+            const info = {
+              userId: userInfo._id
+            }
+           Axios.post(`/api/guide/finish/${guide._id}`,info)
+           .then(res => {
+             console.log(res.data)
+           })
+           .catch(err => console.log(err))
+          }}>Finished</button>}
+          { reservation && !reservation.isFinished ? null : <button className="ui primary basic button" onClick={()=> {
+          history.push(`/review/${guide._id}`)
+          }}>Write a review</button>}
           <form onSubmit={onSubmit}>
                <div class="panel-footer">
                     <div class="input-group">
@@ -179,6 +232,30 @@ const ChatScreen = ({ match }) => {
      </div>
       </>}
     </MediaQuery>
+    <Modal
+          isOpen={modal}
+          style={customStyles}
+          onRequestClose={()=> setModal(false)}
+          contentLabel="Example Modal">
+         <h1>Reservation</h1>
+         <Form onSubmit={onSubmitHandler}>
+          <FormGroup>
+            <Form.Label>Name</Form.Label>
+            <Form.Control type="text" placeholder="NickName" value={userInfo.name} readOnly/>
+          </FormGroup>
+          <FormGroup>
+            <Form.Label>Date</Form.Label>
+            <Form.Control type="date" placeholder="date" value={date} onChange={(e)=> setDate(e.target.value)} required/>
+          </FormGroup>
+          <FormGroup>
+            <Form.Label>Rate($)</Form.Label>
+            <Form.Control type="text" placeholder="Readonly input here..." value={guide.rate} readOnly />
+          </FormGroup>
+          <button className="ui button twitter" type="submit" style={{  width: '100%'}}>
+            Submit
+          </button>
+         </Form>
+    </Modal>
     <MediaQuery query="(max-width: 767px)">
     { chats.length > 0  ? (
       <>
@@ -249,5 +326,18 @@ const ChatScreen = ({ match }) => {
     </>
     )
 }
+const customStyles = {
+  content : {
+    top                   : '50%',
+    left                  : '50%',
+    right                 : 'auto',
+    bottom                : 'auto',
+    padding               : '5%',
+    margin                : '0 auto',
+    transform             : 'translate(-50%, -50%)',
+    textAlign             : 'center',
+    width                 : '90%',
 
+ }
+};
 export default ChatScreen

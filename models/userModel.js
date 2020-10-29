@@ -78,7 +78,8 @@ const postSchema = mongoose.Schema({
         type: String
     },
     image: {
-        type: String
+        url: String,
+        key: String
     }
 },{
     timestamps: true
@@ -186,8 +187,9 @@ const guideSchema = mongoose.Schema({
         default: 0
     },
     image: {
-       type: String,
-       default: '',
+       url: String,
+       key: String,
+       default: {}
     },
     reviews: [reviewSchema],
     reservations: [ reservationSchema ],
@@ -271,7 +273,10 @@ const userSchema = mongoose.Schema({
     },
     travellist: [
         travellistSchema
-    ]
+    ],
+    token: {
+        type: String
+    }
 },{
     timestamps: true
 })

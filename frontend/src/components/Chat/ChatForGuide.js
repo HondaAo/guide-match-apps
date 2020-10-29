@@ -3,7 +3,7 @@ import Axios from 'axios'
 import React, { useContext, useEffect, useState } from 'react'
 import { Col, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import { AuthContext } from '../auth/AuthState'
+import { AuthContext } from '../../auth/AuthState'
 
 const ChatForGuide = ({match}) => {
     const chatId = match.params.id
