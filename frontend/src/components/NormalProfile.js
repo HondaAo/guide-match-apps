@@ -1,4 +1,5 @@
 import { Avatar } from '@material-ui/core';
+import moment from 'moment'
 import Axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react'
 import { Col, Row } from 'react-bootstrap';
@@ -28,20 +29,6 @@ const NormalProfile = ({ match }) => {
      })
      .catch(err => console.log(err))
     },[])
-    const imageChange = (e)=>{
-     e.preventDefault();
-     const formData = new FormData()
-      formData.append('image', file)
-      console.log(file)
-      const config = {
-        headers: {
-            'content-type': 'multipart/form-data'
-        }
-      };
-      Axios.post(`/api/image/${userInfo._id}`,formData,config)
-      .then(res => alert(res.data))
-      .catch(err => alert(err))
-    }
     return (
         <>
         { userInfo ? (
@@ -72,7 +59,7 @@ const NormalProfile = ({ match }) => {
              <div className="profile-header">
                <div className="profile-header-text">
                 <h4>{userInfo.name}</h4>
-                <p style={{ color: 'lightgrey', marginTop: '20px'}}>registered{' '}{userInfo.createdAt}</p>
+                <p style={{ color: 'lightgrey', marginTop: '20px'}}>registered{' '}{moment(userInfo.createdAt).format('MMMM Do YYYY')}</p>
                </div>
                <div className="profile-header-image" style={{ minWidth: '120px'}}>
                 { userInfo.image !== "" ? (

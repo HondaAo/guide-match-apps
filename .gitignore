@@ -2,3 +2,4 @@
 /frontend/build
 .env
 .env2
+.expo.pem

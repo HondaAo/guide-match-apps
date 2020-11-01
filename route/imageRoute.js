@@ -27,9 +27,8 @@ router.post('/post',(req,res)=>{
         }
         const { user, title, comment } = fields
         const { image } = files
-        console.log(image)
         let post = new models.Post({ user, title, comment })
-        if(image.size > 200000){
+        if(image.size > 1000000){
             console.log(err)
             return res.status(400).json({
                 error: "Image should be less than 2mb"
@@ -43,7 +42,6 @@ router.post('/post',(req,res)=>{
             ACL: 'public-read',
             ContentType: `image/jpg`
         }
-        console.log(params)
         s3.upload(params,(err, data)=> {
             if(err) {
                 console.log(err)
@@ -97,7 +95,7 @@ router.post('/change/:id',async(req,res)=>{
         console.log(form.openedFiles[0])
         const image = form.openedFiles[0]
         console.log(image)
-        if(image.size > 200000){
+        if(image.size > 1000000){
             return res.status(400).send("Image should be less than 2mb")
         }
         const params = {

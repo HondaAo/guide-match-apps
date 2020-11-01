@@ -34,7 +34,7 @@ router.post('/login', async(req,res)=>{
        })
        console.log(user)
     }else{
-        res.status(401).send('Invaild password')
+        res.status(401).send('password is wrong, please confirm')
     }
 })
 router.post('/register', async(req,res)=>{
@@ -43,10 +43,35 @@ router.post('/register', async(req,res)=>{
     if(userExists){
         res.status(400).send('user alreaddy exists')
     }
+    if(user){
+        res.json({
+            _id: user._id,
+            name: user.name,
+            email: user.email,
+            isAdmin: false,
+            isGuide: user.isGuide,
+            image: '',
+            sex: user.sex,
+            token: generateToken(user._id), 
+        })
+
+    }else{
+        res.status(401).send('Invaild password')
+    }
+
+  
+})
+router.post('/register/admin',async(req, res)=>{
+    const { name, email, password } = req.body   
+    const userExists = await models.User.findOne({email})
+      if(userExists){
+          res.status(400).send('user alreaddy exists')
+      }
     const user = await models.User.create({
         name,
         email,
         password,
+        isAdmin: true
     })
     const params = {
         Source: process.env.EMAIL_FROM,
@@ -62,7 +87,7 @@ router.post('/register', async(req,res)=>{
                     <html>
                      <body>
                       <h1>Hi ${name}! Verify Your email address </h1>
-                      <p>${process.env.CLIENT_URL}/login</p>
+                      <p>${process.env.CLIENT_URL}/login/admin</p>
                      </body>
                     </html>`
                 }
@@ -79,7 +104,7 @@ router.post('/register', async(req,res)=>{
     .then(data => {
         console.log('email submitted to SES', data);
         res.json({
-            message: `Email has been sent to ${email}, Follow the instructions to complete your registration`
+            message: `Email has been sent to ${email}, Follow the instructions to complete your admin registration`
         });
     })
     .catch(error => {
@@ -88,25 +113,8 @@ router.post('/register', async(req,res)=>{
             error: `We could not verify your email. Please try again`
         });
     });
-    // if(user){
-    //     res.json({
-    //         _id: user._id,
-    //         name: user.name,
-    //         email: user.email,
-    //         isAdmin: user.isAdmin,
-    //         isGuide: user.isGuide,
-    //         image: {},
-    //         sex: user.sex,
-    //         token: generateToken(user._id), 
-    //     })
-
-    // }else{
-    //     res.status(401).send('Invaild password')
-    // }
-
-  
-})
-router.post('/login/admini', async(req,res)=>{
+  })
+router.post('/login/admin', async(req,res)=>{
   const { email, password } = req.body 
   const user = await models.User.findOne({email})
     if(user && (await user.matchPassword(password))){

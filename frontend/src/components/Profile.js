@@ -4,9 +4,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Button, Col, Form, Row } from 'react-bootstrap';
 import './Component.css'
 import LocationOnIcon from '@material-ui/icons/LocationOn';
-import MailIcon from '@material-ui/icons/Mail';
 import { Link } from 'react-router-dom';
-import LanguageIcon from '@material-ui/icons/Language';
 import { AuthContext } from '../auth/AuthState';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
@@ -101,7 +99,7 @@ const Profile = ({match}) => {
           <div className="profile-header-text">
            <h4>Hello, I'm {guideInfo.name}</h4>
            <p style={{ color: 'lightgrey'}}>registered{' '}{guideInfo.createdAt}</p>
-           <Link to={`/update/${guideInfo._id}`} style={{ color: 'black'}}><p>edit profile</p></Link>
+           { userInfo === guideInfo._id && <Link to={`/update/${guideInfo._id}`} style={{ color: 'black'}}><p>edit profile</p></Link>}
           </div>
           <div className="profile-header-image">
            { userInfo ? (

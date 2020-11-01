@@ -1,16 +1,11 @@
-import Axios from 'axios'
 import React, { useContext, useEffect, useState } from 'react'
 import { Row, Col, Card, Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import './Component.css'
 import MediaQuery from "react-responsive";
 import { Container, IconButton } from '@material-ui/core'
-import StickyFooter from '../layout/StickyFooter'
-import StarBorderIcon from '@material-ui/icons/StarBorder';
 import SearchIcon from '@material-ui/icons/Search';
 import { AuthContext } from '../auth/AuthState'
-import { Helmet } from 'react-helmet';
-import Footer from '../layout/Footer'
 import OurCompany from '../layout/OurCompany'
 
 const scrollTop = () => {
@@ -56,6 +51,7 @@ const Home = ({history}) => {
                   <>
                   <Link to="/guide"><button className="ui inverted button">Become a guide</button></Link>
                   <Link  to={`/mypage/${userInfo._id}`} style={{ marginLeft: '20px'}}><button className="ui inverted button">My page</button></Link>
+                  { userInfo.isAdmin && <Link to="/admin"style={{ marginLeft: '20px'}}><button className="ui inverted button"> Admin</button></Link>}
                   </>
                 ): (
                   <Link to="/login"><button class="ui inverted button">Login</button></Link>
@@ -165,20 +161,6 @@ const Home = ({history}) => {
                <p >Our service is especially for traveller and inhabitants who are looking forward to seeing with new oppurtunity</p>
              </Row>
              <Row className="top-contents-iphone">
-              {/* <Col xs={{ span: '10', offset: '1'}}>
-              <h5 style={{ marginLeft: '15px'}}>Popular destinations</h5>
-               <Link to={`/place?city=Singapore&country=Singapore`} style={{ color: 'black',padding: '3%'}}>
-               <div className="card-iphone-image" style={{ borderRadius: '30px', }}>
-                  <img src="https://images.unsplash.com/flagged/photo-1562503542-2a1e6f03b16b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" height="auto" width="fit-content" />
-                <div className="content" style={{ padding: '2%'}}>
-                  <div style={{ marginBottom: '4px'}}><strong>Singapore</strong></div>
-                  <div className="meta">
-                    <p style={{ color: 'lightgrey'}}>Singapore</p>
-                  </div>
-                </div>
-               </div>
-               </Link>
-              </Col> */}
               <h5 style={{ marginLeft: '45px'}}>Popular destinations</h5>
               <div className="iphone-container">
                <Link to={`/place?city=Kuala_Lumpur&country=Malaysia`} className="card-iphone">

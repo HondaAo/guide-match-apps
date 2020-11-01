@@ -5,6 +5,8 @@ import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import Axios from 'axios';
 import { Col, Row } from 'react-bootstrap';
 import { Avatar } from '@material-ui/core';
+import moment from 'moment'
+import './Mypage.css'
 
 const TravelList = ({ match }) => {
     const myId = match.params.id
@@ -44,7 +46,7 @@ const TravelList = ({ match }) => {
                    <div className="favorite-content">
                        <div>
                        <h4>{travel.guidename}</h4>
-                       <p style={{ color: 'grey'}}>{travel.date}</p>
+                       <p style={{ color: 'grey'}}>{moment(travel.date).format('MMMM Do YYYY')}</p>
                        </div>
                    </div>
                </div>

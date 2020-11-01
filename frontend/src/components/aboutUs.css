@@ -29,6 +29,10 @@
     display: flex;
     padding-left: 10%;
 }
+.about-us-page-header-right-contents{
+    margin-right: 30px;
+    color: white;
+}
 .about-us-page-contents{
    color: white;
    width: 40%;
@@ -97,6 +101,11 @@
     width: 100%;
     align-items: center;
     justify-content: center;
+}
+.post-list-header > header{
+    position: absolute;
+    top: 30px;
+    left: 70px;
 }
 .post-list-header > img{
   filter: brightness(40%) blur(2px);

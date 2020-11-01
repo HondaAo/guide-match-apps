@@ -16,31 +16,25 @@ const PostList = ({history}) => {
     setUserInfo(localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null)
     },[])
     const onSubmit = (e) =>{
-        e.preventDefault();
-        const post = {
-            user: userInfo._id,
-            title,
-            comment,
-            image: ''
-        }
-        Axios.post(`/api/post`,post)
+      e.preventDefault();
+      const formData = new FormData()
+      formData.append('user', userInfo._id)
+      formData.append('title', title)
+      formData.append('comment', comment)
+       formData.append('image',file)
+        const config = {
+          headers: {
+              'content-type': 'multipart/form-data'
+          }
+        };
+        Axios.post(`/api/image/post`,formData)
         .then(res => {
-         console.log(res.data)
-         const formData = new FormData()
-         formData.append('image', file)
-         const config = {
-           headers: {
-               'content-type': 'multipart/form-data'
-           }
-         };
-         Axios.post(`/api/image/post/${userInfo._id}`,formData,config)
-         .then(res => {
-           console.log(res.data)
-           history.push(`/mypage/${userInfo._id}`)
-         })
-         .catch(err => alert(err))
+          alert(res.data)
+          setTitle('')
+          setComment('')
         })
-     }
+        .catch(err => console.log(err))
+    }
      const scrollToTop = () => {
       scroll.scrollMore(600);
     }
@@ -48,6 +42,9 @@ const PostList = ({history}) => {
        <>
           <div className="post-list-header">
               <img src="https://cdn.pixabay.com/photo/2014/02/02/17/40/photos-256887__480.jpg"  />
+              <header>
+                <Link to="/" style={{ color: 'white', fontSize: '2em'}}><strong>Expo</strong></Link >
+              </header>
                <div className="post-list-header-contents">
                <MediaQuery　　query="(min-width: 767px)">
                <h2>Let's check all traveller's photos and memories</h2>

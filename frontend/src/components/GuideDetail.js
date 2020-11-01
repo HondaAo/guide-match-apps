@@ -69,7 +69,6 @@ const GuideDetail = ({match,history}) => {
         </div>
           <strong>Details</strong>
           <ListGroup variant="flush">
-            {/* <ListGroup.Item>Language:{' '}{guide.languages.map(item => <strong>{item}{' '}</strong>)}</ListGroup.Item> */}
             <ListGroup.Item>Place:{' '}<strong>{guide.city} {' '}{ guide.country}</strong></ListGroup.Item>
             <ListGroup.Item>Rating:{' '}<i class="star icon"></i>{' '}<strong>{guide.star}</strong></ListGroup.Item>
             <ListGroup.Item>Experience:{' '}<strong>{guide.experience}</strong></ListGroup.Item>
