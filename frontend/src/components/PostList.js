@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import { AuthContext } from '../auth/AuthState'
 import './aboutUs.css'
 import { animateScroll as scroll } from 'react-scroll';
+import {Helmet} from 'react-helmet'
 
 const PostList = ({history}) => {
     const [ title, setTitle ] = useState('')
@@ -32,6 +33,7 @@ const PostList = ({history}) => {
           alert(res.data)
           setTitle('')
           setComment('')
+          setFile('')
         })
         .catch(err => console.log(err))
     }
@@ -40,6 +42,11 @@ const PostList = ({history}) => {
     }
      return(
        <>
+       <Helmet>
+        <meta charSet="utf-8" />
+        <title>Photo gallary</title>
+        <meta name="description" content="You can put your memory in the gallary" />
+       </Helmet>
           <div className="post-list-header">
               <img src="https://cdn.pixabay.com/photo/2014/02/02/17/40/photos-256887__480.jpg"  />
               <header>
@@ -50,7 +57,7 @@ const PostList = ({history}) => {
                <h2>Let's check all traveller's photos and memories</h2>
                </MediaQuery>
                <MediaQuery query="(max-width: 767px)">
-                 <h3 style={{ marginBottom: '30px'}}>Travel Post</h3>
+                 <h3 style={{ marginBottom: '30px'}}>Travel Blogs</h3>
                </MediaQuery>
                <button class="ui inverted basic button" onClick={scrollToTop} style={{ marginTop: '40px'}}>CONTINUE</button>
               </div>
@@ -76,7 +83,6 @@ const PostList = ({history}) => {
              <img src="https://images.unsplash.com/photo-1588076077185-e8d6f03b6386?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" />
             </div>
           </div>
-          <Link to="/setting" className="ui button black" style={{ marginLeft: '45%', marginBottom: '50px'}}>See all posts</Link>
           <div >
           <MediaQuery query="(min-width: 767px)">
           <div className="post-yourself">
@@ -107,7 +113,7 @@ const PostList = ({history}) => {
           </div>
           </MediaQuery>
           <MediaQuery query="(max-width: 767px)">
-          <div style={{ backgroundColor: '#ececec', paddingTop: '4%'}}>
+          <div style={{ backgroundColor: '#ececec', paddingTop: '4%', marginBottom: '20px'}}>
           <h3 style={{ margin: '30px'}}>Let's add your memory to gallery</h3>
              <Form onSubmit={onSubmit} style={{ padding: '3%'}}>
                  <Form.Group>

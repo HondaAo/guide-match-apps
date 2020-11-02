@@ -10,20 +10,20 @@ import StickyFooter from '../layout/StickyFooter';
 
 const Favorite = ({ match }) => {
     const myId = match.params.id
+    const [ guideIds, setGuideIds ] = useState([])
+    const [ favoriteGuides, setFavoriteGuides ] = useState([])
     const { userInfo, setUserInfo } = useContext(AuthContext);
-    const [ favoriteGuides, setFavoriteGuides ] = useState([]);
     useEffect(()=>{
       setUserInfo(localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null)
-      const getUser = async()=> {
-      const data = await Axios.get(`/api/user/${userInfo._id}`)
-      console.log(data.data.favoriteGuides)
-       setFavoriteGuides(data.data.favoriteGuides)
-     }
      if(userInfo){
-       getUser()  
+       getUser()
      }
-     
     },[])
+    const getUser = async()=> {
+      const data = await Axios.get(`/api/user/favorite/${userInfo._id}`)
+      console.log(data)
+      setFavoriteGuides(data.data)
+    }
     return (
         <>
          <div className="favorite-page">
@@ -39,10 +39,9 @@ const Favorite = ({ match }) => {
          <Row style={{ display: 'flex'}}>
            <Col md={4} >
                <div className="favorite-card" style={{ marginBottom: '30px'}} >
-                   <Link className="favorite-card-title" to={`/guide/${guide.guideId}`}>
+                   <Link className="favorite-card-title" to={`/guide/${guide._id}`}>
                       <img src={guide.landscape} style={{ width: '100%', maxHeight: '150px'}} /> 
                    </Link>
-                   <hr />
                    <div className="favorite-content">
                        <div>
                        <strong>{guide.name}</strong>
@@ -50,7 +49,7 @@ const Favorite = ({ match }) => {
                        </div>
                        <div>
                          <FavoriteIcon onClick={()=> {
-                             Axios.delete(`/api/user/guide?myId=${userInfo._id}&guideId=${guide.guideId}`)
+                             Axios.delete(`/api/user/guide?myId=${userInfo._id}&guideId=${guide._id}`)
                              .then(res => alert(res.data))
                              .catch(err => console.log(err))
                          }}/>

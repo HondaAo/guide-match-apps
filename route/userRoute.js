@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 const models = require('../models/userModel')
 const generateToken = require('../utils/Token')
-const AWS = require('aws-sdk')
+const AWS = require('aws-sdk');
+const { Guide } = require('../models/userModel');
 
 AWS.config.update({
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
@@ -141,13 +142,27 @@ router.get('/:id',async(req,res)=>{
 })
 router.post('/favorite/:id',async(req,res)=>{
     const user = await models.User.findById(req.params.id)
-    const guideId  = req.body;
+    const { guideId } = req.body;
+    console.log(guideId)
     if(user){
      user.favoriteGuides.push(guideId);
      await user.save()
      res.send('Add Favorite List')
    }
 
+})
+router.get('/favorite/:id',async(req,res)=>{
+    const user = await models.User.findById(req.params.id)
+    let guideList = []
+    if(user){
+        const guides = user.favoriteGuides
+        for(let i = 0; i < guides.length; i++){
+            const guideOne = await models.Guide.findOne({ _id: guides[i]})
+            guideList.push(guideOne)
+        }
+        console.log(guideList)   
+    }
+    await res.send(guideList)
 })
 // router.delete('/guide',async(req,res)=>{
 //     console.log(req.query)

@@ -17,6 +17,7 @@ import { AuthContext } from '../auth/AuthState';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import Score from '../layout/Score';
 import createHistory from 'history/createBrowserHistory'
+import { IdentityStore } from 'aws-sdk';
 
 
 const Location = ({ location }) => {
@@ -254,21 +255,15 @@ const Location = ({ location }) => {
                      <div class="content" style={{ width: '100%', position: 'relative'}}>
                        <img src={guide.landscape} style={{ width: '100%', maxHeight: '200px', borderRadius: '10px',}} />
                        <FavoriteBorderIcon onClick={()=>{
-                          const favorite = {
-                            name: guide.name,
-                            guideId: guide._id,
-                            city: guide.city,
-                            country: guide.country,
-                            title: guide.title,
-                            image: guide.image,
-                            landscape: guide.landscape
+                          const id = {
+                            guideId: guide._id
                           }
-                          Axios.post(`/api/user/favorite/${userInfo._id}`,favorite)
+                          Axios.post(`/api/user/favorite/${userInfo._id}`,id)
                           .then(res => alert(res.data))
                           .catch(err => alert(err))
                            
                         }} 
-                        style={{ position: 'absolute', top:'10px',left: '10px'}}
+                        style={{ position: 'absolute', top:'10px',left: '10px', zIndex: '100'}}
                         />
                      </div>
                      <div class="guide-card-content">

@@ -16,7 +16,6 @@ const GuideList = ({ history }) => {
       setUserInfo(localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null)
       Axios.get('/api/guide')
       .then(res => {
-          console.log(res.data)
           setGuides(res.data)
       })
       .catch(err => console.log(err))

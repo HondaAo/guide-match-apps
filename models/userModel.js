@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const bcrypt = require('bcryptjs')
+const { stringify } = require('uuid')
 
 const paymentSchema = mongoose.Schema({
     cardNumber: {
@@ -259,7 +260,9 @@ const userSchema = mongoose.Schema({
         type: String,
         default: ""
     },
-    favoriteGuides: [],
+    favoriteGuides: [
+        { type: String }
+    ],
     payment: {
         paymentSchema
     },

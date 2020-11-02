@@ -132,9 +132,17 @@ const GuideDetail = ({match,history}) => {
             <ArrowBackIosIcon style={{ marginRight: '20px'}} /></Link>
             <strong>{guide.name}</strong>
         </div>
-        <div>
-          <FavoriteBorderIcon />
-        </div>
+
+        <FavoriteBorderIcon 
+          onClick={()=>{
+            const id = {
+              guideId: guide._id
+            }
+            Axios.post(`/api/user/favorite/${userInfo._id}`,id)
+            .then(res => alert(res.data))
+            .catch(err => alert(err))
+             
+          }} />
       </header>
       <div className="guide-detail-img">
         <img src={guide.landscape} width="100%" height="auto" />
