@@ -4,9 +4,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Button, Col, Form, Row } from 'react-bootstrap';
 import './Component.css'
 import LocationOnIcon from '@material-ui/icons/LocationOn';
-import MailIcon from '@material-ui/icons/Mail';
 import { Link } from 'react-router-dom';
-import LanguageIcon from '@material-ui/icons/Language';
 import { AuthContext } from '../auth/AuthState';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
@@ -101,7 +99,7 @@ const Profile = ({match}) => {
           <div className="profile-header-text">
            <h4>Hello, I'm {guideInfo.name}</h4>
            <p style={{ color: 'lightgrey'}}>registered{' '}{guideInfo.createdAt}</p>
-           <Link to={`/update/${guideInfo._id}`} style={{ color: 'black'}}><p>edit profile</p></Link>
+           { userInfo && userInfo._id === guideInfo._id && <Link to={`/update/${guideInfo._id}`} style={{ color: 'black'}}><p>edit profile</p></Link>}
           </div>
           <div className="profile-header-image">
            { userInfo ? (
@@ -162,9 +160,9 @@ const Profile = ({match}) => {
            <Form.Label>Example textarea</Form.Label>
            <Form.Control as="textarea" rows={3} value={comment} onChange={(e)=> setComment(e.target.value)} />
           </Form.Group>
-           <Button variant="danger" type="submit">Send</Button>
+           <Button variant="danger" type="submit" style={{ width: '100%', marginBottom: '20px'}} >Send</Button>
           </Form>
-          <button onClick={()=> setIsModalOpen(false)} className="ui button">Close</button>
+          <button onClick={()=> setIsModalOpen(false)} className="ui button" style={{ width: '100%', marginBottom: '20px'}}>Close</button>
    </Modal>
    <MediaQuery query="(max-width: 767px)">
    { !guideInfo ? (
@@ -176,7 +174,7 @@ const Profile = ({match}) => {
           <div className="profile-header-text">
            <h4>{guideInfo.name}</h4>
            <p style={{ color: 'lightgrey'}}>registered{' '}{guideInfo.createdAt}</p>
-           <Link to={`/update/${guideInfo._id}`} style={{ color: 'black'}}><p>edit profile</p></Link>
+           { userInfo && userInfo._id === guideInfo._id && <Link to={`/update/${guideInfo._id}`} style={{ color: 'black'}}><p>edit profile</p></Link>}
           </div>
           <div className="profile-header-image">
            { guideInfo.image !== "" ? (
@@ -194,18 +192,18 @@ const Profile = ({match}) => {
         <hr />
         <div className="profile-rating">
           <p><StarBorderIcon />{' '}Rating:  {guideInfo.star === 0 ? 'no guide experience' : guideInfo.star}</p>
-          <p>{guideInfo.star === 0 ? null: <Link to={`/review/${guideInfo._id}`} >see reviews</Link>}</p>
         </div>
+        <hr />
         <div className="profile-button">
         { userInfo ? userInfo._id !== guideInfo.userId ? (
           <>
           <Link to={`/message?userId=${guideInfo._id}&myId=${userInfo._id}`}>
-          <button className="ui linkedin button">
+          <button className="ui linkedin button" style={{ width: '100%', marginBottom: '20px'}}>
           <i className="comment icon"></i>
            Go Chat
           </button></Link>
-          <button className="negative ui button" onClick={()=> setIsModalOpen(prev => !prev)}><i className="bullhorn icon"></i>Report</button>
-          <Link to={`/review/${guideInfo._id}`}><button className="ui twitter button"><i class="edit icon"></i>Assessment</button></Link>
+          <button className="negative ui button" onClick={()=> setIsModalOpen(prev => !prev)} style={{ width: '100%', marginBottom: '20px'}}><i className="bullhorn icon"></i>Report</button>
+          <Link to={`/review/${guideInfo._id}`}><button className="ui twitter button" style={{ width: '100%', marginBottom: '20px'}}><i class="edit icon"></i>Assessment</button></Link>
           </>
         ): null : null }
          </div>
@@ -224,7 +222,8 @@ const customStyles = {
     right                 : 'auto',
     bottom                : 'auto',
     marginRight           : '-50%',
-    transform             : 'translate(-50%, -50%)'
+    transform             : 'translate(-50%, -50%)',
+    width                 : '80%'
  }
 };
 export default Profile

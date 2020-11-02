@@ -6,12 +6,13 @@ export const AuthContext = createContext();
 const AuthState = ({children, history}) => {
     const [ userInfo, setUserInfo ] = useState(null)
     const login = async (user) =>{
+        try{
         const { data } = await axios.post('/api/user/login',user)
         localStorage.setItem('userInfo',JSON.stringify(data))
-        if(data){
-            window.location = '/' 
-        }else{
-            alert('Invalid Password')
+        window.location = '/' 
+        }
+        catch(err){
+            alert('Wrong Password, please confirm')
         }
     }
     const register = async(user) => {

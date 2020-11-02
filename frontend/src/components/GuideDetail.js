@@ -69,7 +69,6 @@ const GuideDetail = ({match,history}) => {
         </div>
           <strong>Details</strong>
           <ListGroup variant="flush">
-            {/* <ListGroup.Item>Language:{' '}{guide.languages.map(item => <strong>{item}{' '}</strong>)}</ListGroup.Item> */}
             <ListGroup.Item>Place:{' '}<strong>{guide.city} {' '}{ guide.country}</strong></ListGroup.Item>
             <ListGroup.Item>Rating:{' '}<i class="star icon"></i>{' '}<strong>{guide.star}</strong></ListGroup.Item>
             <ListGroup.Item>Experience:{' '}<strong>{guide.experience}</strong></ListGroup.Item>
@@ -133,9 +132,17 @@ const GuideDetail = ({match,history}) => {
             <ArrowBackIosIcon style={{ marginRight: '20px'}} /></Link>
             <strong>{guide.name}</strong>
         </div>
-        <div>
-          <FavoriteBorderIcon />
-        </div>
+
+        <FavoriteBorderIcon 
+          onClick={()=>{
+            const id = {
+              guideId: guide._id
+            }
+            Axios.post(`/api/user/favorite/${userInfo._id}`,id)
+            .then(res => alert(res.data))
+            .catch(err => alert(err))
+             
+          }} />
       </header>
       <div className="guide-detail-img">
         <img src={guide.landscape} width="100%" height="auto" />

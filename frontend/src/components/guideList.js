@@ -1,33 +1,21 @@
 import Axios from 'axios'
 import React, { useContext, useEffect, useState } from 'react'
-import { Button, Card, Col, Container, Row } from 'react-bootstrap'
+import { Col, Container, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import GoogleMapReact, { MapOptions, Maps } from 'google-map-react'
-import RoomIcon from '@material-ui/icons/Room';
-import { Avatar, IconButton } from '@material-ui/core'
-import {styles} from './GoogleMapStyle'
-import StarBorderIcon from '@material-ui/icons/StarBorder';
-import Carousel from '@brainhubeu/react-carousel'
 import '@brainhubeu/react-carousel/lib/style.css';
 import MediaQuery from 'react-responsive';
-import SearchIcon from '@material-ui/icons/Search';
 import { Helmet } from 'react-helmet';
 import { AuthContext } from '../auth/AuthState'
 import OurCampany from '../layout/OurCompany'
 
 const GuideList = ({ history }) => {
     const [ guides, setGuides ] = useState([])
-    const [ choosingPlace, setChoosingPlace ] = useState('Plase choose location from left map')
-    const [ pickedGuides, setPickedGuides ] = useState([]);
     const [ destinations, setDestinations ] = useState([])
-    const [ text, setText ] = useState('')
-    const [ country, setCountry ] = useState('')
     const { setUserInfo,userInfo } = useContext(AuthContext);
     useEffect(()=>{
       setUserInfo(localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null)
       Axios.get('/api/guide')
       .then(res => {
-          console.log(res.data)
           setGuides(res.data)
       })
       .catch(err => console.log(err))
@@ -35,69 +23,6 @@ const GuideList = ({ history }) => {
       .then(res => setDestinations(res.data))
       .catch(err => console.log(err))
     },[])
-    const pins = [
-      {
-        lat: 1.287953,
-        lng: 103.851959,
-        name: 'Singapore'
-      },
-      {
-        lat: 21.033333,
-        lng: 105.85,
-        name: 'Hanoi'
-      },
-      {
-        lat: 16.0544,
-        lng: 1108.221,
-        name: 'Danang'
-      },
-      {
-        lat: 2.230,
-        lng: 102.30,
-        name: 'Malacca'
-      },
-      {
-        lat: 10.762622,
-        lng: 106.660172,
-        name: 'HoChiMinh'
-      },
-      {
-        lat: 3.3547,
-        lng: 117.5965,
-        name: 'Borneo'
-      },
-      {
-        lat: 3.140853,
-        lng: 101.693207,
-        name: 'Kualalumpur'
-      }
-    ]
-    const createMapOptions = (maps) => {
-      return {
-        mapTypeControlOptions: {
-          position: maps.ControlPosition.TOP_RIGHT,
-        },
-        mapTypeControl: false,
-        zoomControl: false,
-        scaleControl: false,
-        streetViewControl: false,
-        fullscreenControl: false,
-        styles: styles
-      }
-    }
-    const Search = (e)=>{
-      e.preventDefault();
-      if( text === 'Hanoi' || text === 'HoChiminh' || text　=== 'Danang'){
-        setCountry('Vietnam')
-      }
-      if( text === 'Kualalupur' || text === 'Malacca'){
-        setCountry('Malaysia')
-      }
-      if( text === 'Singapore'){
-        setCountry('Singapore')
-      }
-      history.push(`/place?city=${text}&country=${country}`)
-    }
     return (
         <>
         <Helmet>
@@ -183,114 +108,6 @@ const GuideList = ({ history }) => {
          </div>
         </div>
         <hr />
-        {/* <Row className="google-map">
-        <Col md={7} style={{ height: '75vh'}} >
-        <GoogleMapReact
-        bootstrapURLKeys={{
-          key: process.env.GOOGLE_API_KEY,
-          language: 'en'
-        }}
-        defaultCenter={{
-          lat: 7.287953,
-          lng: 103.851959
-        }}
-        defaultZoom={5}
-        options={createMapOptions}
-      >
-      {
-        pins.map((pin) => (
-         
-          <pin
-            lat={pin.lat}
-            lng={pin.lng}
-          >
-          <IconButton onClick={()=> {
-            setChoosingPlace(pin.name)
-            Axios.get(`/api/guidelist?place=${pin.name}`)
-            .then(res => {
-              console.log(res.data)
-              setPickedGuides(res.data)
-            })
-            .catch(err => console.log(err))
-          }}>
-          <RoomIcon style={{ color : 'red'}}/> 
-          <string style={{ color : 'white'}}>{pin.name}</string> 
-          </IconButton>
-          </pin>
-         
-        ))
-      }
-      </GoogleMapReact>
-      </Col>
-      <Col md={{ span: 4, offset: 1}}>
-      <p>Popular destinations</p>
-      <hr />
-      { destinations.length !== 0  ? (
-      <>
-      <div className="destination-list-laptop">
-      { destinations.map(destination => (
-      <Link to={`/place?city=${destination.city}&country=${destination.country}`} style={{ color: 'black'}} className="destination-iphone">
-       <Row className="destination-iphone-card">
-         <Col xs={3}>
-          <img src={destination.image} width="100%" height="auto"/>
-         </Col>
-         <Col xs={{ span: 8, offset: 1}} style={{ justifyContent: 'center'}}>
-          <p>{destination.city}</p>
-          <p style={{ color: 'lightgrey', marginTop: '-5px'}}>{destination.country}</p>
-         </Col>
-       </Row>
-      </Link>
-      ))}
-      </div>
-      </>
-      ): null}
-      </Col>
-      </Row> */}
-    {/* <div style={{ backgroundColor: 'black', color: 'white'}}>
-     <Container>
-      <Row >
-        <div className="list-header">
-        <h2>Find unique experience</h2>
-        <h3>________</h3>
-        </div>
-        <div className="unique-list">
-          <Col md={4}>
-            <div className="unique-list-card">
-              <div className="unique-list-card-title">
-               <img src="https://images.unsplash.com/photo-1504095649265-b37198e9c711?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" />
-              </div>
-              <div className="unique-list-card-content" >
-                <strong>Local Experience</strong>
-                <p>Let's check local tour and guide</p>
-              </div>
-            </div>
-          </Col>
-          <Col md={4}>
-          <div className="unique-list-card">
-              <div className="unique-list-card-title">
-               <img src="https://images.unsplash.com/photo-1587127964224-ee5b0a61933d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" />
-              </div>
-              <div className="unique-list-card-content">
-                <strong>Unique store and restaurant</strong>
-                <p>Let's unveil local store and restaurant</p>
-              </div>
-            </div>
-          </Col>
-          <Col md={4}>
-          <div className="unique-list-card">
-              <div className="unique-list-card-title">
-               <img src="https://images.unsplash.com/photo-1500981458086-b8a11cd163af?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" />
-              </div>
-              <div className="unique-list-card-content">
-                <strong>Experiental Post</strong>
-                <p>Let's check other's posts</p>
-              </div>
-            </div>
-          </Col>
-        </div>
-      </Row>
-    </Container>
-    </div> */}
     <div className="">
       <Container>
         <Row style={{ display: 'flex', marginTop: '70px'}}>
@@ -324,15 +141,7 @@ const GuideList = ({ history }) => {
           <p>Settle in somewhere new. Discover nearby stays to live, work, or just relax.</p>
           <button className="ui button black">Get Started</button>
           </div>
-      </div>  
-      {/* <form className="search-bar-iphone" onSubmit={Search}>
-      <div class="ui action input" style={{ width: '100%'}}>
-        <input type="text" placeholder="Where do you go? ....." value={text} onChange={(e)=> setText(e.target.value)} style={{ width: '70%'}}/>
-        <button class="ui icon button" type="submit">
-          <i class="search icon"></i>
-        </button>
-      </div>
-      </form> */}
+      </div> 
       <h5 style={{ margin: '20px'}}>Destinations List</h5>
      { destinations.length === 0 ? null : (
      <div className="destination-list">

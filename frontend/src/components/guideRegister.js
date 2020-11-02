@@ -3,8 +3,6 @@ import { Col, Form, Row, Button, Alert, InputGroup, Container } from 'react-boot
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../auth/AuthState';
 import IntlTelInput from 'react-bootstrap-intl-tel-input';
-import { Typeahead } from 'react-bootstrap-typeahead'
-import DateRangePicker from 'react-bootstrap-daterangepicker';
 import './Component.css';
 import Axios from 'axios';
 import Modal from 'react-modal'
@@ -22,14 +20,11 @@ const GuideRegister = ({ history }) => {
     const [ telephone, setTelephone ] = useState('+810000000')
     const [ email, setEmail] = useState('');
     const [ description, setDescription] = useState('');
-    const [ isPro, setIsPro] = useState(false);
     const [ guide, setGuide ] = useState(null)
     const [ title, setTitle ] = useState('');
     const [ rate, setRate ] = useState('');
     const { userInfo, setUserInfo } = useContext(AuthContext);
     const [ landscape, setLandscape ] = useState('')
-    const [ message, setMessage ] = useState('')
-    const [ isModalOpen, setIsModalOpen ] = useState(false);
     const [checked, setChecked ] = useState(false)
     useEffect(()=>{
      setUserInfo(localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null)
@@ -62,12 +57,6 @@ const GuideRegister = ({ history }) => {
         history.pushState(`/mypage/${userInfo._id}`)
       })
       .catch(err => console.log(err))
-      // Axios.put(`/api/user/guide/${userInfo._id}`)
-      // .then(res => {
-      //   console.log(res.data)
-      //   localStorage.setItem('userInfo',JSON.stringify(res.data))
-      // })
-      // .catch(err => alert(err))
     }
     const scrollToTop = () => {
       scroll.scrollMore(800);
@@ -437,12 +426,6 @@ const GuideRegister = ({ history }) => {
            Once a guest checks in, we can send your money by Paypal, direct deposit, or other available methods.
            </p>
          </div>
-         {/* <Row className="footer-image" style={{ marginTop: '40px'}}>
-         <div className="footer-image-text">
-         <h1 style={{ color: 'white'}}>Ready to earn ?</h1>
-         
-         </div>
-        </Row> */}
         <StickyFooter />
         </MediaQuery>
         </>

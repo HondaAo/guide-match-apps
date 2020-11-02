@@ -1,17 +1,13 @@
-import Axios from 'axios'
 import React, { useContext, useEffect, useState } from 'react'
 import { Row, Col, Card, Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import './Component.css'
 import MediaQuery from "react-responsive";
 import { Container, IconButton } from '@material-ui/core'
-import StickyFooter from '../layout/StickyFooter'
-import StarBorderIcon from '@material-ui/icons/StarBorder';
 import SearchIcon from '@material-ui/icons/Search';
 import { AuthContext } from '../auth/AuthState'
-import { Helmet } from 'react-helmet';
-import Footer from '../layout/Footer'
 import OurCompany from '../layout/OurCompany'
+import {Helmet} from 'react-helmet'
 
 const scrollTop = () => {
   return Math.max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop);
@@ -43,6 +39,10 @@ const Home = ({history}) => {
     }
     return (
         <>
+        <Helmet>
+          <title>Home</title>
+          <meta name="description" content="Home page" />
+        </Helmet>
         <MediaQuery query="(min-width: 767px)">
          <div className="image-header">
            <header className="image-header-header">
@@ -56,6 +56,7 @@ const Home = ({history}) => {
                   <>
                   <Link to="/guide"><button className="ui inverted button">Become a guide</button></Link>
                   <Link  to={`/mypage/${userInfo._id}`} style={{ marginLeft: '20px'}}><button className="ui inverted button">My page</button></Link>
+                  { userInfo.isAdmin && <Link to="/admin"style={{ marginLeft: '20px'}}><button className="ui inverted button"> Admin</button></Link>}
                   </>
                 ): (
                   <Link to="/login"><button class="ui inverted button">Login</button></Link>
@@ -165,20 +166,6 @@ const Home = ({history}) => {
                <p >Our service is especially for traveller and inhabitants who are looking forward to seeing with new oppurtunity</p>
              </Row>
              <Row className="top-contents-iphone">
-              {/* <Col xs={{ span: '10', offset: '1'}}>
-              <h5 style={{ marginLeft: '15px'}}>Popular destinations</h5>
-               <Link to={`/place?city=Singapore&country=Singapore`} style={{ color: 'black',padding: '3%'}}>
-               <div className="card-iphone-image" style={{ borderRadius: '30px', }}>
-                  <img src="https://images.unsplash.com/flagged/photo-1562503542-2a1e6f03b16b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" height="auto" width="fit-content" />
-                <div className="content" style={{ padding: '2%'}}>
-                  <div style={{ marginBottom: '4px'}}><strong>Singapore</strong></div>
-                  <div className="meta">
-                    <p style={{ color: 'lightgrey'}}>Singapore</p>
-                  </div>
-                </div>
-               </div>
-               </Link>
-              </Col> */}
               <h5 style={{ marginLeft: '45px'}}>Popular destinations</h5>
               <div className="iphone-container">
                <Link to={`/place?city=Kuala_Lumpur&country=Malaysia`} className="card-iphone">
@@ -224,7 +211,7 @@ const Home = ({history}) => {
               </Link>
               <h5 style={{ marginLeft: '45px', marginTop: '20px'}}>Unique Experiences</h5>
               <div className="iphone-container">
-               <Link to={`/allpost`} className="card-iphone">
+               <Link to={`/setting`} className="card-iphone">
                 <div className="card-iphone-title">
                   <img src="https://images.unsplash.com/photo-1549641951-32b98701e434?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" />
                 </div>
@@ -233,7 +220,7 @@ const Home = ({history}) => {
                   <p>Vietnam</p>
                 </div>
                </Link>
-               <Link to={`/allpost`} className="card-iphone">
+               <Link to={`/setting`} className="card-iphone">
                 <div className="card-iphone-title">
                   <img src="https://images.unsplash.com/photo-1506801310323-534be5e7a730?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" />
                 </div>
@@ -242,7 +229,7 @@ const Home = ({history}) => {
                   <p>Bankok Thailand</p>
                 </div>
                </Link>
-               <Link to={`/allpost`} className="card-iphone">
+               <Link to={`/setting`} className="card-iphone">
                 <div className="card-iphone-title">
                   <img src="https://images.unsplash.com/photo-1515662139884-1ba754b53417?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" />
                 </div>
@@ -251,7 +238,7 @@ const Home = ({history}) => {
                   <p>Thailand</p>
                 </div>
                </Link>
-               <Link to={`/allpost`} className="card-iphone">
+               <Link to={`/setting`} className="card-iphone">
                 <div className="card-iphone-title">
                   <img src="https://images.unsplash.com/photo-1509682841784-c7960cbb7608?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" />
                 </div>
@@ -261,7 +248,7 @@ const Home = ({history}) => {
                 </div>
                </Link>
               </div>
-              <Link to="/allpost" class="fluid ui basic button" style={{ marginLeft: '30px'}}>
+              <Link to="/setting" class="fluid ui basic button" style={{ marginLeft: '30px'}}>
                 Check More Guides and Tours
                 <i class="angle double right icon"></i>
               </Link>
@@ -284,8 +271,8 @@ const Home = ({history}) => {
                <hr />
                <div style={{ marginTop: '20px'}}>
                  <strong >Support</strong>
-                 <p style={{ marginTop: '10px'}}>COVID-19 news</p>
-                 <Link to="https://www.termsfeed.com/live/9984ee1b-f3a6-48b0-8509-aba1a8442292">About Privacy</Link>
+                 <p>COVID-19 news</p>
+                 <p><a href="https://www.termsfeed.com/live/9984ee1b-f3a6-48b0-8509-aba1a8442292" style={{ color: 'black'}}>About Privacy</a></p>
                  <p>Help Center</p>
                </div>
                </Col>

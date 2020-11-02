@@ -1,7 +1,6 @@
 import React, { useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { AuthContext } from '../auth/AuthState';
-import Footer from '../layout/Footer'
+import { AuthContext } from '../auth/AuthState'
 import './aboutUs.css'
 import { animateScroll as scroll } from 'react-scroll';
 import OurCompany from '../layout/OurCompany'
@@ -25,14 +24,14 @@ const Aboutus = () => {
               <div className="about-us-page-header-right">
                 {userInfo ? (
                  <>
-                 <Link to="/guide" style={{ marginRight: '30px', color: 'white'}}><p>Become a guide</p></Link> 
-                 <Link to={`/mypage/${userInfo._id}`} style={{ marginRight: '30px', color: 'white'}}>Mypage</Link>
+                 <Link to="/guide" className="about-us-page-header-right-contents"><p>Become a guide</p></Link> 
+                 <Link to={`/mypage/${userInfo._id}`} className="about-us-page-header-right-contents">Mypage</Link>
                  </>
                 ):(
                 <>
-                <Link to="/guide" style={{ marginRight: '30px', color: 'white'}}><p>Become a guide</p></Link> 
-                <Link to="/login" style={{ color: 'white',marginRight: '30px'}}><p>Login</p></Link> 
-                <Link to="/regiser" style={{ color: 'white',marginRight: '30px'}}><p>Register</p></Link>
+                <Link to="/guide" className="about-us-page-header-right-contents"><p>Become a guide</p></Link> 
+                <Link to="/login" className="about-us-page-header-right-contents"><p>Login</p></Link> 
+                <Link to="/regiser" className="about-us-page-header-right-contents"><p>Register</p></Link>
                 </> 
                 )}
               </div>

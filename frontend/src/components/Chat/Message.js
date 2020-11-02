@@ -113,14 +113,12 @@ const Message = ({location}) => {
                      <p>{chat.createdAt.slice(11,19)}</p>
                     </div>
                     <div className="chat-right">
-                      <Avatar />
                       <p>{chat.sendername}</p>
                     </div>
                    </div>
                    ):(
                    <div className="userchat-design">
                    <div className="chat-left">
-                     <Avatar />
                      <p>{guide.name}</p>
                    </div>
                    <div className="chat-right">

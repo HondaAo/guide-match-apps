@@ -1,23 +1,23 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { parse } from 'query-string';
 import Axios from 'axios';
-import { Row, Col, Card, Button, Container } from 'react-bootstrap'
+import { Row, Col, Container } from 'react-bootstrap'
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import './Location.css'
 import { styles } from './GoogleMapStyle';
 import GoogleMapReact from 'google-map-react';
 import MediaQuery from 'react-responsive';
 import StarIcon from '@material-ui/icons/Star';
-import { Link, Route, Switch, useRouteMatch } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import StickyFooter from '../layout/StickyFooter';
 import ExploreIcon from '@material-ui/icons/Explore';
 import { CSSTransition } from 'react-transition-group';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import { AuthContext } from '../auth/AuthState';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
-import { Avatar } from '@material-ui/core';
 import Score from '../layout/Score';
 import createHistory from 'history/createBrowserHistory'
+import { IdentityStore } from 'aws-sdk';
 
 
 const Location = ({ location }) => {
@@ -27,20 +27,12 @@ const Location = ({ location }) => {
     const [ guides, setGuides ] = useState([]);
     const [ place, setPlace ] = useState({ lat: 0, lng: 0});
     const [slide, setSlide] = useState(false);
-    const [lock, setLock] = useState(false);
-    const [tour, setTour ] = useState([])
     const [ data, setData ] = useState({});
     const [images, setImages ] = useState([]);
     const [ others, setOthers ] = useState([]);
     const { userInfo, setUserInfo } = useContext(AuthContext);
     useEffect(()=>{
       setUserInfo(localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null)
-      // Axios.get(`/api/location?city=${city}&country=${country}`)
-      // .then(res=> {
-      //   setPlace(res.data)
-      //   console.log(res.data)
-      // })
-      // .catch(err => console.log(err))
       Axios.get(`https://www.triposo.com/api/20200803/location.json?id=${city}&account=FK8A06GJ&token=${process.env.REACT_APP_API_TOKEN}`)
       .then(res => {
         setData(res.data.results[0])
@@ -201,26 +193,6 @@ const Location = ({ location }) => {
          </div> 
          <div className="location-right">
           <h3 style={{ marginTop: '30px'}}>Pictures in {city}</h3>
-         {/* { place ? (
-         <GoogleMapReact
-            bootstrapURLKeys={{
-              key: process.env.GOOGLE_API_KEY,
-              language: 'en'
-            }}
-            
-            defaultCenter={{
-              lat: place.lat,
-              lng: place.lng
-            }}
-            defaultZoom={13}
-            options={createMapOptions}
-             >
-          <pin
-          lat={place.lat}
-          lng={place.lng}
-          >
-          </pin>
-         </GoogleMapReact>  ): null} */}
          { images.map(image => (
            <>
            <img src={image.source_url}  width="100%" height="auto"/>
@@ -283,21 +255,15 @@ const Location = ({ location }) => {
                      <div class="content" style={{ width: '100%', position: 'relative'}}>
                        <img src={guide.landscape} style={{ width: '100%', maxHeight: '200px', borderRadius: '10px',}} />
                        <FavoriteBorderIcon onClick={()=>{
-                          const favorite = {
-                            name: guide.name,
-                            guideId: guide._id,
-                            city: guide.city,
-                            country: guide.country,
-                            title: guide.title,
-                            image: guide.image,
-                            landscape: guide.landscape
+                          const id = {
+                            guideId: guide._id
                           }
-                          Axios.post(`/api/user/favorite/${userInfo._id}`,favorite)
+                          Axios.post(`/api/user/favorite/${userInfo._id}`,id)
                           .then(res => alert(res.data))
                           .catch(err => alert(err))
                            
                         }} 
-                        style={{ position: 'absolute', top:'10px',left: '10px'}}
+                        style={{ position: 'absolute', top:'10px',left: '10px', zIndex: '100'}}
                         />
                      </div>
                      <div class="guide-card-content">

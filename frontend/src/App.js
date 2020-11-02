@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Header from './layout/Header'
 import { Container } from 'react-bootstrap'
 import Login from './auth/Login'
 import Register from './auth/Register'
@@ -35,18 +34,15 @@ import Post from './components/mypage/Post';
 import Tour from './components/Tour';
 import PostList from './components/PostList'
 import ScrollTop from './layout/ScrollTop'
+import Admin from './components/admin/admin';
 function App() {
   return (
     <>
     <AuthState>
      <Router>
-      {/* <HeaderNext /> */}
       <ScrollTop>
       <Route path="/" exact component={Home} />
       <Route path="/place" exact key="place" component={Locations} />
-      {/* <Route path={`/place`} component={Location}>
-        <Route path={`/place/:id`} component={Location} />
-      </Route> */}
       <Route path="/guide/:id" component={GuideDetail} />
       <Route path="/guideList" exact component={guideList} />
       <Route path="/guide" exact component={guideRegister} />
@@ -73,6 +69,7 @@ function App() {
       <Route path="/photochange" component={ChangePhoto} />
       <Route path="/setting" exact component={Setting} />
       <Route path="/write"　component={Post} />
+      <Route path="/admin" component={Admin} />
       </Container>
       <Footer />
       <MediaQuery query="(max-width: 767px)">

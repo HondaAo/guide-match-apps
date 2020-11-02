@@ -7,13 +7,13 @@ import { AuthContext } from '../../auth/AuthState';
 import { Avatar, FormGroup } from '@material-ui/core';
 import MediaQuery from 'react-responsive';
 import Modal from 'react-modal'
+import moment from 'moment'
 
 const ChatScreen = ({ match, history }) => {
   const roomId = match.params.id;
   const [ chats, setChats ] = useState([])
   const { userInfo, setUserInfo } = useContext(AuthContext);
   const [ messages, setMessages ] = useState([])
-  const [ seeall, setSeeall ] = useState(true);
   const [ guide, setGuide ] = useState({})
   const [ text, setText ] = useState('')
   const [isOpen, setIsOpen ] = useState(false)
@@ -92,7 +92,7 @@ const ChatScreen = ({ match, history }) => {
             <i className="ui icon user"></i>{userInfo.name}
               <i className="dropdown icon"></i>
               <div className="menu">
-                <Link to={`/chat/${userInfo._id}`} className="item">Chat</Link>
+                <Link to={`/mypage/${userInfo._id}`} className="item">Mypage</Link>
                 { userInfo.userId ? <Link to={`/guide`} className="item">become a guide</Link> : <Link to={`/profile/${userInfo.userId}`} className="item" >Guide Profile</Link>}
                 <Link to={`/travellist/${userInfo._id}`} className="item">Travel List</Link>
               </div>
@@ -133,7 +133,7 @@ const ChatScreen = ({ match, history }) => {
           </div>
           <div style={{ textAlign: 'right', width: '50%'}}>
            <strong><p>{chat.text}</p></strong>
-           <p style={{ color: 'lightgrey'}}>{chat.createdAt.slice(0,19)}</p>
+           <p style={{ color: 'lightgrey'}}>{moment(chat.createdAt).format('MMMM Do YYYY')}</p>
           </div>
           </div>
           <hr />
@@ -145,7 +145,7 @@ const ChatScreen = ({ match, history }) => {
         <>
           <div className="chat-page-header">
            <strong>Message</strong>
-           <p><Link to={`/profile/${guide._id}`}>{guide.name}</Link></p>
+           <p><Link to={`/guide/${guide._id}`}>{guide.name}</Link></p>
           </div>
           <hr />
          <div className="chat-screen" style={{ height: '60vh', overflow: 'auto'}}>
@@ -155,7 +155,7 @@ const ChatScreen = ({ match, history }) => {
               <div className="mychat-design">
               <div className="chat-left">
                <p>{message.text}</p>
-               <p>{message.createdAt.slice(11,19)}</p>
+               <p>{moment(message.createdAt).format('MMMM Do YYYY') === moment().format('MMMM Do YYYY') ? message.createdAt.slice(11,19) : message.createdAt}</p>
               </div>
               <div className="chat-right">
                 <img src={userInfo.image} style={{ width: '40px', height: '40px', borderRadius: '50%'}} />
@@ -176,10 +176,8 @@ const ChatScreen = ({ match, history }) => {
            )}
            </>
           ))}
-          { reservation  ? null : <button className="ui negative basic button" onClick={()=> {
-          setModal(prev => !prev)
-          }}>reservation</button>}
-          { !reservation.isBooked ? null : <button className="ui negative basic button" onClick={()=> {
+          { !reservation && <button className="ui negative basic button" onClick={()=> setModal(prev => !prev)}>reservation</button>}
+          { reservation  && <button className="ui negative basic button" onClick={()=> {
             const info = {
               userId: userInfo._id
             }
@@ -189,7 +187,7 @@ const ChatScreen = ({ match, history }) => {
            })
            .catch(err => console.log(err))
           }}>Finished</button>}
-          { reservation && !reservation.isFinished ? null : <button className="ui primary basic button" onClick={()=> {
+          { reservation && !reservation.isFinished && <button className="ui primary basic button" onClick={()=> {
           history.push(`/review/${guide._id}`)
           }}>Write a review</button>}
           <form onSubmit={onSubmit}>
@@ -263,19 +261,6 @@ const ChatScreen = ({ match, history }) => {
           <div className="mypage-header-left">
             <Link to="/" style={{ color: 'black'}}><strong>Expo</strong></Link>
           </div>
-          <div className="mypage-header-right">
-          <div className="ui compact menu">
-            <div className="ui simple dropdown item">
-              <i className="ui icon user"></i> {userInfo.name}
-              <i className="dropdown icon"></i>
-              <div className="menu">
-                <Link to={`/chat/${userInfo._id}`} className="item">Chat</Link>
-                <Link to={`/guide`} className="item">become a guide</Link>
-                <Link to={`/travellist/${userInfo._id}`} className="item">Travel List</Link>
-              </div>
-            </div>
-          </div> 
-          </div>
          </div>
         <hr />
       <Row style={{padding: '3%'}}>
@@ -289,7 +274,7 @@ const ChatScreen = ({ match, history }) => {
           <div>
           <Link to={`/message?userId=${chat.userId}&myId=${chat.myId}`} style={{ display: 'flex', width: '100%',color: 'black',textDecoration: 'none'}}>
           <div style={{ width: '50%'}}>
-          <h4><Avatar />{' '}{chat.username ? chat.username : <h4>unknown</h4>}</h4>
+          <h4>{chat.username ? chat.username : <h4>unknown</h4>}</h4>
           </div>
           <div style={{ textAlign: 'right', width: '50%'}}>
            <strong><p>{chat.text}</p></strong>
