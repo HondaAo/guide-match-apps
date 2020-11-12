@@ -1,19 +1,24 @@
 import React, { useContext, useEffect } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom';
-import { AuthContext } from '../auth/AuthState';
+import { AuthContext } from '../../auth/AuthState';
 import './Tour.css'
 import CheckIcon from '@material-ui/icons/Check';
-import OurCampany from '../layout/OurCompany'
+import OurCampany from '../../layout/OurCompany';
+import { Helmet } from 'react-helmet';
 
-const Tour = () => {
+const Tour = ({history}) => {
     const { setUserInfo,userInfo } = useContext(AuthContext);
     useEffect(()=>{
       setUserInfo(localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null)
-      alert('Excuse me, Currently we are not providing tour service.')
     },[])
     return (
         <div>
+          <Helmet>
+            <title>
+              Expo Tour top page
+            </title>
+          </Helmet>
           <div className="tour-header">
           <header className="image-header-header"style={{ paddingTop: '2%'}}>
              <Container >
@@ -37,7 +42,7 @@ const Tour = () => {
            <div className="tour-header-title">
              <h1>Host a Tour</h1>
              <p>LOREM IPSUM DOLOR SIT AMET NULLAM CONSEQUATINTERDUM VIVAMUS DONCE SED LIBERO.</p>
-             <button className="ui red button" style={{ backgroundColor: '#f32853', padding: '1%'}} onClick={()=> alert('Currently We do not run tour service')}>Get started</button>
+             <button className="ui red button" style={{ backgroundColor: '#f32853', padding: '1%'}} onClick={()=> history.push('/hosttour')}>Get started</button>
            </div>
           </div>
           <div className="tour-explanation">

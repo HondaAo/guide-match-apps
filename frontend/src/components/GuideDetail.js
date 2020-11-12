@@ -11,6 +11,7 @@ import StarIcon from '@material-ui/icons/Star';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 import FlagIcon from '@material-ui/icons/Flag';
+import { Helmet } from 'react-helmet';
 
 const GuideDetail = ({match,history}) => {
     const [ guide, setGuide] = useState(null)
@@ -47,10 +48,13 @@ const GuideDetail = ({match,history}) => {
     }
     return (
       <>
+    <Helmet>
+     {guide && <title>{guide.name}'s profile page</title>}
+    </Helmet>
     <MediaQuery query="(min-width: 767px)">
       <Container>
         <header style={{ display: 'flex',marginTop: '20px', justifyContent: 'space-between'}}>
-          <Link to="/"><p>Expo</p></Link>
+          <Link to="/" style={{ color: '#ff3f3f'}}><p>Expo</p></Link>
           {userInfo ? (
             <>
             <Link to={`/mypage/${userInfo._id}`} className="ui secondary basic button " >Mypage</Link>
@@ -133,16 +137,16 @@ const GuideDetail = ({match,history}) => {
             <strong>{guide.name}</strong>
         </div>
 
-        <FavoriteBorderIcon 
-          onClick={()=>{
-            const id = {
-              guideId: guide._id
-            }
-            Axios.post(`/api/user/favorite/${userInfo._id}`,id)
-            .then(res => alert(res.data))
-            .catch(err => alert(err))
-             
-          }} />
+        <FavoriteBorderIcon onClick={()=>{
+          const guideId = {
+             id: guide._id
+          }
+           Axios.post(`/api/user/favorite/${userInfo._id}`,guideId)
+           .then(res => alert(res.data))
+           .catch(err => alert(err))
+            
+         }}
+         />
       </header>
       <div className="guide-detail-img">
         <img src={guide.landscape} width="100%" height="auto" />

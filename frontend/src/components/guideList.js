@@ -26,7 +26,7 @@ const GuideList = ({ history }) => {
     return (
         <>
         <Helmet>
-          Location List
+          <title>You can search your next destination.</title>
         </Helmet>
         <MediaQuery query="(min-width: 767px)">
         <Row className="guide-list-image">

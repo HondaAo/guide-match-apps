@@ -33,15 +33,23 @@ const travellistSchema = mongoose.Schema({
     }
 })
 
+const participantsSchema = mongoose.Schema({
+    id: {
+        type: String
+    },
+    date: {
+        type: Date
+    },
+    number: {
+        type: Number
+    }
+})
 
 const tourSchema = mongoose.Schema({
     host: { 
         type: String
      },
     date: {
-        type: String
-    },
-    title: {
         type: String
     },
     country: {
@@ -53,12 +61,22 @@ const tourSchema = mongoose.Schema({
     charge: {
         type: String
     },
+    title: {
+        type: String
+    },
     description: {
         type: String
     },
-    participants: [String],
+    participants: [
+        participantsSchema
+    ],
     image: {
-        type: String
+        url: String,
+        key: String,
+    },
+    isAuth: {
+        type: Boolean,
+        default: false
     }
 },{
     timestamps: true
@@ -261,7 +279,7 @@ const userSchema = mongoose.Schema({
         default: ""
     },
     favoriteGuides: [
-        { type: String }
+      String
     ],
     payment: {
         paymentSchema

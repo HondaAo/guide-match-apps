@@ -142,10 +142,11 @@ router.get('/:id',async(req,res)=>{
 })
 router.post('/favorite/:id',async(req,res)=>{
     const user = await models.User.findById(req.params.id)
-    const { guideId } = req.body;
-    console.log(guideId)
+    const guide  = req.body.id;
+    console.log(req.body)
+    console.log(guide)
     if(user){
-     user.favoriteGuides.push(guideId);
+     user.favoriteGuides.push(guide);
      await user.save()
      res.send('Add Favorite List')
    }

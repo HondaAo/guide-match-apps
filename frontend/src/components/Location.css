@@ -128,3 +128,8 @@
     scroll-snap-align: start;
     flex: none;  
 }
+.location-left-title{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}

@@ -31,10 +31,12 @@ import ChatPayment from './components/Chat/ChatPayment'
 import ChangePhoto from './components/mypage/ChangePhoto';
 import Setting from './components/Setting';
 import Post from './components/mypage/Post';
-import Tour from './components/Tour';
+import Tour from './components/tour/Tour';
+import HostTour from './components/tour/hostTour';
 import PostList from './components/PostList'
 import ScrollTop from './layout/ScrollTop'
 import Admin from './components/admin/admin';
+import TourDetail from './components/tour/tourDetail';
 function App() {
   return (
     <>
@@ -46,9 +48,12 @@ function App() {
       <Route path="/guide/:id" component={GuideDetail} />
       <Route path="/guideList" exact component={guideList} />
       <Route path="/guide" exact component={guideRegister} />
-      <Route path="/tour"  component={Tour} />
+      <Route path="/tour" exact  component={Tour} />
+      <Route path="/hosttour"  component={HostTour} />
+      <Route path="/tour/:id" component={TourDetail} />
       <Route path="/aboutUs" component={aboutUs} />
       <Route path="/allpost" component={PostList} />
+      <Route path="/mypage/:id" component={NormalProfile} />
      <Container>
       <Route path="/login" component={Login}/>
       <Route path="/register" component={Register}/>
@@ -56,7 +61,6 @@ function App() {
       <Route path="/message" component={Message} />
       <Route path="/chat/:id" exact component={ChatScreen} />
       <Route path="/chat/payment" component={Payment} />
-      <Route path="/mypage/:id" component={NormalProfile} />
       <Route path="/profile/:id" component={Profile} />
       <Route path="/chatforguide/:id" component={ChatForGuide} />
       <Route path="/messageforguide" component={MessageForGuide} />
