@@ -34,7 +34,7 @@ const Favorite = ({ match }) => {
            Loading....  
            </>
        ): 
-        favoriteGuides && favoriteGuides.length > 0 ? (
+      favoriteGuides.length > 0 ? (
         favoriteGuides.map(guide => (
          <Row style={{ display: 'flex'}}>
            <Col md={4} >
@@ -70,7 +70,6 @@ const Favorite = ({ match }) => {
          </Link>
          </>
        )}
-       <StickyFooter />
        </div>
        </>
     )

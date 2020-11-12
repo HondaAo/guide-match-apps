@@ -2,7 +2,7 @@ import { Avatar } from '@material-ui/core';
 import moment from 'moment'
 import Axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react'
-import { Col, Row } from 'react-bootstrap';
+import { Col, Container, Row } from 'react-bootstrap';
 import MediaQuery from 'react-responsive';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../auth/AuthState';
@@ -14,7 +14,9 @@ import FlightTakeoffIcon from '@material-ui/icons/FlightTakeoff';
 import HelpIcon from '@material-ui/icons/Help';
 import ContactPhoneIcon from '@material-ui/icons/ContactPhone';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import CreateIcon from '@material-ui/icons/Create';
+import { Helmet } from 'react-helmet';
 
 const NormalProfile = ({ match }) => {
     const myId = match.params.id
@@ -31,12 +33,15 @@ const NormalProfile = ({ match }) => {
     },[])
     return (
         <>
+        <Helmet>
+          <title>Expo Profile page</title>
+        </Helmet>
         { userInfo ? (
-        <>
+        <Container>
         <MediaQuery query="(min-width: 767px)">
          <div className="mypage-header">
           <div className="mypage-header-left">
-            <Link to="/" style={{ color: 'black'}}><strong>Expo</strong></Link>
+            <Link to="/" style={{ color: '#ff3f3f'}}><strong>Expo</strong></Link>
           </div>
           <div className="mypage-header-right">
           <div className="ui compact menu">
@@ -55,7 +60,7 @@ const NormalProfile = ({ match }) => {
         <hr />
         </MediaQuery>
           <Row className="">
-             <Col md={{ span: 8, offset: 2}}>
+             <Col md={{ span: 10, offset: 1}}>
              <div className="profile-header">
                <div className="profile-header-text">
                 <h4>{userInfo.name}</h4>
@@ -80,7 +85,7 @@ const NormalProfile = ({ match }) => {
              <div className="personal-information">
               <Link to={`/setting/${userInfo._id}`} style={{ color: 'black'}}><h5 className="info-text"><AccountBoxIcon style={{ marginRight: '15px', fontWeight: "200"}} />{' '}{' '}Personal Setting</h5></Link>
              <hr />
-              <Link to={`/setting/${userInfo._id}`} style={{ color: 'black'}}><h5 className="info-text"><PaymentIcon style={{ marginRight: '15px', fontWeight: "200"}} />{' '}{' '}Payment setting</h5></Link>
+              <Link to={`/favorite/${userInfo._id}`} style={{ color: 'black'}}><h5 className="info-text"><FavoriteBorderIcon style={{ marginRight: '15px', fontWeight: "200"}} />{' '}{' '}Favorite List</h5></Link>
              <hr />
             { userInfo.guideId !== "" ? (
               <>
@@ -113,7 +118,7 @@ const NormalProfile = ({ match }) => {
              </div>
              </Col>
             </Row>
-        </>
+        </Container>
         ):(
             <div className="ui active inline loader"></div>   
         )} 

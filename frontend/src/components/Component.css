@@ -110,14 +110,13 @@
     border-radius: 20px;
 }
 .confirm-page{
-    height: 130vh;
     padding: 5%;
     display: flex;
     width: 100%;
 }
 .confirm-left{
     width: 50%;
-    padding-left: 4%;
+    padding: 4%;
 }
 .confirm-right{
     width: 50%;

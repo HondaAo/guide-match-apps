@@ -40,7 +40,7 @@ const Home = ({history}) => {
     return (
         <>
         <Helmet>
-          <title>Home</title>
+          <title>Expo Home page</title>
           <meta name="description" content="Home page" />
         </Helmet>
         <MediaQuery query="(min-width: 767px)">

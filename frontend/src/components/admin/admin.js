@@ -146,11 +146,12 @@ function Admin() {
                 <Table className={classes.table} aria-label="simple table">
                   <TableHead>
                     <TableRow>
-                      <TableCell>Tour List</TableCell>
+                      <TableCell>Host Id</TableCell>
                       <TableCell align="right">Country</TableCell>
                       <TableCell align="right">City</TableCell>
                       <TableCell align="right">Charge</TableCell>
                       <TableCell align="right">Star</TableCell>
+                      <TableCell align="right">isAuth</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -160,12 +161,13 @@ function Admin() {
                       return (
                       <TableRow key={tour._id}>
                         <TableCell component="th" scope="row">
-                          {tour.name}
+                          <Link to={`/tour/${tour._id}`}>{tour.host}</Link>
                         </TableCell>
                         <TableCell align="right">{tour.country}</TableCell>
                         <TableCell align="right">{tour.city}</TableCell>
-                        <TableCell align="right">{tour.rate}</TableCell>
-                        <TableCell align="right"><StarIcon style={{ marginRight: '20px'}}/>{tour.star}</TableCell>
+                        <TableCell align="right">{tour.charge}</TableCell>
+                        <TableCell align="right">{tour.date}</TableCell>
+                        <TableCell align="right">{tour.isAuth}</TableCell>
                       </TableRow>
                     )})}
                   </TableBody>

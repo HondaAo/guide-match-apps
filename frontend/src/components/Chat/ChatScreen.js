@@ -8,6 +8,7 @@ import { Avatar, FormGroup } from '@material-ui/core';
 import MediaQuery from 'react-responsive';
 import Modal from 'react-modal'
 import moment from 'moment'
+import { Helmet } from 'react-helmet';
 
 const ChatScreen = ({ match, history }) => {
   const roomId = match.params.id;
@@ -77,6 +78,9 @@ const ChatScreen = ({ match, history }) => {
   }
     return (
     <>
+    <Helmet>
+      <title>Expo message page</title>
+    </Helmet>
     {userInfo ? (
     <>
     <MediaQuery query="(min-width: 767px)">
@@ -84,7 +88,7 @@ const ChatScreen = ({ match, history }) => {
       <>
         <div className="mypage-header">
           <div className="mypage-header-left">
-            <Link to="/" style={{ color: 'black'}}><strong>Expo</strong></Link>
+            <Link to="/" style={{ color: '#ff3f3f'}}><strong>Expo</strong></Link>
           </div>
           <div className="mypage-header-right">
           <div className="ui compact menu">
@@ -141,7 +145,7 @@ const ChatScreen = ({ match, history }) => {
         )})} 
         </Col>
         <Col md={7}>
-         {messages && isOpen ? (
+         {messages && isOpen && guide ? (
         <>
           <div className="chat-page-header">
            <strong>Message</strong>
@@ -247,7 +251,7 @@ const ChatScreen = ({ match, history }) => {
           </FormGroup>
           <FormGroup>
             <Form.Label>Rate($)</Form.Label>
-            <Form.Control type="text" placeholder="Readonly input here..." value={guide.rate} readOnly />
+            <Form.Control type="text" placeholder="Readonly input here..." readOnly />
           </FormGroup>
           <button className="ui button twitter" type="submit" style={{  width: '100%'}}>
             Submit

@@ -22,7 +22,6 @@ router.post('/:id', async(req,res)=>{
 router.get('/location',async(req,res)=>{
    const guides = await models.Guide.find({ country: req.query['country'], city: req.query['city']})
    res.json(guides)
-   console.log(guides)
 })
 router.get('/', async(req,res)=>{
     const guides = await models.Guide.find({}).sort('-updatedAt');

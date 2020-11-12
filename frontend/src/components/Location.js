@@ -26,10 +26,12 @@ const Location = ({ location }) => {
     const country = query.country
     const [ guides, setGuides ] = useState([]);
     const [ place, setPlace ] = useState({ lat: 0, lng: 0});
-    const [slide, setSlide] = useState(false);
+    const [ slide, setSlide] = useState(false);
     const [ data, setData ] = useState({});
     const [images, setImages ] = useState([]);
     const [ others, setOthers ] = useState([]);
+    const [ page, setPage ] = useState(0);
+    const [ tours, setTours ] = useState([]);
     const { userInfo, setUserInfo } = useContext(AuthContext);
     useEffect(()=>{
       setUserInfo(localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null)
@@ -42,10 +44,14 @@ const Location = ({ location }) => {
         Axios.get(`/api/guide/location?city=${city}&country=${country}`)
        .then(res=> {
         setGuides(res.data)
-        console.log(res.data)
-      })
-      .catch(err => console.log(err))
-    }
+       })
+       .catch(err => console.log(err))
+       Axios.get(`/api/tour/tour/location?city=${city}&country=${country}`)
+       .then(res=> {
+        setTours(res.data)
+       })
+       .catch(err => console.log(err))
+       }
       })
       .catch(err => console.log(err))
       
@@ -106,8 +112,6 @@ const Location = ({ location }) => {
        </div>
       </CSSTransition>
     )
-    const favoriteHandler = (guide)=>{
-    }
     return (
         <>
         <MediaQuery query="(min-width: 767px)">
@@ -127,27 +131,33 @@ const Location = ({ location }) => {
         <hr />
          <div className="location-page">
          <div className="location-left">
-          <div style={{ display: 'flex', justifyContent: 'space-between'}}>
-           <div>
-           <h1>{data.name} <span style={{ fontSize: '15px'}}></span></h1>
-           <p style={{ marginTop: '30px'}}>{data.snippet}</p>
+          <div className="location-left-title">
+           <h1>{data.name}</h1>
+           { page === 0 && <button class="ui basic button" onClick={()=> setPage(prev => prev + 1)}>Go tour page</button>}
+           { page === 1 && <button class="ui basic button" onClick={()=> setPage(prev => prev - 1)}>Go guide page</button>}
            </div>
+          <div style={{ display: 'flex', justifyContent: 'space-between'}}>
+            <p style={{ marginTop: '30px'}}>{data.snippet}</p>
            <div >
             { guides !== null ? guides.length > 3 ? <ArrowForwardIosIcon /> : null :null}
            </div>
           </div>
           <Container>
               <Row className="guide-list-cards">
+            { page === 0 ? (
+            <>
             { guides.length > 0 ? (
                 guides.map(guide =>(
-                  
                 <div  style={{ marginTop: '30px'}}>
                   <Link to={`/guide/${guide._id}`} style={{ color: 'black', textDecoration: 'none'}}>
                    <div class="guide-card" style={{ width: '100%', display: 'flex'}} >
                      <div class="content" style={{ width: '40%', position: 'relative'}}>
                        <img src={guide.landscape} style={{ width: '100%', maxHeight: '200px', borderRadius: '10px',}} />
                        <FavoriteBorderIcon onClick={()=>{
-                          Axios.post(`/api/user/favorite/${userInfo._id}`,guide._id)
+                         const guideId = {
+                            id: guide._id
+                         }
+                          Axios.post(`/api/user/favorite/${userInfo._id}`,guideId)
                           .then(res => alert(res.data))
                           .catch(err => alert(err))
                            
@@ -168,9 +178,37 @@ const Location = ({ location }) => {
                   
                 ))
             ): (
-              <h2 style={{ marginTop: '50px'}}>Currently No guide registered!</h2>
+              <h2 style={{ marginTop: '50px'}}>Currently No guide exists</h2>
             )}
-              </Row>
+            </>
+            ): null}
+            { page === 1 ? (
+            <>
+            { tours.length > 0 ? (
+                tours.map(guide =>(
+                <div  style={{ marginTop: '30px'}}>
+                  <Link to={`/tour/${guide._id}`} style={{ color: 'black', textDecoration: 'none'}}>
+                   <div class="guide-card" style={{ width: '100%', display: 'flex'}} >
+                     <div class="content" style={{ width: '40%', position: 'relative'}}>
+                       <img src={guide.image.url} style={{ width: '100%', maxHeight: '200px', borderRadius: '10px',}} />
+                     </div>
+                     <div class="guide-card-content" style={{ width: '60%'}}>
+                      <strong>{guide.title}</strong>
+                      <p>{guide.description}</p>
+                      <p style={{ color: 'lightgrey'}}>${guide.charge}/ person</p>
+                     </div>
+                    </div>
+                </Link>
+                <hr />
+                </div>
+                  
+                ))
+            ): (
+              <h2 style={{ marginTop: '50px'}}>Currently No tours registered!</h2>
+            )}
+            </>
+            ): null}
+            </Row>
 
           </Container>
           <div className="location-others">

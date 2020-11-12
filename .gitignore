@@ -3,3 +3,5 @@
 .env
 .env2
 expo.pem
+Dockerfile
+Dockerfile.prod
