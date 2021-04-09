@@ -3,7 +3,6 @@ const router = express.Router();
 const models = require('../models/userModel')
 const generateToken = require('../utils/Token')
 const AWS = require('aws-sdk');
-const { Guide } = require('../models/userModel');
 
 AWS.config.update({
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
