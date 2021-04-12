@@ -63,10 +63,14 @@ const Tour = ({history}) => {
                <img src="https://images.unsplash.com/photo-1518503676784-c1c2e20d3ae4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" width="100%" height="auto" />
              </div>
              <div className="tour-example-photo1-right">
+              <p>To give Hosts peace of mind, we offer guest identification and let you check out reviews of guests before they book. Our new Guest Standards Policy sets higher expectations for behaviour.</p>
              </div>
            </div>
            <div className="tour-example-photos">
              <div className="tour-example-photo2-left">
+               <p>Travel themed Online Experiences
+and wishlist-worthy stays to inspire
+your next great getaway.</p>
              </div>
              <div className="tour-example-photo2-right">
                <img src="https://images.unsplash.com/photo-1542560453-88e10bdc429f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" width="100%" height="auto"/>

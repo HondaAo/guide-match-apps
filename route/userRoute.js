@@ -3,7 +3,6 @@ const router = express.Router();
 const models = require('../models/userModel')
 const generateToken = require('../utils/Token')
 const AWS = require('aws-sdk');
-const { Guide } = require('../models/userModel');
 
 AWS.config.update({
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
@@ -44,23 +43,14 @@ router.post('/register', async(req,res)=>{
     if(userExists){
         res.status(400).send('user alreaddy exists')
     }
-    if(user){
-        res.json({
-            _id: user._id,
-            name: user.name,
-            email: user.email,
-            isAdmin: false,
-            isGuide: user.isGuide,
-            image: '',
-            sex: user.sex,
-            token: generateToken(user._id), 
-        })
-
-    }else{
-        res.status(401).send('Invaild password')
-    }
-
-  
+    const user = await models.User.create({
+        name,
+        email,
+        password,
+        isAdmin: false
+    })
+    res.send("Successfully created!! Go to login page!")
+    
 })
 router.post('/register/admin',async(req, res)=>{
     const { name, email, password } = req.body   

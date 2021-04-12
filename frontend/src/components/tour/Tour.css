@@ -287,3 +287,15 @@
     width: 100%;
     border: none;
 }
+.tour-example-photo1-right{
+    text-align: left;
+    padding: 5%;
+    line-height: 30px;
+    font-size: 25px;
+}
+.tour-example-photo2-left{
+    text-align: left;
+    padding: 5%;
+    line-height: 30px;
+    font-size: 25px;   
+}
